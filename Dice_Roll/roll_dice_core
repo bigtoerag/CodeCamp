@@ -1,0 +1,113 @@
+#!/usr/bin/env python3
+# -*- coding: utf-8 -*-
+"""
+Created on Tue Mar 10 20:05:09 2020
+
+@author: kodiuser
+"""
+
+# python program to check if all  
+# values in the list are greater  
+# than val using traversal 
+import numpy as np
+
+att_dice_num = int(input('How many dice does the attacker want to roll?: '))
+def_dice_num = int(input('How many dice does the defender want to roll?: '))
+att_loses = 0
+def_loses = 0
+
+if att_dice_num == 3 and def_dice_num == 2:
+    att_arr = np.random.randint(1,7, size=3)
+    att_arr[::-1].sort()
+    def_arr = np.random.randint(1,7, size=2)
+    def_arr[::-1].sort()
+    print('Contents of the attack Array : ' , att_arr)
+    print('Contents of the defence Array : ', def_arr)
+    if def_arr[0] >= att_arr[0]:
+        att_loses += 1
+    else:
+        def_loses += 1
+    if def_arr[1] >= att_arr[1]:
+        att_loses += 1
+    else:
+        def_loses += 1
+    print('Attacker loses: ', att_loses,' soldiers')
+    print('Defender loses: ', def_loses,' soldiers')
+        
+elif att_dice_num == 2 and def_dice_num == 2:
+    att_arr = np.random.randint(1,7, size=2)
+    att_arr[::-1].sort()
+    def_arr = np.random.randint(1,7, size=2)
+    def_arr[::-1].sort()
+    print('Contents of the attack Array : ' , att_arr)
+    print('Contents of the defence Array : ', def_arr)
+    if def_arr[0] >= att_arr[0]:
+        att_loses += 1
+    else:
+        def_loses += 1
+    if def_arr[1] >= att_arr[1]:
+        att_loses += 1
+    else:
+        def_loses += 1
+    print('Attacker loses: ', att_loses,' soldiers')
+    print('Defender loses: ', def_loses,' soldiers')
+
+elif att_dice_num == 1 and def_dice_num == 2:
+    att_arr = np.random.randint(1,7, size=1)
+    att_arr[::-1].sort()
+    def_arr = np.random.randint(1,7, size=2)
+    def_arr[::-1].sort()
+    print('Contents of the attack Array : ' , att_arr)
+    print('Contents of the defence Array : ', def_arr)
+    if def_arr[0] >= att_arr[0]:
+        att_loses += 1
+    else:
+        def_loses += 1
+    if def_arr[1] >= att_arr[1]:
+        att_loses += 1
+    else:
+        def_loses += 1
+    print('Attacker loses: ', att_loses,' soldiers')
+    print('Defender loses: ', def_loses,' soldiers')
+    
+elif att_dice_num == 3 and def_dice_num == 1:
+    att_arr = np.random.randint(1,7, size=3)
+    att_arr[::-1].sort()
+    def_arr = np.random.randint(1,7, size=1)
+    def_arr[::-1].sort()
+    print('Contents of the attack Array : ' , att_arr)
+    print('Contents of the defence Array : ', def_arr)
+    if def_arr[0] >= att_arr[0]:
+        att_loses += 1
+    else:
+        def_loses += 1
+    print('Attacker loses: ', att_loses,' soldiers')
+    print('Defender loses: ', def_loses,' soldiers')
+
+elif att_dice_num == 2 and def_dice_num == 1:
+    att_arr = np.random.randint(1,7, size=2)
+    att_arr[::-1].sort()
+    def_arr = np.random.randint(1,7, size=1)
+    def_arr[::-1].sort()
+    print('Contents of the attack Array : ' , att_arr)
+    print('Contents of the defence Array : ', def_arr)
+    if def_arr[0] >= att_arr[0]:
+        att_loses += 1
+    else:
+        def_loses += 1
+    print('Attacker loses: ', att_loses,' soldiers')
+    print('Defender loses: ', def_loses,' soldiers')
+
+elif att_dice_num == 1 and def_dice_num == 1:
+    att_arr = np.random.randint(1,7, size=1)
+    att_arr[::-1].sort()
+    def_arr = np.random.randint(1,7, size=1)
+    def_arr[::-1].sort()
+    print('Contents of the attack Array : ' , att_arr)
+    print('Contents of the defence Array : ', def_arr)
+    if def_arr[0] >= att_arr[0]:
+        att_loses += 1
+    else:
+        def_loses += 1
+    print('Attacker loses: ', att_loses,' soldiers')
+    print('Defender loses: ', def_loses,' soldiers')

@@ -1,0 +1,14 @@
+Traceback (most recent call last):
+  File "/usr/local/lib/python3.6/dist-packages/spyder/app/mainwindow.py", line 3718, in main
+    mainwindow = run_spyder(app, options, args)
+  File "/usr/local/lib/python3.6/dist-packages/spyder/app/mainwindow.py", line 3559, in run_spyder
+    main.setup()
+  File "/usr/local/lib/python3.6/dist-packages/spyder/app/mainwindow.py", line 997, in setup
+    from spyder.plugins.plots.plugin import Plots
+  File "/usr/local/lib/python3.6/dist-packages/spyder/plugins/plots/plugin.py", line 18, in <module>
+    from spyder.plugins.plots.widgets.figurebrowser import FigureBrowser
+  File "/usr/local/lib/python3.6/dist-packages/spyder/plugins/plots/widgets/figurebrowser.py", line 19, in <module>
+    from qtconsole.svg import svg_to_image, svg_to_clipboard
+  File "/usr/local/lib/python3.6/dist-packages/qtconsole/svg.py", line 8, in <module>
+    from ipython_genutils.py3compat import unicode_type
+ModuleNotFoundError: No module named 'ipython_genutils'

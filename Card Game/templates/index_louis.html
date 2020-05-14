@@ -1,0 +1,343 @@
+<html lang="en"><head>
+<meta charset="UTF-8">
+<link rel="apple-touch-icon" type="image/png" href="https://static.codepen.io/assets/favicon/apple-touch-icon-5ae1a0698dcc2402e9712f7d01ed509a57814f994c660df9f7a952f3060705ee.png">
+<link rel="shortcut icon" type="image/x-icon" href="https://static.codepen.io/assets/favicon/favicon-aec34940fbc1a6e787974dcd360f2c6b63348d4b1f4e06c77743096d55480f33.ico">
+<link rel="mask-icon" type="" href="https://static.codepen.io/assets/favicon/logo-pin-8f3771b1072e3c38bd662872f6b673a722f4b3ca2421637d5596661b4e2132cc.svg" color="#111">
+<title>Drag Drop Cards Game</title>
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
+<link href="https://fonts.googleapis.com/css2?family=Roboto" rel="stylesheet">
+<style>
+/* Add some margin to the page and set a default font and colour */
+
+body {
+  margin: auto;
+  font-family: 'Roboto', sans-serif;
+  color: #000;
+  background-color: #000;
+}
+
+/* Give headings their own font */
+
+h1, h2, h3, h4 {
+  font-family: 'Roboto', sans-serif;
+}
+
+/* Main content area */
+
+#content {
+  margin: auto;
+
+  text-align: center;
+  -moz-user-select: none;
+  -webkit-user-select: none;
+  user-select: none;
+}
+
+/* Header/footer boxes */
+
+.wideBox {
+  padding: 1%;
+  text-align: center;
+  background: #ebedf2;
+}
+
+.wideBox h1 {
+  font-weight: bold;
+  margin: 0;
+  color: #000;
+  font-size: 2.5em;
+}
+
+/* Slots for final card positions */
+
+#cardSlots {
+  margin: 2%;
+  background: #ddf;
+}
+
+/* The initial pile of unsorted cards */
+
+#cardPile {
+  margin: 2%;
+  background: #ffd;
+}
+
+#cardSlots, #cardPile {
+  height: auto;
+  padding-top: 20px;
+  border: 2px solid #333;
+  -moz-border-radius: 10px;
+  -webkit-border-radius: 10px;
+  border-radius: 10px;
+  -moz-box-shadow: 0 0 .3em rgba(0, 0, 0, .8);
+  -webkit-box-shadow: 0 0 .3em rgba(0, 0, 0, .8);
+  box-shadow: 0 0 .3em rgba(0, 0, 0, .8);
+}
+#cardSlots:after
+{
+content:".";
+display:block;
+clear:both;
+visibility:hidden;
+}
+#cardPile:after
+{
+min-height: 130px;
+content:".";
+display:block;
+}
+/* Individual cards and slots */
+
+#cardSlots div, #cardPile div {
+  float: left;
+  min-width: 80px;
+  min-height: 105px;
+  border: 2px solid #333;
+  -moz-border-radius: 10px;
+  -webkit-border-radius: 10px;
+  border-radius: 10px;
+  margin: 0 0 0 10px;
+  background: #fff;
+}
+
+#cardSlots div:first-child, #cardPile div:first-child {
+  margin-left: 20px;
+}
+
+#cardSlots div.hovered {
+  background: #aaa;
+}
+
+#cardSlots div {
+  border-style: dashed;
+  font-size: 70px;
+}
+
+#cardPile div {
+  background: #fff;
+  font-size: 70px;
+
+}
+
+#cardPile div.ui-draggable-dragging {
+  -moz-box-shadow: 0 0 .5em rgba(0, 0, 0, .8);
+  -webkit-box-shadow: 0 0 .5em rgba(0, 0, 0, .8);
+  box-shadow: 0 0 .5em rgba(0, 0, 0, .8);
+}
+
+/* Individually coloured cards */
+
+.correct {
+  color: green;
+ }
+ .incorrect {
+   color: red;
+  }
+#total, #correcttotal {
+  color: black;
+}
+#scoreheader{
+  color: grey;
+  width: 15%;
+  margin: auto;
+  padding: 1%;
+  border: 5px dashed #333;
+  -moz-border-radius: 8px;
+  -webkit-border-radius: 8px;
+  border-radius: 8px;
+  -moz-box-shadow: 0 0 .3em rgba(0, 0, 0, .8);
+  -webkit-box-shadow: 0 0 .3em rgba(0, 0, 0, .8);
+  box-shadow: 0 0 .3em rgba(0, 0, 0, .8);
+}
+#score{
+  color: grey;
+  width: 30%;
+  margin: auto;
+}
+.check {
+  background-color: black;
+  color: #ddf;
+  border: 5px solid #ddf;
+  border-radius: 8px;
+ text-align: center;
+ text-decoration: none;
+ display: inline-block;
+ font-size: 2em;
+ margin: 4px 2px;
+ transition-duration: 0.4s;
+ cursor: pointer;
+}
+.check:hover {
+  background-color: #ddf;
+  color: white;
+}
+</style>
+<script>
+  window.console = window.console || function(t) {};
+</script>
+<script>
+  if (document.location.search.match(/type=embed/gi)) {
+    window.parent.postMessage("resize", "*");
+  }
+</script>
+</head>
+<body translate="no">
+  <div id="content">
+    <div id="header" class="wideBox"><h1>Card Maths Game</h1></div>
+    <div id="cardPile"></div>
+    <div id="cardSlots"></div>
+    <br>
+    <div id="check"> <button class="check" onclick="check()">Check/Score Answer</button> </div>
+    <br>
+    <div id="scoreboard">
+      <div id="scoreheader">Your current session score
+        <div id="score">0</div>
+      </div>
+    </div>
+    <br>
+    <div id="footer" class="wideBox">Made by Marcus using JS and JQuery 3.4</div>
+  </div>
+  <div id="total"></div>
+  <div id="correcttotal"></div>
+<script src="https://code.jquery.com/jquery-2.2.4.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.11.4/jquery-ui.min.js"></script>
+<script>
+var correctCards = 0;
+limit = 4;
+$( init );
+
+function init() {
+
+  // Reset the game
+  correctCards = 0;
+  total = 0;
+  hide = 0;
+  score = document.getElementById("score").innerHTML;
+  document.getElementById("correcttotal").innerHTML = "0";
+  $('#cardPile').html( '' );
+  $('#cardSlots').html( '' );
+
+  // Create the pile of shuffled cards
+  var numbers = [ '&#x1F0D1', '&#x1F0D2', '&#x1F0D3', '&#x1F0D4', '&#x1F0D5', '&#x1F0D6', '&#x1F0D7', '&#x1F0D8', '&#x1F0D9', '&#x1F0DA' ];
+  numbers.sort( function() { return Math.random() - .5 } );
+
+  for ( var i=0; i<10; i++ ) {
+    $('<div>' + numbers[i] + '</div>').data( 'number', numbers[i] ).attr( 'id', 'card'+numbers[i] ).appendTo( '#cardPile' ).draggable( {
+      containment: '#content',
+      stack: '#cardPile div',
+      cursor: 'move',
+      revert: true
+    } );
+  }
+
+  // Create the card slots
+  var words = [ '&#x1F0D1', '&#x1F0D2', '&#x1F0D3', '&#x1F0D4', '&#x1F0D5', '&#x1F0D6', '&#x1F0D7', '&#x1F0D8', '&#x1F0D9', '&#x1F0DA' ];
+  var values = {'&#x1F0D1':1, '&#x1F0D2':2, '&#x1F0D3':3, '&#x1F0D4':4, '&#x1F0D5':5, '&#x1F0D6':6, '&#x1F0D7':7, '&#x1F0D8':8, '&#x1F0D9':9, '&#x1F0DA':10 };
+  var correcttotal = 0;
+  var hide = [ ...Array(limit).keys() ];
+  var hidekey = shuffle(hide);
+  var shufflewords = shuffle(words);
+  for ( var i=0; i<limit; i++ ) {
+    item = shufflewords.splice(i,1);
+    //console.log(item);
+    //console.log(i);
+    //console.log(hidekey);
+    if (i === hidekey[0] ) {
+      $('<div></div>').data( 'number', item[0] ).appendTo( '#cardSlots' ).droppable( {
+        accept: '#cardPile div',
+        hoverClass: 'hovered',
+        drop: handleCardDrop
+      } );
+      old = document.getElementById("correcttotal").innerHTML;
+      if (old.length > 0){
+      document.getElementById("correcttotal").innerHTML = parseInt(document.getElementById("correcttotal").innerHTML,10) + parseInt(values[item[0]],10);
+      }
+      else {
+        document.getElementById("correcttotal").innerHTML = values[item[0]];
+      }
+    } else {
+    $('<div>' + item[0] + '</div>').data( 'number', item[0] ).appendTo( '#cardSlots' ).droppable( {
+      accept: '#cardPile div',
+      hoverClass: 'hovered',
+      drop: handleCardDrop
+    } );
+  }
+
+    if (i === limit-1) {
+      $('<div id="equals" style="width:30px; font-size:40px; padding-top: 1.5%;">&equals;</div>').appendTo( '#cardSlots' );
+    } else {
+      $('<div id="plus" style="width:30px; font-size:20px; padding-top: 2.5%;">&#10133;</div>').appendTo( '#cardSlots' );
+    }
+    correcttotal += values[item[0]]
+  }
+    //$('<div id="equals"> = </div>').appendTo( '#cardSlots' );
+    $('<div id="result" style="width:80px;font-size:50px;">' + correcttotal + '</div>').appendTo( '#cardSlots' );
+}
+function shuffle(array) {
+    let counter = array.length;
+
+    // While there are elements in the array
+    while (counter > 0) {
+        // Pick a random index
+        let index = Math.floor(Math.random() * counter);
+
+        // Decrease counter by 1
+        counter--;
+
+        // And swap the last element with it
+        let temp = array[counter];
+        array[counter] = array[index];
+        array[index] = temp;
+    }
+
+    return array;
+}
+
+function handleCardDrop(event, ui) {
+
+  //Grab the slot number and card number
+  var slotNumber = $(this).data('number');
+  var cardNumber = ui.draggable.data('number');
+  var values = {'&#x1F0D1':1, '&#x1F0D2':2, '&#x1F0D3':3, '&#x1F0D4':4, '&#x1F0D5':5, '&#x1F0D6':6, '&#x1F0D7':7, '&#x1F0D8':8, '&#x1F0D9':9, '&#x1F0DA':10 };
+  //If the cards was dropped to the correct slot,
+  //change the card colour, position it directly
+  //on top of the slot and prevent it being dragged again
+  if (slotNumber === cardNumber) {
+    ui.draggable.removeClass('incorrect');
+    //ui.draggable.addClass('correct');
+    ui.draggable.draggable('disable');
+    $(this).droppable('disable');
+    ui.draggable.position({
+      of: $(this), my: 'left top', at: 'left top'
+    });
+    //This prevents the card from being
+    //pulled back to its initial position
+    //once it has been dropped
+    ui.draggable.draggable('option', 'revert', false);
+    total += values[cardNumber]; //increment keep track cards
+    document.getElementById("total").innerHTML = total;
+  } else {
+    ui.draggable.addClass('incorrect');
+  }
+}
+
+function check(total) {
+  correcttotal = document.getElementById("correcttotal").innerHTML;
+  total = document.getElementById("total").innerHTML;
+  console.log(correcttotal);
+  console.log(total);
+if (total === correcttotal) {
+  document.getElementById("score").innerHTML = parseInt(document.getElementById("score").innerHTML,10) + 1
+  init();
+} else {
+  if (document.getElementById("score").innerHTML != 0){
+  document.getElementById("score").innerHTML = parseInt(document.getElementById("score").innerHTML,10) - 1
+  }
+    alert("Nope! somethings not right.")
+  }
+}
+
+     </script>
+
+
+</body></html>

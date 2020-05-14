@@ -1,0 +1,361 @@
+<!DOCTYPE html>
+<html>
+<title>Catan Randomiser</title>
+<meta charset="UTF-8">
+<head>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link id="page_favicon" href=" data:image/jpeg;base64,/9j/4AAQSkZJRgABAQEASABIAAD/2wBDAAYEBQYFBAYGBQYHBwYIChAKCgkJChQODwwQFxQYGBcUFhYaHSUfGhsjHBYWICwgIyYnKSopGR8tMC0oMCUoKSj/2wBDAQcHBwoIChMKChMoGhYaKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCj/wAARCAEAAQADAREAAhEBAxEB/8QAHAABAAEFAQEAAAAAAAAAAAAAAAMBBAUGBwII/8QAPhAAAQQCAQIEAwUHAAkFAAAAAAECAxEEEgUGIQcxQWETIlEUMnGBkQgVI0JSodEzRFNicoKDscJUkpPB8P/EABsBAQACAwEBAAAAAAAAAAAAAAACAwEEBQYH/8QANREBAAICAgAEBAMHBAIDAAAAAAERAgMEEgUTITFBUWGRBiKBFDJScaHR8BVCseEzNFNywf/aAAwDAQACEQMRAD8A4fqcO3vupqLOpqLOpqLOpqLOpqLOpqLOpqLOpqLOpqLOpqLOpqLOpqLOpqLOpqLOpqLOpqLOpqLOpqLOpqLOpqLOpqLOpqLOpqLOpqLOpqLOpqLOpqLOpqLOpqLOpqLOpqLOqXQja7rJoLOsmgs6yaCzrJoLOsmgs6yaCzrJoLOsmgs6yaCzrJoLOsmgs6yaCzrJoLOsmgs6yaCzrJoLOsmgs6yaCzrJoLOsmgs6yaCzrJoLOsmgs6yaCzrJoLOsmgs6yaCzrJoLOsmgs6yaCzrJoLOspaIWsooWUULKKFlFCyihZRQsooWUULKKFlFCyihZRQsooWUULKKFlFCyihZRQsooWUULKKFlFCyihZRQsooWUULKKFlFCyihZRQsooWUkojayihZRQsooWUULKKFlFCyihZRQsooWUULKKFlFCyihZRQsooWUULKKFlFCyihZRQsooWUULKKFlFCyihZRQsooWUULKKFlFCyihZT3RhOigUUCigUUCigUUCigUUCigUUCigUkhx5ZlqKNz19kMTlEe8lMvh9LcrlUrMVyIvq7sUZcrXj7yjMxDLY/h/yT0+dzGFM+Ia49ke8LtvhxlKnfIYi/gQ/1HH5HeHmTw5zWp8k7FEeI4/GDvDH5PQvLQoqtY2T8FLcedrn3Z7QwuZwufiX8fFkaietF+O/DL2lKKlYKxUWnIqL7oW2zSlAooFFAooFFAooFFAooFFAooFFAooFPdEbWUULKKFlFCyihZRQsooWUULKKFlFCymT4ngs3lJEbjQuVq/zKnYq2b8Nceso5TGPu33hvD+CJGv5B6yO/pTyObt8QmfTBTlt+Tb8LicLCajcfHjbXrRpZ7s8/eVU5TK+REROyIhXbFgssFlgssFlvEkUciKkjGuRfqhmMpj2LYTlOleM5BF3gax6/wAzUov18rZh8U42TDR+c6CycZHSYLvis/p9Toaufjl6ZrcdsT7tNyMaXGkWOdjmPT0VDfxyjKLhbEX7IqM2zRQsooWUULKKFlFCyihZRQsooWUULKSUYtZRQsooWUULKKFlFCyihZRQsp7hgknkSOJquevZEQxOVRcsT6Og9L9DbIzI5P8AFIzmcjnf7cGts3fDF0HFxIcWJI4I2san0Q5uWc5Tcy1pmZTURLVoFlAsoFlAsoFlAsoFqUCykAxHN9P4XLQubNG1H+jkTuX6uRlqn0lPHZOLlnUnS2VxEiuRqyQejkTyOvo5WO2Pq28NkZNeo2rW0ULKKFlFCyihZRQsooWUULKKFlJdSFp0aiyjUWUaiyjUWUaiyjUWUnwsOXNyGQwNVz3LRHLOMYuWMpjGLl1jpPpWDi4WyztR+SvdVX0ONyOXOyaj2c/bunL0htNexp2ptWhZZQssoWWULLKFllCyyhZZQssoWWULLKFllCy0WRBHkROjmYjmL5opLHKcZuGYmY9nMOsukXYTnZWC1XQL3c1PQ63G5fb8uXu3dO6MvSWla15m/bZo1FlGoso1FlGoso1FlGoso1FlJdSNpUaiyjUWUaiyjUWUaiynuGB00rY42q57lpEQxOURFyT6RbrXRnTkfF4rZpmouS9LVV9Djcrkzsmo9nM3bu81Hs2mjTtrlCwoWFCwoWFCwoWFCwoWFCwoWFCwoWFCwoWPMsTZY3MkRHNVKVFMxlMTcMxNOU9cdNLx2QuTjNVcd62qJ6HY4vJ7x1n3dHj7u8VPu1HU3bbNGoso1FlGoso1FlGoso1FlJtSu0jUWGosNRYaiw1FjfvD3p9Hr9vyWdv5EVDn8zkf7IaHK3V+SHRdUOY59lCyyhZZQssoWWULLKFllCyyhZZQssoWWULLKFllCyyhZZQssoWWt8/DjzcWSCZqOa5K7k8M5wm4SxznGbhxbqDin8VyEkLk+S7av1Q7mnbGzG3Z1ZxsxtjdSy1hqLDUWGosNRYaixPp7ELZo09hZRp7CyjT2FlGnsLKZDguNdyPJRQNTsq278CvbsjDGZV7c414zLtGHjMxcaOGJERrUo4eeU5TcuHll2m5T0RRsoFlAsoFlAsoFlAsoFlAsoFlAsoFlAsoFlAsoFlAsoFtV684dM7jlnjb/Fi7/kbnF3dMqlt8Tb1yqXKlYqKqKnc61uuaewso09hZRp7CyjT2FlGnsLKXGhXbJoLDQWGgsNBY6F4c8YkcL8x7e7uzTnczZc9XL52316N4o0XOKAUAoBQCgFAKAUAoBQCgFAFQCnb6oZZpWkMMIJsmCH/SSNT8yUYzPsnjhOXsxOZzjG/LjN2X6qWY6vm2MOPM+uTHO5jLVbRyJ+CFnl4r44+MJo+ZlcxWTsR7HJSmPLiJuEJ48R6w57zeK2HPk0RUjcttOlqz7YulqmZx9WP0LLWGgsNBYaCw0Fi40K7ZNBYaCw0Fj3FD8SVjETu5UQTlUWxM1FuycJiJicZBEiVTUs42zLtlMvPbs+2cyvqIKrKBZQLKBZQLKBZQLKBZQLKBZQLKBbH8nlSY6VG2/cnhET7rtWEZ+7Az52VKv31RPYujHGG5jqwhbOlnu1kf+pOoS64qpkzolJK/9TFQdMUTkc9bcqqvuZtKKj2U+GGbV+GpgtX4a/RRZ2YbqPGuJkiJ3RTY0ZetLtGXrTXdDZttGgsNBYaCw0Fi51UrsNVFhqosNVFjJdO43x+Xx2qnZHWpXtyrCVHIy665l1Z2RBEiNdI1K9zl1MuB0yn1p6jyIZPuSNX8xMTDE4ZR7wlIon5mQoxbFlCyyhZZQssoWWULLKFllCyyhZby+Jj0pzUX8TNsxlMeyP7JB/s2/oZ7Sl5mXzeJsCCVtKxE90QRnMM47soWD+EjVba4nG1dHKn4pIuGianz9xOyWJ5Ez7EnDxL9zsojZJHIlYT8a+J3ZLT2Jxna3HdEo/sjk/lUz3S8yGP5zCV3HyLr5IT1Z/mXaNkd2j6Kb1uoaqLDVRYaqLDVRYn1IWWaiyzUWWaiy2Q4Vqtnc5FparsV7J9FG/2ZpUcq91VSlqej0zZi21yovsKJqVz9tyVbqsrq/Ej0j5IeXj8hmXktW0ld+o6wx5ePyXkfL5LUpVsjOuJVToxl7Tlsm0Ux5cMeRinZzEv8zEUjOqEJ48LiPl7X5mEZ1ozopexZ0T0T0UhOMwpnVMLttOS07oQVz6K0LYsoWWULLKFllCyyhZZQssoWWULLNb80FlqaJ9EM2z2lZ8pjskwJ01T7qksMvzQt1ZzGcORSR6yOT6Kp1Yn0elifR51M2zZqLLNRZZqLLT6kLYNRYaiw1FjLcDjulkk0S1TuVbMohq8nLrEWy/wHfRSvs1O6VuK5yfdUj2Y7xB9nX1Qz2O6aHCdItNaRnOkMtkQvYuIkd5pRCdsKp5EQum8Kld1I+arnkicP38x5p+0LiPiY2p8yqRnZKE8iZSJx0aKioqmO6PnSu440Y1EQirnK3qgxZQLKBZQLKBZQLKBZQLKBZQLKBaLLS8aT/hUR7pYT+aHIMplZMv8AxKdXGfR6jD92Eepm0jUWGosNRYlogxZQLKBZQLbL0LSck9q+StNfkfuuf4j/AOO2+OxIHLaxts0+0uJGzKPiqmPE1KRiIYuSc5lDJx8LnXVEozlKN2UJocdkSU1DE5TKOWc5e6WjFo2ULLKFllCyyhZZQssoWWULLKFllCyyhZZQssoWWULLKFllCyyhZaHNpuJKv+6pnH3T1+uUORZCXPIv1cp049nqcf3YR0ZZsoFlAsoFpdSFsWaiyzUWWrqLGZ6Sk+FzMV/zdird64tPnY3ql0tENB5xWjBZQCgFAsoFlAsoFlAsoFlAsoFlAsoFlAsoFlAsoFlAsoFlAY/nHpDxc7v91SzX65Qv42PbZEOVKlqq/VTo29RCmoss1Flmoss1FlpaMWjZQssoWWULLXHHyfAzYZE7U5COcXFK9sd8Jh1iBySQsei9lRFObPpLy2UVMwkowjZQLKBZQLKBZQLKBZQLKBZQLKBZQLKAUCygWUCygWUCygWUBrnW0/wuM+Gi93rRfoi8rdHw7Dtstz6jet3rKFllCyyhZZQstJRBiygWUCygWIiooHSulcpMri2Iq25nZTQ3RWTznN19Nk/VmaKraZQsKFhQsKFhQsKFhQsKFhQsKFiPIljxoJJ8h6Mhiar3vXya1EtV/RCWOM5TGOPvKM5dYuXK/BnxHl6x5nn8LPe3dsq5WE2kRUx1WtPfX5V+vzKeg8a8Ix4WvXsw+VZfz+f6+rR4nLnblljP6OsUeddAoWFCwoWFCwoWCoLHP+tcv4/IJE1bbGn9zd0Y1Fu94dr66+0/FrlF7olAsoFlAsoFpKI2jZQssoWWULLKFlth6Ozvs2d8F60yT/uU7sbi3P8AENPfDtHvDoKIimi4BQLKBZQLKBZQLKBZQLKBZQLKBblP7RvUv7l6H/dsD9cvlnLD2XukLaV6/n8rfzU9F+G+H5/K82Y9MPX9fh/doc/d119Y95fNXQvUM3S3VXH8vBa/Z5UWRifzxr2e382qp7nncXHmcfLTl8f+fg5GrZOrOM4fcuHkQ5mJBlYsiSY87GyRvTyc1yWi/op8nzwy15Thl6THo9JjlGUXCaiCVlAsoFlAsoFrTlMluHhSSuWqTsTwi5pbp1zszjGHLMqR0+Q+V3dXLZ0I9Ip6jDGMMYxhHRm0rKFllCyyhZZQstJRG2ChYULChYULHqNzo3te1aVq2gn1YmImKl0rp7kG5+Cxb/iNSnIaOzHrLzXL0eTn9GVortqFCyyhZZQssoWWULLKFllCyyhZZX0Flvjjx56mTqTxAy0gk3wsBPscFL2XVfnd+br/ACRD6X4Dwv2XiY9v3svWf19v6ODy9vmbJ+UOcnaaz6q/Zp6p/e3ScvCZMl5fFr/DvzdA5fl/9rrT8FaeA/E3C8nkRvxj0z/5j+8OxwNvbDpPwdjo8y3yhZZQssoWWCy2jdZcl8aZMWJ1tb973NrThXrLu+H8frHfJq9GxbqFCwoWFCwoWFCx7pDFo2UgsspBZZSCyykFllILLZPguRdx2Y11/wANezkK9mMZQ1uVojfhXxdJxpmZELZI1trkNGYqaeazwnCespaMIFAKteyWoFdHf0u/RRZaipXmlAKAL2S18gW1zgetunOoOYyeL4blYMvNx27vZGi0qItKrXKlOpa8lU3uR4byeNrjbuwmMZ/z9FWG/Xnl1xn1Zbm8fLyeGz4ONlbBnS48kcErvJkitVGqv4KqGvoyww245bIvGJi/5fFPO5xmI93wLyONNhZ2Ri5TdciCR0UiXdOatL3/ABRT6/hnjnjGePtPq87MTE1K2JMOufsy4Gdk+IS5WHkMhx8XHe7Ka7ussbvlRiJ9dqW/Sjzv4n268eH0zi5mfT6T8/s3OFEzsuH1pR86dkoBQCgMJ1LyrcDFcxi/xndkQt1Ydpb3C407crn2c7kcsj1e9VVyram7Ho9FEREVDzSGbZspBZZSCyykFllILLKQWWk1I2GosNRYaiw1FhqLDUWM/wBNcy7BlSGZVWFy+voU7dfb1hz+bxI2x2x92/QvZNGj43IrV9TTn093n8sZxmpYzqrnsDpfgsrluWl+HiwNuk+893oxqerlX/PobHE4uzl7Y06ouZ/y/wCSrZsjXj2l8fdXeKnVXUPITTfvXLwcRzlWPFxJVjZG30T5aVy+6+Z9K4fgvD4uEY9Iyn4zMXM/2cXZydmc3bXG9Uc81bbzfKI76plyf5N39j4//wAeP2hX5mfzlkMLxB6uw1T4HUnLon0dlOcn91Upz8L4Wf72rH7QlG/ZH+6X0j0r4v8AFyeGjec5/IibyWOrseXFY5EknlaiVo36ORUW/JO/0PE8vwDdHO/Z9Efln1ifhEfWfp959HS18vHy+2Xu5Bzfj11XyUeRBDFxuJjStdGrGQK92rkVFTZyr3pfPsej0fhnh6pjKZmZj6/2aefN2ZejTPDrq2fovqiDmMfGjyVYx0b4nqqbMclLSp5L9FOp4jwcefonRlNfG/rCnVtnVl2h9o9G9Scd1bwmNyvES7wSKiOY7s+J6ebHJ6Kn9/NOx8v5vD28LbOrbHrH9Y+cO3r247Me2L4g60Xbq/nHKlKufOtf9Rx9V4X/AK+v/wCsf8OFs/fn+bCmygzXSnU/L9Kck7O4HMdi5LmfDcqNRyObaLSoqKipaIa3K4enmYeXvxuE8NmWubxlv8fj51oxqI6TjZF+rsRLX9FQ40/hjgz8J+7Y/bdi5wv2gurY8qN2TDxk8KORXxpjq1XN9URUXsvuQz/C3DnGYxnKJ/n/ANMxztkS+pOF5HG5niMPksF++LlxNmjX2VPJfdPJfdDwO/Vlo2Zas/eJp1sM4ziMoYLqfrXiuB5rB4bImVeSzmOdExqWjUTy2X0ulRPqqGzo8P3b9OfIxj8uPv8A9fy+KzTOOe7HTM+stRzsqTNyHTSrar5exLGIxioes1a4149cVvqStYaiw1FhqLDUWGosNRY90YtgoWFCwoWFCwoWFCxTsiona170PqwzXD8+7imuXJkRMVqK5yvWkaiea39CudPmzWMerR5nFw2Yzn7U+d/GfxDm6451GYyvj4XEVW4sS9t19ZXJ9V9Ponb6n0HwXwqPD9N5eueXvP8A+f58XguTu83L09oc4O01gABUCgADd/Cvr7N6F59MmFHTcfPTMvGukkb/AFJ9HJ6L+XkpzPFfDMPEdPSfTKPaf8+E/Fdo3TpyuE3jdiYMHiDmZfEva/A5KOLkYnN8lSViOWvztfzK/BM9mXExw2/vYXjP6TTPIiO8zj7T6tCOuoAAAD6Q/Z463WLpPN4OdVdNhS/Ex0X/AGT/ADT8nWv/ADHhvxPwK348jH2y9J/nH94/4d/wXV+0zOuZ9nF+sepM/k+uMzmchXsy2ZNxtd5xIxaa2vav+56rhcPXq4eOiPWJj1+t+8uZv35RyJ2R6TE+n0p9B8Tl/vHjMXMWGWBZ40esUracxV9FT/8Adj57yNXk7Mtd3U+8Poejb52vHZVX8JXdFNrihYULChYULChYULHqiNhQsKFhQsKFgjb8kVRYIncyOAwdZcnL19ByUj9v4v2f4MXdnwldSsanv539e57/AC8L0Y8GdMR8Lufe695eDx8T3Zc2N0z8ar4V8nZOqsni0xWcVy86xpyarjMa37yqvrfpS13Xt3PHcDXv7Tv0RfT1l6/m7NHWNG6a7+j5/wCtuGh4DqLJ47HyXZDItVVzm6qiqiLS+6X5oe98P5WXL4+O7LGreE8Q42PF3zqxyumBN1pAAAAAAbT4b9IT9b9UQ8Pj5UeIrmPlfM9quRrWpa0iea+3Y0PEudjwNE78ov2iv5rNWudmXWGX8beKh4DrGHhcaZ80XHYGNjpI/wA3fJsqr9O7vI1vBN88njTvyipyyyn+qfIx65dfk5+dhQAAAG+eD7c2HquLIgglfhaOiyZUb8kbVS7c7yTuiKcXx7y8uLOGUx29JiPjM/SHa8C8zHkxnEfl9YmfhH82B64mhyOquSnxcv7XFJO5yTa6ovsn1RPK/WrN7w/HLDjYY549ZiPZo+IZY58nPLDLtEz7u7cT1Twy8Vh/a+c452QkLEkd8VG27VL7L3Q8NyPDuR5uXTVlVzXp8Ht+P4jx/Kx77cbqL9V43qbgXse9vM8erWJs6p29kKP9P5UTETry9fou/b+NMTMbI9Pqws/iR0vE9WpmyyV6xwOVP70bmPgPNmL6xH6w08vHOHjNdr/SVYfEjpeVyNXPkjVe3zwPRP1oZeA82Ivp/WGcfHOFM12/pLZcflOOyY2vx8/EkY5LRWzNW/7nOz427CaywmP0l0MeTqzi8c4n9YTfacb/ANTB/wDK3/JX5efyn7Sn5mHzj7wouXiJ55WMn/Vb/kz5Wf8ADP2k83X/ABR94RryOA372diJ+M7P8mfI2z7Yz9pR8/V/FH3ho8fi5wa/fw+RZ/yMX/yO5P4Z5Pwyx/r/AGcSPxHxvjjl/T+65Z4q9OO+8me38YEX/wAiqfw5zPhX3/6WR+IeJ8b+3/aZvih0wvnPlJ+OOv8AkhP4e5sfCPunHj/D+c/Z7TxM6WX/AFydPxxnmP8AQOd/DH3hn/XuH/FP2lhOqvFPCZxzmdOOfJmucifEmgprG+qoir3Xy8ze4P4d2Tsvlfu/SWlzfxBrjCuN+99Ycr5HqTmOSk3zeSy5V86WVURPwROyHqNXC4+mK14RH6PNbebyN03nnM/qzvDeI/NYOM7FzXM5LDc1WOZkqu2qpSoj0p3l9bNHkeCcbbl5muOmX0/t7N3R41yNePTP82P1/u1RuWsOemThtWBWSfEiRF2+HS23uvnXY6s4dsOmfrcVP1cyM+uffD09bj6Mh1D1LyXP5OPkclMj5YGaMcxqMrvd9vW/U1+LwtPExnDVFRP6/wCQv5XN3crKM9s+sLLl+SyeX5CXNznpJky1u6qukRP/AKLtGjDRrjVriohTv3Z7852bPeVkWqgAAAAANm8POr8nonqNvL4WPFkSNhki+HKqo1Uc2r7fRaX8jR8R4GHP0eTnNRcT9lmvZOvLtCy6v6izOq+ocvmeTSJuXkq1XpE1WsSmo1ERFVe1InqW8Pi6+Hpx0a/aPn90c85zy7SwxsogAABdMzslmG7EZPM3Fc7d0SPVGK76qnkqkJ14Tl3mIv5/FONucY9Ima+S1JoAAAAAqAAAAKAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAD//Z" rel="icon" type="image/x-icon">
+<style>
+body {
+  font-family: "PT Sans", "Arial", sans-serif;
+
+}
+
+$body-bg: #f4f4f4;
+$body-color: #ccc;
+
+$sidebar-bg: #222;
+
+$container-dark: #444;
+
+* {
+  box-sizing: border-box;
+}
+
+html {
+	font-family: Roboto, sans-serif;
+}
+
+body {
+	background: $body-bg;
+	color: $body-color;
+  margin: 0 auto;
+  padding: 0;
+}
+
+canvas,
+img,
+svg {
+	vertical-align: middle;
+    fill: transparent;
+}
+
+svg {
+  vertical-align: middle;
+  z-index: -1;
+
+}
+.content {
+  width: auto;
+  height: auto;
+  margin: 0 auto;
+  padding: 0;
+
+}
+.container {
+	align-items: center;
+	display: flex;
+	justify-content: center;
+
+	overflow: auto;
+}
+.container2 {
+	align-items: center;
+	display: flex;
+	justify-content: center;
+	overflow: auto;
+  margin-top: -36px;
+}
+.hex {
+  margin-right: 2px;
+  position: relative;
+}
+.number {
+	position: absolute;
+  top: 60%;
+  left: 33%;
+  font-size: 3rem;
+  font-weight: 500;
+  color: gold;
+  font-family: Helvetica, Arial, sans-serif;
+  text-shadow: 0 0 5px black;
+}
+.number2digits {
+  position: absolute;
+  top: 60%;
+  left: 35%;
+  font-size: 2.6rem;
+  font-weight: 400;
+  color: gold;
+  font-family: Helvetica, Arial, sans-serif;
+  text-shadow: 0 0 5px black;
+}
+
+
+.dark  {
+	background-color: $container-dark;
+}
+
+</style>
+
+</head>
+<body>
+  <div class="content">
+    <div class="container dark">
+      <div class="hex">
+        <text id="num0" class="number">2</text>
+        <svg version="1.1" xmlns="http://www.w3.org/2000/svg" width="130" height="150" viewbox="0 0 129.9038105676658 150">
+        <defs>
+          <pattern id="img0" patternUnits="userSpaceOnUse" width="150" height="150">
+            <image href="" x="-10" y="0" width="150" height="150" />
+          </pattern>
+        </defs>
+        <path fill="url(#img0)" d="M64.9519052838329 0L129.9038105676658 37.5L129.9038105676658 112.5L64.9519052838329 150L0 112.5L0 37.5Z"></path></svg></div>
+      <div class="hex">
+        <text id="num1" class="number">3</text>
+        <svg version="1.1" xmlns="http://www.w3.org/2000/svg" width="130" height="150" viewbox="0 0 129.9038105676658 150">
+        <defs>
+          <pattern id="img1" patternUnits="userSpaceOnUse" width="150" height="150">
+            <image href="../static/brick-pile.svg" x="-10" y="0" width="150" height="150" />
+          </pattern>
+        </defs>
+        <path fill="url(#img1)" d="M64.9519052838329 0L129.9038105676658 37.5L129.9038105676658 112.5L64.9519052838329 150L0 112.5L0 37.5Z"></path></svg></div>
+      <div class="hex">
+        <text id="num2" class="number">3</text>
+        <svg version="1.1" xmlns="http://www.w3.org/2000/svg" width="130" height="150" viewbox="0 0 129.9038105676658 150">
+        <defs>
+          <pattern id="img2" patternUnits="userSpaceOnUse" width="150" height="150">
+            <image href="../static/sheep.svg" x="-10" y="0" width="150" height="150" />
+          </pattern>
+        </defs>
+        <path fill="url(#img2)" d="M64.9519052838329 0L129.9038105676658 37.5L129.9038105676658 112.5L64.9519052838329 150L0 112.5L0 37.5Z"></path></svg></div>
+    </div>
+    <div class="container2 dark">
+
+      <div class="hex">
+        <text id="num3" class="number">4</text>
+        <svg version="1.1" xmlns="http://www.w3.org/2000/svg" width="130" height="150" viewbox="0 0 129.9038105676658 150">
+        <defs>
+          <pattern id="img3" patternUnits="userSpaceOnUse" width="150" height="150">
+            <image href="../static/wheat.svg" x="-10" y="0" width="150" height="150" />
+          </pattern>
+        </defs>
+        <path fill="url(#img3)" d="M64.9519052838329 0L129.9038105676658 37.5L129.9038105676658 112.5L64.9519052838329 150L0 112.5L0 37.5Z"></path></svg></div>
+      <div class="hex">
+        <text id="num4" class="number">4</text>
+        <svg version="1.1" xmlns="http://www.w3.org/2000/svg" width="130" height="150" viewbox="0 0 129.9038105676658 150">
+        <defs>
+          <pattern id="img4" patternUnits="userSpaceOnUse" width="150" height="150">
+            <image href="../static/brick-pile.svg" x="-10" y="0" width="150" height="150" />
+          </pattern>
+        </defs>
+        <path fill="url(#img4)" d="M64.9519052838329 0L129.9038105676658 37.5L129.9038105676658 112.5L64.9519052838329 150L0 112.5L0 37.5Z"></path></svg></div>
+      <div class="hex">
+        <text id="num5" class="number">5</text>
+        <svg version="1.1" xmlns="http://www.w3.org/2000/svg" width="130" height="150" viewbox="0 0 129.9038105676658 150">
+        <defs>
+          <pattern id="img5" patternUnits="userSpaceOnUse" width="150" height="150">
+            <image href="../static/sheep.svg" x="-10" y="0" width="150" height="150" />
+          </pattern>
+        </defs>
+        <path fill="url(#img5)" d="M64.9519052838329 0L129.9038105676658 37.5L129.9038105676658 112.5L64.9519052838329 150L0 112.5L0 37.5Z"></path></svg></div>
+        <div class="hex">
+          <text id="num6" class="number">5</text>
+          <svg version="1.1" xmlns="http://www.w3.org/2000/svg" width="130" height="150" viewbox="0 0 129.9038105676658 150">
+          <defs>
+            <pattern id="img6" patternUnits="userSpaceOnUse" width="150" height="150">
+              <image href="../static/wood-pile.svg" x="-10" y="0" width="150" height="150" />
+            </pattern>
+          </defs>
+          <path fill="url(#img6)" d="M64.9519052838329 0L129.9038105676658 37.5L129.9038105676658 112.5L64.9519052838329 150L0 112.5L0 37.5Z"></path></svg></div>
+    </div>
+    <div class="container2 dark">
+      <div class="hex">
+        <text id="num7" class="number">6</text>
+        <svg version="1.1" xmlns="http://www.w3.org/2000/svg" width="130" height="150" viewbox="0 0 129.9038105676658 150">
+        <defs>
+          <pattern id="img7" patternUnits="userSpaceOnUse" width="150" height="150">
+            <image href="../static/wheat.svg" x="-10" y="0" width="150" height="150" />
+          </pattern>
+        </defs>
+        <path fill="url(#img7)" d="M64.9519052838329 0L129.9038105676658 37.5L129.9038105676658 112.5L64.9519052838329 150L0 112.5L0 37.5Z"></path></svg></div>
+      <div class="hex">
+        <text id="num8" class="number">6</text>
+        <svg version="1.1" xmlns="http://www.w3.org/2000/svg" width="130" height="150" viewbox="0 0 129.9038105676658 150">
+        <defs>
+          <pattern id="img8" patternUnits="userSpaceOnUse" width="150" height="150">
+            <image href="../static/brick-pile.svg" x="-10" y="0" width="150" height="150" />
+          </pattern>
+        </defs>
+        <path fill="url(#img8)" d="M64.9519052838329 0L129.9038105676658 37.5L129.9038105676658 112.5L64.9519052838329 150L0 112.5L0 37.5Z"></path></svg></div>
+      <div class="hex">
+        <text id="num9" class="number">8</text>
+        <svg version="1.1" xmlns="http://www.w3.org/2000/svg" width="130" height="150" viewbox="0 0 129.9038105676658 150">
+        <defs>
+          <pattern id="img9" patternUnits="userSpaceOnUse" width="150" height="150">
+            <image href="../static/catan.jpg" x="-10" y="0" width="150" height="150" />
+          </pattern>
+        </defs>
+        <path fill="url(#img9)" d="M64.9519052838329 0L129.9038105676658 37.5L129.9038105676658 112.5L64.9519052838329 150L0 112.5L0 37.5Z"></path></svg></div>
+        <div class="hex">
+        <text id="num10" class="number">8</text>
+          <svg version="1.1" xmlns="http://www.w3.org/2000/svg" width="130" height="150" viewbox="0 0 129.9038105676658 150">
+          <defs>
+            <pattern id="img10" patternUnits="userSpaceOnUse" width="150" height="150">
+              <image href="../static/wood-pile.svg" x="-10" y="0" width="150" height="150" />
+            </pattern>
+          </defs>
+          <path fill="url(#img10)" d="M64.9519052838329 0L129.9038105676658 37.5L129.9038105676658 112.5L64.9519052838329 150L0 112.5L0 37.5Z"></path></svg></div>
+          <div class="hex">
+        <text id="num11" class="number">9</text>
+            <svg version="1.1" xmlns="http://www.w3.org/2000/svg" width="130" height="150" viewbox="0 0 129.9038105676658 150">
+            <defs>
+              <pattern id="img11" patternUnits="userSpaceOnUse" width="150" height="150">
+                <image href="../static/wheat.svg" x="-10" y="0" width="150" height="150" />
+              </pattern>
+            </defs>
+            <path fill="url(#img11)" d="M64.9519052838329 0L129.9038105676658 37.5L129.9038105676658 112.5L64.9519052838329 150L0 112.5L0 37.5Z"></path></svg></div>
+
+    </div>
+    <div class="container2 dark">
+      <div class="hex">
+        <text id="num12" class="number">9</text>
+        <svg version="1.1" xmlns="http://www.w3.org/2000/svg" width="130" height="150" viewbox="0 0 129.9038105676658 150">
+        <defs>
+          <pattern id="img12" patternUnits="userSpaceOnUse" width="150" height="150">
+            <image href="../static/wheat.svg" x="-10" y="0" width="150" height="150" />
+          </pattern>
+        </defs>
+        <path fill="url(#img12)" d="M64.9519052838329 0L129.9038105676658 37.5L129.9038105676658 112.5L64.9519052838329 150L0 112.5L0 37.5Z"></path></svg></div>
+      <div class="hex">
+        <text id="num13" class="number2digits">10</text>
+        <svg version="1.1" xmlns="http://www.w3.org/2000/svg" width="130" height="150" viewbox="0 0 129.9038105676658 150">
+        <defs>
+          <pattern id="img13" patternUnits="userSpaceOnUse" width="150" height="150">
+            <image href="../static/brick-pile.svg" x="-10" y="0" width="150" height="150" />
+          </pattern>
+        </defs>
+        <path fill="url(#img13)" d="M64.9519052838329 0L129.9038105676658 37.5L129.9038105676658 112.5L64.9519052838329 150L0 112.5L0 37.5Z"></path></svg></div>
+      <div class="hex">
+        <text id="num14" class="number2digits">10</text>
+        <svg version="1.1" xmlns="http://www.w3.org/2000/svg" width="130" height="150" viewbox="0 0 129.9038105676658 150">
+        <defs>
+          <pattern id="img14" patternUnits="userSpaceOnUse" width="150" height="150">
+            <image href="../static/stone-pile.svg" x="-10" y="0" width="150" height="150" />
+          </pattern>
+        </defs>
+        <path fill="url(#img14)" d="M64.9519052838329 0L129.9038105676658 37.5L129.9038105676658 112.5L64.9519052838329 150L0 112.5L0 37.5Z"></path></svg></div>
+        <div class="hex">
+        <text id="num15" class="number2digits">11</text>
+          <svg version="1.1" xmlns="http://www.w3.org/2000/svg" width="130" height="150" viewbox="0 0 129.9038105676658 150">
+          <defs>
+            <pattern id="img15" patternUnits="userSpaceOnUse" width="150" height="150">
+              <image href="../static/wood-pile.svg" x="-10" y="0" width="150" height="150" />
+            </pattern>
+          </defs>
+          <path fill="url(#img15)" d="M64.9519052838329 0L129.9038105676658 37.5L129.9038105676658 112.5L64.9519052838329 150L0 112.5L0 37.5Z"></path></svg></div>
+    </div>
+    <div class="container2 dark">
+      <div class="hex">
+        <text id="num16" class="number2digits">11</text>
+        <svg version="1.1" xmlns="http://www.w3.org/2000/svg" width="130" height="150" viewbox="0 0 129.9038105676658 150">
+        <defs>
+          <pattern id="img16" patternUnits="userSpaceOnUse" width="150" height="150">
+            <image href="../static/wheat.svg" x="-10" y="0" width="150" height="150" />
+          </pattern>
+        </defs>
+        <path fill="url(#img16)" d="M64.9519052838329 0L129.9038105676658 37.5L129.9038105676658 112.5L64.9519052838329 150L0 112.5L0 37.5Z"></path></svg></div>
+      <div class="hex">
+        <text id="num17" class="number">D</text>
+        <svg version="1.1" xmlns="http://www.w3.org/2000/svg" width="130" height="150" viewbox="0 0 129.9038105676658 150">
+        <defs>
+          <pattern id="img17" patternUnits="userSpaceOnUse" width="150" height="150">
+            <image href="" x="-10" y="0" width="150" height="150" />
+          </pattern>
+        </defs>
+        <path fill="url(#img17)" d="M64.9519052838329 0L129.9038105676658 37.5L129.9038105676658 112.5L64.9519052838329 150L0 112.5L0 37.5Z"></path></svg></div>
+      <div class="hex">
+        <text id="num18" class="number2digits">12</text>
+        <svg version="1.1" xmlns="http://www.w3.org/2000/svg" width="130" height="150" viewbox="0 0 129.9038105676658 150">
+        <defs>
+          <pattern id="img18" patternUnits="userSpaceOnUse" width="150" height="150">
+            <image href="" x="-10" y="0" width="150" height="150" />
+          </pattern>
+        </defs>
+        <path fill="url(#img18)" d="M64.9519052838329 0L129.9038105676658 37.5L129.9038105676658 112.5L64.9519052838329 150L0 112.5L0 37.5Z"></path></svg></div>
+    </div>
+  </div>
+<script>
+var contents = [
+'../static/brick-pile.svg'
+,'../static/brick-pile.svg'
+,'../static/brick-pile.svg'
+,'../static/stone-pile.svg'
+,'../static/stone-pile.svg'
+,'../static/stone-pile.svg'
+,'../static/wheat.svg'
+,'../static/wheat.svg'
+,'../static/wheat.svg'
+,'../static/wheat.svg'
+,'../static/sheep.svg'
+,'../static/sheep.svg'
+,'../static/sheep.svg'
+,'../static/sheep.svg'
+,'../static/wood-pile.svg'
+,'../static/wood-pile.svg'
+,'../static/wood-pile.svg'
+,'../static/wood-pile.svg'
+,'../static/catan.jpg'
+]
+
+var nums = ['②','③','③','④','④','⑤','⑤','⑥','⑥','⑧','⑧','⑨','⑨','⑩','⑩','⑪','⑪','⑫']
+
+function getImage(images) {
+    var random = Math.floor(Math.random() * (contents.length));
+    var my_image = contents.splice(random,1);
+    return my_image;
+}
+
+function getNum(number) {
+    var random = Math.floor(Math.random() * (nums.length));
+    var my_num = nums.splice(random,1);
+    return my_num;
+}
+
+var i=0
+//variable used to contain controlled random number
+var random
+//while all of array elements haven't been cycled thru
+while (i<19){
+    //if element hasn't been marked as "selected"
+		//change the hexagon image bg
+		var id = 'img';
+    var numid = 'num';
+		var tag = id.concat(i);
+    var numtag = numid.concat(i);
+		var parentElement = document.getElementById(tag);
+    var image = getImage(contents);
+    if (image == '../static/catan.jpg') {
+      var num = 'Ⓓ';
+    } else {
+      var num = getNum(nums);
+    }
+    console.log(num,image);
+    if (image == '../static/catan.jpg') {
+      document.getElementById(numtag).innerHTML = num;
+      document.getElementById(numtag).className = "number2digits";
+    } else if (num == '⑪' || num == '⑫' ) {
+      document.getElementById(numtag).innerHTML = num;
+      document.getElementById(numtag).className = "number2digits";
+    } else {
+      document.getElementById(numtag).innerHTML = num;
+      document.getElementById(numtag).className = "number";
+		}
+    parentElement.querySelector("image").setAttribute('href', image);
+    i++
+}
+
+</script>
+
+</body>
+</html>

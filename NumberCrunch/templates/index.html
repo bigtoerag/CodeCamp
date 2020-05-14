@@ -1,0 +1,275 @@
+<!DOCTYPE html>
+<html>
+<title>Number Crunch</title>
+<meta charset="UTF-8">
+<head>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link id="page_favicon" href="../static/calculate_16.ico" rel="icon">
+<link rel="stylesheet" type="text/css" href="../static/w3.css">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
+<script src="https://d3js.org/d3.v4.min.js"></script>
+</head>
+<body class="w3-content w3-black" style="w3-responsive">
+<div class="w3-container w3-black">
+  <div class="w3-row w3-center myheader w3-black">
+    <h2 class="w3-text-teal w3-row"><strong>Number Crunch:</strong> Todays number is: <strong class="w3-text-white">{{ input_number }}</strong></h2>
+  </div>
+  <div class="w3-row w3-teal w3-center w3-text-black padheader">
+    {% with messages = get_flashed_messages(with_categories=True) %}
+    {% if messages %}
+    {% for category, message in messages %}
+      <div class="w3-row w3-center w3-padding-small {{ category }}">{{ message }}</div>
+    {% endfor %}
+    <div class="w3-col s12 m12 l12 w3-padding-small">
+      <form action="/" method="GET" >
+          <button class="w3-button w3-border w3-border-black w3-round-large w3-hover-blue" type="submit">Retry</button>
+      </form>
+    </div>
+    {% else %}
+    <form id="content" class="w3-form" action="/" method="POST" type>
+      <div class="w3-row w3-center" id="row-one">
+
+        <div class="w3-col s1 m1 l1 w3-right-align w3-padding-small w3-strong"><label for="q1">Q1:</label></div>
+        <div class="w3-col s3 m3 l3 w3-left-align w3-border-blue w3-padding-small">Number before?</div>
+        <div class="w3-col s2 m2 l2 w3-left-align w3-border-blue w3-padding-small"><input class="w3-input w3-border" name="q1" type="number" placeholder=""></div>
+        <div class="w3-col s1 m1 l1 w3-right-align w3-padding-small w3-strong"><label for="q5">Q2:</label></div>
+        <div class="w3-col s3 m3 l3 w3-left-align w3-border-blue w3-padding-small">Number after?</div>
+        <div class="w3-col s2 m2 l2 w3-left-align w3-border-blue w3-padding-small"><input class="w3-input" name="q2" type="number" placeholder=""></div>
+
+      </div>
+      <div class="w3-row w3-center" id="row-two">
+        <div class="w3-col s1 m1 l1 w3-right-align w3-padding-small w3-strong"><label for="q2">Q3:</label></div>
+        <div class="w3-col s2 m2 l2 w3-left-align w3-border-blue w3-padding-small">Word form?</div>
+        <div class="w3-col s3 m3 l3 w3-left-align w3-border-blue w3-padding-small"><input class="w3-input" name="q3" type="text" placeholder=""></div>
+        <div class="w3-col s1 m1 l1 w3-right-align w3-padding-small w3-strong"><label for="q6">Q4:</label></div>
+        <div class="w3-col s3 m3 l3 w3-left-align w3-border-blue w3-padding-small">Expanded form?</div>
+        <div class="w3-col s2 m2 l2 w3-left-align w3-border-blue w3-padding-small"><input class="w3-input" name="q4" type="text" placeholder="eg: 100+50+2"></div>
+      </div>
+      <div class="w3-row w3-center" id="row-three">
+        <div class="w3-col s1 m1 l1 w3-right-align w3-padding-small w3-strong"><label for="q3">Q5:</label></div>
+        <div class="w3-col s3 m3 l3 w3-left-align w3-border-blue w3-padding-small">Odd or Even?</div>
+        <div class="w3-col s2 m2 l2 w3-left-align w3-border-blue w3-padding-small">
+          <select id="q11" name="q13" class="w3-input">
+                    <option value="-">Guess?</option>
+                    <option value="odd">Odd</option>
+                    <option value="even">Even</option>
+                  </select>
+        </div>
+        <div class="w3-col s1 m1 l1 w3-right-align w3-padding-small w3-strong"><label for="q7">Q6:</label></div>
+        <div class="w3-col s3 m3 l3 w3-left-align w3-border-blue w3-padding-small">10 More?</div>
+        <div class="w3-col s2 m2 l2 w3-left-align w3-border-blue w3-padding-small"><input class="w3-input" name="q6" type="number" placeholder=""></div>
+      </div>
+      <div class="w3-row w3-center" id="row-four">
+        <div class="w3-col s1 m1 l1 w3-right-align w3-padding-small w3-strong"><label for="q4">Q7:</label></div>
+        <div class="w3-col s3 m3 l3 w3-left-align w3-border-blue w3-padding-small">10 Less?</div>
+        <div class="w3-col s2 m2 l2 w3-left-align w3-border-blue w3-padding-small"><input class="w3-input" name="q7" type="number" placeholder=""></div>
+        <div class="w3-col s1 m1 l1 w3-right-align w3-padding-small  w3-strong"><label for="q8">Q8:</label></div>
+        <div class="w3-col s3 m3 l3 w3-left-align w3-border-blue w3-padding-small">100 More?</div>
+        <div class="w3-col s2 m2 l2 w3-left-align w3-border-blue w3-padding-small"><input class="w3-input" name="q8" type="number" placeholder=""></div>
+      </div>
+      <div class="w3-row w3-center" id="row-five">
+        <div class="w3-col s1 m1 l1 w3-right-align w3-padding-small  w3-strong"><label for="q9">Q9:</label></div>
+        <div class="w3-col s3 m3 l3 w3-left-align w3-border-blue w3-padding-small">Largest Number?</div>
+        <div class="w3-col s2 m2 l2 w3-left-align w3-border-blue w3-padding-small"><input class="w3-input" name="q9" type="number" placeholder="Rearrange the digits"></div>
+        <div class="w3-col s1 m1 l1 w3-right-align w3-padding-small w3-strong"><label for="q10">Q10:</label></div>
+        <div class="w3-col s3 m3 l3 w3-left-align w3-border-blue w3-padding-small">Sum of the digits?</div>
+        <div class="w3-col s2 m2 l2 w3-left-align w3-border-blue w3-padding-small"><input class="w3-input" name="q10" type="number" placeholder="eg: 1+2+3 for 123"></div>
+      </div>
+      <div class="w3-row w3-center" id="row-six">
+        <div class="w3-col s1 m1 l1 w3-right-align w3-padding-small w3-strong"><label for="q11">Q11:</label></div>
+        <div class="w3-col s3 m3 l3 w3-left-align w3-border-blue w3-padding-small">Equation to make the number?</div>
+        <div class="w3-col s2 m2 l2 w3-left-align w3-border-blue w3-padding-small"><input class="w3-input" name="q11" type="text" placeholder="Any valid equation"></div>
+        <div class="w3-col s1 m1 l1 w3-right-align w3-padding-small w3-strong"><label for="q12">Q12:</label></div>
+        <div class="w3-col s3 m3 l3 w3-left-align w3-border-blue w3-padding-small">Is it prime?</div>
+        <div class="w3-col s2 m2 l2 w3-left-align w3-border-blue w3-padding-small"><div class="w3-label-q12 w3-right-align">Yes</div><input class="w3-input w3-input-q12 w3-left-align" name="q12" type="radio" value="True" checked="checked"><div class="w3-label-q12 w3-right-align">No</div><input class="w3-input w3-input-q12 w3-left-align" name="q12" type="radio" value="False"></div>
+      </div>
+      <div class="w3-row w3-center" id="row-seven">
+      <hr>
+        <p class="w3-text-black"><h4>Should do questions.</h4></p>
+        <div class="w3-col s1 m1 l1 w3-right-align w3-padding-small w3-strong"><label for="q13">Q13:</label></div>
+        <!--<div class="w3-col s5 m5 l5 w3-left-align w3-border-blue w3-padding-small"><input class="w3-input" name="q11" type="text" placeholder="Largest Number greater than or less than?"></div>-->
+        <div class="w3-col s5 m5 l5 w3-left-align w3-border-blue w3-padding-small">
+          <select id="q11" name="q13" class="w3-input">
+            <option value="-">Is the largest number > = < the base number?</option>
+            <option value=">">Greater than</option>
+            <option value="<">Less Than</option>
+            <option value="=">Equal to</option>
+          </select>
+        </div>
+        <div class="w3-col s1 m1 l1 w3-right-align w3-padding-small w3-strong"><label for="q14">Q14:</label></div>
+        <div class="w3-col s5 m5 l5 w3-left-align w3-border-blue w3-padding-small">Click below to draw with blocks.</div>
+      </div>
+      <div class="w3-row w3-center w3-margin-top " id="row-eight">
+        <div class="w3-col s2 m5 l5 w3-right-align ">1000's</div>
+        <div id="grid1000" class="w3-col s10 m7 l7 w3-left-align w3-padding-small"></div>
+        <input hidden  id="clicked1000" name="blocks1000" type="number" value="0" >
+        <div class="w3-col s2 m5 l5 w3-right-align ">100's</div>
+        <div id="grid100" class="w3-col s10 m7 l7 w3-left-align w3-padding-small"></div>
+        <input hidden  id="clicked100" name="blocks100" type="number" value="0" >
+        <div class="w3-col s2 m5 l5 w3-right-align ">10's</div>
+        <div id="grid10" class="w3-col s10 m7 l7 w3-left-align w3-padding-small"></div>
+        <input hidden id="clicked10" name="blocks10" type="number" value="0" >
+        <div class="w3-col s2 m5 l5 w3-right-align">1's</div>
+        <div id="grid1" class="w3-col s10 m7 l7 w3-left-align w3-padding-small"></div>
+        <input hidden id="clicked1" name="blocks1" type="number" value="0" >
+      </div>
+      <div class="w3-row w3-center w3-margin-top w3-padding-small" id="row-nine">
+        <hr>
+        <p class="w3-text-black"><h4>Extension questions.</h4></p>
+        <p class="w3-text-black"><strong class="w3-text-black  w3-strong">Q15:</strong> Count the number with tally marks.</p>
+        <div class="w3-col s2 m2 l2 w3-left-align w3-padding-small">
+          <p>Thousands</p>
+        </div>
+        <div class="w3-col s1 m1 l1 w3-left-align w3-padding-16">
+          <svg id="tally1000" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path d="M12 2c5.514 0 10 4.486 10 10s-4.486 10-10 10-10-4.486-10-10 4.486-10 10-10zm0-2c-6.627 0-12 5.373-12 12s5.373 12 12 12 12-5.373 12-12-5.373-12-12-12zm6 13h-5v5h-2v-5h-5v-2h5v-5h2v5h5v2z"/></svg>
+          <svg id="remove1000" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path d="M12 2c5.514 0 10 4.486 10 10s-4.486 10-10 10-10-4.486-10-10 4.486-10 10-10zm0-2c-6.627 0-12 5.373-12 12s5.373 12 12 12 12-5.373 12-12-5.373-12-12-12zm6 13h-12v-2h12v2z"/></svg>
+        </div>
+        <div class="w3-col s9 m9 l9 w3-left-align w3-padding-small">
+            <ol id="count1000"></ol>
+            <input hidden id="tallied1000" name="tallies1000" type="number" value="0" >
+        </div>
+      </div>
+
+      <div class="w3-row w3-center w3-margin-top w3-padding-small" id="row-ten">
+        <div class="w3-col s2 m2 l2 w3-left-align w3-padding-small">
+          <p>Hundreds</p>
+        </div>
+        <div class="w3-col s1 m1 l1 w3-left-align w3-padding-16">
+          <svg id="tally100" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path d="M12 2c5.514 0 10 4.486 10 10s-4.486 10-10 10-10-4.486-10-10 4.486-10 10-10zm0-2c-6.627 0-12 5.373-12 12s5.373 12 12 12 12-5.373 12-12-5.373-12-12-12zm6 13h-5v5h-2v-5h-5v-2h5v-5h2v5h5v2z"/></svg>
+          <svg id="remove100" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path d="M12 2c5.514 0 10 4.486 10 10s-4.486 10-10 10-10-4.486-10-10 4.486-10 10-10zm0-2c-6.627 0-12 5.373-12 12s5.373 12 12 12 12-5.373 12-12-5.373-12-12-12zm6 13h-12v-2h12v2z"/></svg>
+        </div>
+        <div class="w3-col s9 m9 l9 w3-left-align w3-padding-small">
+            <ol id="count100"></ol>
+            <input hidden id="tallied100" name="tallies100" type="number" value="0" >
+        </div>
+      </div>
+
+      <div class="w3-row w3-center w3-margin-top w3-padding-small" id="row-eleven">
+        <div class="w3-col s2 m2 l2 w3-left-align w3-padding-small">
+          <p>Tens</p>
+        </div>
+        <div class="w3-col s1 m1 l1 w3-left-align w3-padding-16">
+          <svg id="tally10" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path d="M12 2c5.514 0 10 4.486 10 10s-4.486 10-10 10-10-4.486-10-10 4.486-10 10-10zm0-2c-6.627 0-12 5.373-12 12s5.373 12 12 12 12-5.373 12-12-5.373-12-12-12zm6 13h-5v5h-2v-5h-5v-2h5v-5h2v5h5v2z"/></svg>
+          <svg id="remove10" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path d="M12 2c5.514 0 10 4.486 10 10s-4.486 10-10 10-10-4.486-10-10 4.486-10 10-10zm0-2c-6.627 0-12 5.373-12 12s5.373 12 12 12 12-5.373 12-12-5.373-12-12-12zm6 13h-12v-2h12v2z"/></svg>
+        </div>
+        <div class="w3-col s9 m9 l9 w3-left-align w3-padding-small">
+            <ol id="count10"></ol>
+            <input hidden id="tallied10" name="tallies10" type="number" value="0" >
+        </div>
+      </div>
+
+      <div class="w3-row w3-center w3-margin-top w3-padding-small" id="row-twelve">
+        <div class="w3-col s2 m2 l2 w3-left-align w3-padding-small">
+          <p>Ones</p>
+        </div>
+        <div class="w3-col s1 m1 l1 w3-left-align w3-padding-16">
+          <svg id="tally" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path d="M12 2c5.514 0 10 4.486 10 10s-4.486 10-10 10-10-4.486-10-10 4.486-10 10-10zm0-2c-6.627 0-12 5.373-12 12s5.373 12 12 12 12-5.373 12-12-5.373-12-12-12zm6 13h-5v5h-2v-5h-5v-2h5v-5h2v5h5v2z"/></svg>
+          <svg id="remove" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path d="M12 2c5.514 0 10 4.486 10 10s-4.486 10-10 10-10-4.486-10-10 4.486-10 10-10zm0-2c-6.627 0-12 5.373-12 12s5.373 12 12 12 12-5.373 12-12-5.373-12-12-12zm6 13h-12v-2h12v2z"/></svg>
+        </div>
+        <div class="w3-col s9 m9 l9 w3-left-align w3-padding-small">
+            <ol id="count"></ol>
+            <input hidden id="tallied" name="tallies1" type="number" value="0" >
+        </div>
+      </div>
+
+      <div class="w3-row w3-center" id="row-button">
+        <br>
+        <input hidden name="master_number" type="number" value="{{ input_number }}" >
+        <div class="w3-col s12 m12 l12 w3-padding-small">
+          <button class="w3-button w3-border w3-border-black w3-round-large w3-hover-blue" type="submit">Check my answers</button>
+        </div>
+      </div>
+    </form>
+    {% endif %}
+  {% endwith %}
+  </div>
+</div>
+<script type="text/javascript">
+$('#tally').click(
+      function(){
+        		tallied = document.getElementById("tallied").getAttribute("value");
+    				tallied ++;
+    				document.getElementById("tallied").setAttribute('value', tallied);
+            $('<li />').prop('class','tally').appendTo('#count');
+            return false;
+        });
+ $('#remove').click(
+        function(){
+        		tallied = document.getElementById("tallied").getAttribute("value");
+            if (tallied > 0){
+    				tallied --;
+    				document.getElementById("tallied").setAttribute('value', tallied);}
+            $('#count').children().last().remove();
+            return false;
+        });
+$('#tally10').click(
+      function(){
+        		tallied10 = document.getElementById("tallied10").getAttribute("value");
+    				tallied10 = Number(tallied10) + 1;
+    				document.getElementById("tallied10").setAttribute('value', tallied10);
+            $('<li />').prop('class','tally').appendTo('#count10');
+            return false;
+        });
+ $('#remove10').click(
+        function(){
+        		tallied10 = document.getElementById("tallied10").getAttribute("value");
+            if (tallied10 > 0){
+    				tallied10 = Number(tallied10) - 1;
+    				document.getElementById("tallied10").setAttribute('value', tallied10);}
+
+            $('#count10').children().last().remove();
+            return false;
+        });
+
+$('#tally100').click(
+      function(){
+        		tallied100 = document.getElementById("tallied100").getAttribute("value");
+    				tallied100 = Number(tallied100) + 1;
+    				document.getElementById("tallied100").setAttribute('value', tallied100);
+            $('<li />').prop('class','tally').appendTo('#count100');
+            return false;
+        });
+ $('#remove100').click(
+        function(){
+        		tallied100 = document.getElementById("tallied100").getAttribute("value");
+            if (tallied100 > 0){
+    				tallied100 = Number(tallied100) - 1;
+    				document.getElementById("tallied100").setAttribute('value', tallied100);}
+
+            $('#count100').children().last().remove();
+            return false;
+        });
+
+  $('#tally1000').click(
+        function(){
+          		tallied1000 = document.getElementById("tallied1000").getAttribute("value");
+      				tallied1000 = Number(tallied1000) + 1;
+      				document.getElementById("tallied1000").setAttribute('value', tallied1000);
+              $('<li />').prop('class','tally').appendTo('#count1000');
+              return false;
+          });
+   $('#remove1000').click(
+          function(){
+          		tallied1000 = document.getElementById("tallied1000").getAttribute("value");
+              if (tallied1000 > 0){
+      				tallied1000 = Number(tallied1000) - 1;
+      				document.getElementById("tallied1000").setAttribute('value', tallied1000);}
+
+              $('#count1000').children().last().remove();
+              return false;
+          });
+
+</script>
+
+<script src="../static/grid1.js" type="text/javascript"></script>
+<script src="../static/grid10.js" type="text/javascript"></script>
+<script src="../static/grid100.js" type="text/javascript"></script>
+<script src="../static/grid1000.js" type="text/javascript"></script>
+<!-- Footer -->
+<footer class="w3-container w3-black  w3-center w3-text-teal w3-codespan">
+  <hr>
+  <div>Designed by Marcus in python3.6</div>
+</footer>
+
+</body>
+</html>

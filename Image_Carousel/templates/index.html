@@ -1,0 +1,385 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link id="page_favicon" href="../static/fish.ico" rel="icon">
+    <title>Ocean Bingo</title>
+
+<!--
+
+MIT License
+
+Copyright (c) 2017 Jeremy Rue
+
+Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files (the "Software"), to deal
+in the Software without restriction, including without limitation the rights
+to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Software, and to permit persons to whom the Software is
+furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in all
+copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+SOFTWARE.
+-->
+<link href="https://fonts.googleapis.com/css2?family=Ubuntu" rel="stylesheet">
+    <style type="text/css">
+    body {
+      margin:0 auto;
+      background-color: #006994;
+      font-family: 'Roboto', sans-serif;
+
+    }
+    text{
+        font-family: 'Ubuntu', sans-serif;
+        font-size:11px;
+        pointer-events:none;
+    }
+    img
+{
+  box-shadow: 0px 0px 10px rgba(255,255,255,1);
+
+}
+    .container {
+      width = 100%;
+      text-align: center;
+      height = auto;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+    }
+    .header {
+      width = 100%;
+      height = 100px;
+      text-align: center;
+      display: flex;
+      justify-content: center;
+      align-content: center;
+      background-image: url('../static/header.jpg');
+      background-repeat: no-repeat;
+      background-size: cover;
+      font-family: 'Ubuntu', sans-serif;
+      font-weight: 900;
+      font-style: italic;
+
+    }
+    .content {
+      width = 100%;
+      height = auto;
+      margin: 0 auto;
+      text-align: center;
+      display: flex;
+      align-content: center;
+      justify-content: center;
+      flex-direction: row;
+      flex-wrap: wrap;
+    }
+    #chart{
+        position:relative;
+        display: inline-block;
+        width:500px;
+        height:500px;
+        float:left;
+        font-weight: 700;
+
+
+    }
+    #question{
+        position: relative;
+        display: inline-block;
+        width:500px;
+        height:500px;
+        float:left;
+        text-align: center;
+
+
+    }
+    #question h2{
+        font-size: 25px;
+        font-weight: 900;
+        font-family: 'Ubuntu', sans-serif;
+        color: white;
+    }
+    #audio{
+        position: relative;
+        display: inline-block;
+        width:100%;
+        text-align: center;
+      }
+    </style>
+
+</head>
+<body>
+    <div id="container" class="container">
+      <div id="header" class="header">
+        <h1>Ocean Bingo Spinner</h1>
+      </div>
+      <div id="content" class="content">
+        <div id="chart"></div>
+        <div id="question"><h2></h2></div>
+
+
+    <script src="https://d3js.org/d3.v3.min.js" charset="utf-8"></script>
+    <script type="text/javascript" charset="utf-8">
+        var padding = {top:10, right:10, bottom:10, left:20},
+            w = 500 - padding.left - padding.right,
+            h = 500 - padding.top  - padding.bottom,
+            r = Math.min(w, h)/2,
+            rotation = 0,
+            oldrotation = 0,
+            picked = 100000,
+            oldpick = [],
+            color = d3.scale.category20();//category20c()
+            //randomNumbers = getRandomNumbers();
+
+        //http://osric.com/bingo-card-generator/?title=HTML+and+CSS+BINGO!&words=padding%2Cfont-family%2Ccolor%2Cfont-weight%2Cfont-size%2Cbackground-color%2Cnesting%2Cbottom%2Csans-serif%2Cperiod%2Cpound+sign%2C%EF%B9%A4body%EF%B9%A5%2C%EF%B9%A4ul%EF%B9%A5%2C%EF%B9%A4h1%EF%B9%A5%2Cmargin%2C%3C++%3E%2C{+}%2C%EF%B9%A4p%EF%B9%A5%2C%EF%B9%A4!DOCTYPE+html%EF%B9%A5%2C%EF%B9%A4head%EF%B9%A5%2Ccolon%2C%EF%B9%A4style%EF%B9%A5%2C.html%2CHTML%2CCSS%2CJavaScript%2Cborder&freespace=true&freespaceValue=Web+Design+Master&freespaceRandom=false&width=5&height=5&number=35#results
+
+        var data = [
+          {"label":"A",  "value":1,  "question":"Abalone", "image":"../static/Abalone.png", "audio":"../static/media/Abalone.mp3"}, // padding
+          {"label":"AP",  "value":2,  "question":"Atlantic Puffin", "image":"../static/Atlantic Puffin.png", "audio":"../static/media/Atlantic Puffin.mp3"}, //font-family
+          {"label":"AS",  "value":3,  "question":"Atlantic Sailfish", "image":"../static/Atlantic Sailfish.png", "audio":"../static/media/Atlantic Sailfish.mp3"}, //color
+          {"label":"BO",  "value":4,  "question":"Bioluminescent Octopus", "image":"../static/Bioluminescent Octopus.png", "audio":"../static/media/Bioluminescent Octopus.mp3"}, //font-weight
+          {"label":"BM",  "value":5,  "question":"Blue Mussel", "image":"../static/Blue Mussel.png", "audio":"../static/media/Blue Mussel.mp3"}, //font-size
+          {"label":"BW",  "value":6,  "question":"Blue Whale", "image":"../static/Blue Whale.png", "audio":"../static/media/Blue Whale.mp3"}, //background-color
+          {"label":"BC",  "value":7,  "question":"Brain Coral", "image":"../static/Brain Coral.png", "audio":"../static/media/Brain Coral.mp3"}, //nesting
+          {"label":"CBC",  "value":8,  "question":"Chesapeake Blue Crab", "image":"../static/Chesapeake Blue Crab.png", "audio":"../static/media/Chesapeake Blue Crab.mp3"}, //bottom
+          {"label":"CTW",  "value":9,  "question":"Christmas Tree Worm", "image":"../static/Christmas Tree Worm.png", "audio":"../static/media/Christmas Tree Worm.mp3"}, //sans-serif
+          {"label":"CBD", "value":10, "question":"Common Bottlenose Dolphin", "image":"../static/Common Bottlenose Dolphin.png", "audio":"../static/media/Common Bottlenose Dolphin.mp3"}, //period
+          {"label":"CC", "value":11, "question":"Common Clownfish", "image":"../static/Common Clownfish.png", "audio":"../static/media/Common Clownfish.mp3"}, //pound sign
+          {"label":"CFT", "value":12, "question":"Common Fangtooth", "image":"../static/Common Fangtooth.png", "audio":"../static/media/Common Fangtooth.mp3"}, //<body>
+          {"label":"CTBSB", "value":13, "question":"Common Two Banded Seabream", "image":"../static/Common Two Banded Seabream.png", "audio":"../static/media/Common Two Banded Seabream.mp3"}, //<ul>
+          {"label":"D", "value":14, "question":"Dugong", "image":"../static/Dugong.png", "audio":"../static/media/Dugong.mp3"}, //<h1>
+          {"label":"EP", "value":15, "question":"Emperor Penguin", "image":"../static/Emperor Penguin.png", "audio":"../static/media/Emperor Penguin.mp3"}, //margin
+          {"label":"EL", "value":16, "question":"European Lobster", "image":"../static/European Lobster.png", "audio":"../static/media/European Lobster.mp3"}, //< >
+          {"label":"EP", "value":17, "question":"European Pilchard", "image":"../static/European Pilchard.png", "audio":"../static/media/European Pilchard.mp3"}, // { }
+          {"label":"FP", "value":18, "question":"Finless Porpoise", "image":"../static/Finless Porpoise.png", "audio":"../static/media/Finless Porpoise.mp3"}, //<p>
+          {"label":"FF", "value":19, "question":"Flying Fish", "image":"../static/Flying Fish.png", "audio":"../static/media/Flying Fish.mp3"}, //<!DOCTYPE html>
+          {"label":"GC", "value":20, "question":"Giant Clam", "image":"../static/Giant Clam.png", "audio":"../static/media/Giant Clam.mp3"}, //<head>
+          {"label":"GS", "value":21, "question":"Giant Squid", "image":"../static/Giant Squid.png", "audio":"../static/media/Giant Squid.mp3"}, // colon
+          {"label":"GSH", "value":22, "question":"Goblin Shark", "image":"../static/Goblin Shark.png", "audio":"../static/media/Goblin Shark.mp3"}, // <style>
+          {"label":"GB", "value":23, "question":"Goose Barnacle", "image":"../static/Goose Barnacle.png", "audio":"../static/media/Goose Barnacle.mp3"}, // .html
+          {"label":"G", "value":24, "question":"Gorgonian", "image":"../static/Gorgonian.png", "audio":"../static/media/Gorgonian.mp3"}, // HTML
+          {"label":"GS", "value":25, "question":"Great Scallop", "image":"../static/Great Scallop.png", "audio":"../static/media/Great Scallop.mp3"}, // CSS
+          {"label":"GWS", "value":26, "question":"Great White Shark", "image":"../static/Great White Shark.png", "audio":"../static/media/Great White Shark.mp3"}, // JavaScript
+          {"label":"HS", "value":27, "question":"Harp Seal", "image":"../static/Harp Seal.png", "audio":"../static/media/Harp Seal.mp3"}, // border
+          {"label":"HERC", "value":28, "question":"Hermit Crab", "image":"../static/Hermit Crab.png", "audio":"../static/media/.mp3"},//semi-colon
+          {"label":"HORC", "value":29, "question":"Horseshoe Crab", "image":"../static/Horseshoe Crab.png", "audio":"../static/media/Horseshoe Crab.mp3"}, //100%
+          {"label":"HW", "value":30, "question":"Humpback Whale", "image":"../static/Humpback Whale.png", "audio":"../static/media/Humpback Whale.mp3"}, //comma
+          {"label":"JSC",  "value":31,  "question":"Japanese Spider Crab", "image":"../static/Japanese Spider Crab.png", "audio":"../static/media/Japanese Spider Crab.mp3"}, // padding
+          {"label":"KW",  "value":32,  "question":"Killer Whale", "image":"../static/Killer Whale.png", "audio":"../static/media/Killer Whale.mp3"}, //font-family
+          {"label":"KP",  "value":33,  "question":"Kuruma Prawn", "image":"../static/Kuruma Prawn.png", "audio":"../static/media/Kuruma Prawn.mp3"}, //color
+          {"label":"LSD",  "value":34,  "question":"Leafy Sea Dragon", "image":"../static/Leafy Sea Dragon.png", "audio":"../static/media/Leafy Sea Dragon.mp3"}, //font-weight
+          {"label":"LT",  "value":35,  "question":"Leatherback Sea Turtle", "image":"../static/Leatherback Sea Turtle.png", "audio":"../static/media/Leatherback Sea Turtle.mp3"}, //font-size
+          {"label":"LMJ",  "value":36,  "question":"Lions Mane Jellyfish", "image":"../static/Lions Mane Jellyfish.png", "audio":"../static/media/Lions Mane Jellyfish.mp3"}, //background-color
+          {"label":"MP",  "value":37,  "question":"Macaroni Penguin", "image":"../static/Macaroni Penguin.png", "audio":"../static/media/Macaroni Penguin.mp3"}, //nesting
+          {"label":"MI",  "value":38,  "question":"Marine Iguana", "image":"../static/Marine Iguana.png", "audio":"../static/media/Marine Iguana.mp3"}, //bottom
+          {"label":"ME",  "value":39,  "question":"Moray Eel", "image":"../static/Moray Eel.png", "audio":"../static/media/Moray Eel.mp3"}, //sans-serif
+          {"label":"NW", "value":40, "question":"Narwhal", "image":"../static/Narwhal.png", "audio":"../static/media/Narwhal.mp3"}, //period
+          {"label":"N", "value":41, "question":"Nautilis", "image":"../static/Nautilis.png", "audio":"../static/media/Nautilis.mp3"}, //pound sign
+          {"label":"NB", "value":42, "question":"Nudibranch", "image":"../static/Nudibranch.png", "audio":"../static/media/Nudibranch.mp3"}, //<body>
+          {"label":"PBT", "value":43, "question":"Pacific Bluefin Tuna", "image":"../static/Pacific Bluefin Tuna.png", "audio":"../static/media/Pacific Bluefin Tuna.mp3"}, //<ul>
+          {"label":"PSH", "value":44, "question":"Pacific Sea Horse", "image":"../static/Pacific Sea Horse.png", "audio":"../static/media/Pacific Sea Horse.mp3"}, //<h1>
+          {"label":"PB", "value":45, "question":"Polar Bear", "image":"../static/Polar Bear.png", "audio":"../static/media/Polar Bear.mp3"}, //margin
+          {"label":"PMoW", "value":46, "question":"Portuguese Man'o'War", "image":"../static/Portuguese ManoWar.png", "audio":"../static/media/Portuguese Man o War.mp3"}, //< >
+          {"label":"PF", "value":47, "question":"Puffer Fish", "image":"../static/Puffer Fish.png", "audio":"../static/media/Puffer Fish.mp3"}, // { }
+          {"label":"RL", "value":48, "question":"Red Lion Fish", "image":"../static/Red Lion Fish.png", "audio":"../static/media/Red Lion Fish.mp3"}, //<p>
+          {"label":"RSU", "value":49, "question":"Red Sea Urchin", "image":"../static/Red Sea Urchin.png", "audio":"../static/media/Red Sea Urchin.mp3"}, //<!DOCTYPE html>
+          {"label":"RSF", "value":50, "question":"Royal Star Fish", "image":"../static/Royal Star Fish.png", "audio":"../static/media/Royal Star Fish.mp3"}, //<head>
+          {"label":"SC", "value":51, "question":"Sea Cucumber", "image":"../static/Sea Cucumber.png", "audio":"../static/media/Sea Cucumber.mp3"}, // colon
+          {"label":"SL", "value":52, "question":"Sea Lamprey", "image":"../static/Sea Lamprey.png", "audio":"../static/media/Sea Lamprey.mp3"}, // <style>
+          {"label":"SO", "value":53, "question":"Sea Otter", "image":"../static/Sea Otter.png", "audio":"../static/media/Sea Otter.mp3"}, // .html
+          {"label":"SS", "value":54, "question":"Sockeye Salmon", "image":"../static/Sockeye Salmon.png", "audio":"../static/media/Sockeye Salmon.mp3"}, // HTML
+          {"label":"SASL", "value":55, "question":"South American Sea Lion", "image":"../static/South American Sea Lion.png", "audio":"../static/media/South American Sea Lion.mp3"}, // CSS
+          {"label":"SES", "value":56, "question":"Southern Elephant Seal", "image":"../static/Southern Elephant Seal.png", "audio":"../static/media/Southern Elephant Seal.mp3"}, // JavaScript
+          {"label":"SW", "value":57, "question":"Sperm Whale", "image":"../static/Sperm Whale.png", "audio":"../static/media/Sperm Whale.mp3"}, // border
+          {"label":"SER", "value":58, "question":"Spotted Eagle Ray", "image":"../static/Spotted Eagle Ray.png", "audio":"../static/media/Spotted Eagle Ray.mp3"},//semi-colon
+          {"label":"SF", "value":59, "question":"Sword Fish", "image":"../static/Sword Fish.png", "audio":"../static/media/Sword Fish.mp3"}, //100%
+          {"label":"TPS", "value":60, "question":"Tiger Pistol Shrimp", "image":"../static/Tiger Pistol Shrimp.png", "audio":"../static/media/Tiger Pistol Shrimp.mp3"}, //comma
+          {"label":"W",  "value":61,  "question":"Walrus", "image":"../static/Walrus.png", "audio":"../static/media/Walrus.mp3"}, // padding
+          {"label":"WA",  "value":62,  "question":"Wandering Albatross", "image":"../static/Wandering Albatross.png", "audio":"../static/media/Wandering Albatross.mp3"}, //font-family
+          {"label":"WS",  "value":63,  "question":"Whale Shark", "image":"../static/Whale Shark.png", "audio":"../static/media/Whale Shark.mp3"}, //color
+          {"label":"YBSS",  "value":64,  "question":"Yellow Bellied Sea Snake", "image":"../static/Yellow Bellied Sea Snake.png", "audio":"../static/media/Yellow Bellied Sea Snake.mp3"} //font-weight
+        ];
+
+
+        var svg = d3.select('#chart')
+            .append("svg")
+            .data([data])
+            .attr("width",  w + padding.left + padding.right)
+            .attr("height", h + padding.top + padding.bottom);
+
+        var container = svg.append("g")
+            .attr("class", "chartholder")
+            .attr("transform", "translate(" + (w/2 + padding.left) + "," + (h/2 + padding.top) + ")");
+
+        var vis = container
+            .append("g");
+
+        var pie = d3.layout.pie().sort(null).value(function(d){return 1;});
+
+        // declare an arc generator function
+        var arc = d3.svg.arc().outerRadius(r);
+
+        // select paths, use arc generator to draw
+        var arcs = vis.selectAll("g.slice")
+            .data(pie)
+            .enter()
+            .append("g")
+            .attr("class", "slice");
+
+
+        arcs.append("path")
+            .attr("fill", function(d, i){ return color(i); })
+            .attr("d", function (d) { return arc(d); });
+
+        // add the text
+        arcs.append("text").attr("transform", function(d){
+                d.innerRadius = 0;
+                d.outerRadius = r;
+                d.angle = (d.startAngle + d.endAngle)/2;
+                return "rotate(" + (d.angle * 180 / Math.PI - 89) + ")translate(" + (d.outerRadius -15) +")";
+            })
+            .attr("text-anchor", "end")
+            .text( function(d, i) {
+                return data[i].label;
+            });
+        d3.select("#question h2")
+            .text('Click on the SPIN button to start the game.');
+        d3.select("#question")
+            .append('img')
+            .attr('src', '../static/ocean_bingo.jpg')
+            .attr('width', "350px");
+
+        container.on("click", spin);
+
+
+        function spin(d){
+            d3.select("img").remove();
+            d3.select("#question")
+                .append('img')
+                .attr('src', 'https://media.giphy.com/media/3orif5ddF0Bsnh03WU/giphy.gif')
+                .attr('width', "350px");
+            d3.select("#question h2")
+                .text('Spinning ...... so get ready to mark your card.');
+            container.on("click", null);
+
+            //all slices have been seen, all done
+            console.log("OldPick: " + oldpick.length, "Data length: " + data.length);
+            if(oldpick.length == data.length){
+                console.log("done");
+                container.on("click", location.reload());
+                return;
+            }
+
+            var  ps       = 360/data.length,
+                 pieslice = Math.round(1440/data.length),
+                 rng      = Math.floor((Math.random() * 1440) + 360);
+
+            rotation = (Math.round(rng / ps) * ps);
+
+            picked = Math.round(data.length - (rotation % 360)/ps);
+            picked = picked >= data.length ? (picked % data.length) : picked;
+
+
+            if(oldpick.indexOf(picked) !== -1){
+                d3.select(this).call(spin);
+                return;
+            } else {
+                oldpick.push(picked);
+            }
+
+            rotation += 90 - Math.round(ps/2);
+            var audio = new Audio(data[picked].audio);
+            vis.transition()
+                .duration(1500)
+                .attrTween("transform", rotTween)
+                .each("end", function(){
+
+                    //mark question as seen
+                    d3.select(".slice:nth-child(" + (picked + 1) + ") path")
+                        .attr("fill", "#111")
+                        .style("opacity", 1);
+                    d3.select(".slice:nth-child(" + (picked + 1) + ") text")
+                        .style("font-weight", "bold")
+                        .style("fill", "white");
+
+                    //populate question
+
+                    // wheel is spinning
+                    audio.play();
+                    d3.select("img").remove();
+                    d3.select("#question h2")
+                        .text(data[picked].question);
+                    d3.select("#question")
+                        .append('img')
+                        .attr('src', data[picked].image)
+                        .attr('width', "350px");
+
+                    oldrotation = rotation;
+
+                    container.on("click", spin);
+                });
+        }
+
+        //make arrow
+        svg.append("g")
+            .attr("transform", "translate(" + (w + padding.left + padding.right + 10) + "," + ((h/2)+padding.top) + ")")
+            .append("path")
+            .attr("d", "M-" + (r*.15) + ",0L0," + (r*.05) + "L0,-" + (r*.05) + "Z")
+            .style({"fill":"black","cursor":"pointer","stroke":"#fff"});
+
+        //draw spin circle
+        container.append("circle")
+            .attr("cx", 0)
+            .attr("cy", 0)
+            .attr("r", 40)
+            .style({"fill":"white","cursor":"pointer"});
+
+        //spin text
+        container.append("text")
+            .attr("x", 0)
+            .attr("y", 10)
+            .attr("id", "spin-text")
+            .attr("text-anchor", "middle")
+            .text("SPIN")
+            .style({"font-weight":"bold", "font-size":"25px"});
+
+
+        function rotTween(to) {
+          var i = d3.interpolate(oldrotation % 360, rotation);
+          return function(t) {
+            return "rotate(" + i(t) + ")";
+          };
+        }
+
+
+        function getRandomNumbers(){
+            var array = new Uint16Array(1000);
+            var scale = d3.scale.linear().range([360, 1440]).domain([0, 100000]);
+
+            if(window.hasOwnProperty("crypto") && typeof window.crypto.getRandomValues === "function"){
+                window.crypto.getRandomValues(array);
+                console.log("works");
+            } else {
+                //no support for crypto, get crappy random numbers
+                for(var i=0; i < 1000; i++){
+                    array[i] = Math.floor(Math.random() * 100000) + 1;
+                }
+            }
+
+            return array;
+        }
+
+    </script>
+  </div>
+</div>
+</body>
+</html>

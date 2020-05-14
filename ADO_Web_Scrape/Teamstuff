@@ -1,0 +1,21 @@
+#!/usr/bin/env python3
+# -*- coding: utf-8 -*-
+"""
+Created on Mon Mar  9 15:30:54 2020
+
+@author: kodiuser
+"""
+import random
+def dice_simulate():
+    number = random.randint(1,6)
+    print(number)
+    while(1):
+       flag = str(input("Do you want to dice it up again: "))
+       if flag == '1':
+         number = random.randint(1,6)
+         print("Your number is:",number)
+       else:
+         print("ending the game")
+         return
+
+dice_simulate()
