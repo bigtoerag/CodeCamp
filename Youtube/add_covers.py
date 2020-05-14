@@ -5,7 +5,6 @@ Created on Mon May 11 20:23:14 2020
 
 @author: kodiuser
 """
-
 import os
 import eyed3
 

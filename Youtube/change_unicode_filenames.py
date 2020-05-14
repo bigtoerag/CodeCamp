@@ -5,7 +5,6 @@ Created on Mon May 11 20:23:14 2020
 
 @author: kodiuser
 """
-
 import os
 import re
 import sys
@@ -31,6 +30,5 @@ for filename in os.listdir(directory):
                 continue
         continue
     else:
-
         print("Not the required file type")
         continue
