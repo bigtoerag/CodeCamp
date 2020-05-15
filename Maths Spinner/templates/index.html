@@ -150,6 +150,7 @@ SOFTWARE.
       padding: 30px;
       border: 10px dotted green;
       display: none;
+      margin: 15px;
     }
     #reset {
       display: none;
@@ -184,7 +185,7 @@ SOFTWARE.
     </div>
     <div id="content" class="content">
       <div id="chart"></div>
-      <div id="question"><h1>What is:</h1><h2>Ready?</h2>
+      <div id="question"><h1></h1><h2>Ready?</h2>
       <input id="enter_answer" class="enter_answer" name="enter_answer" type="number" placeholder="    ?" required>
       <button id="show_answer" class="show_answer" onclick="store_answer(); this.disabled = true;">Input Answer</button>
       <div id="answer_array"></div>
@@ -209,7 +210,7 @@ SOFTWARE.
             picked = 100000,
             oldpick = [],
             entered = [],
-            correct_answers = [],
+            correct_answers = 0;
             color = d3.scale.category20();//category20c()
             factor = [{"scale":"1x","value":"1"},
                       {"scale":"2x","value":"2"},
@@ -229,9 +230,9 @@ SOFTWARE.
         //http://osric.com/bingo-card-generator/?title=HTML+and+CSS+BINGO!&words=padding%2Cfont-family%2Ccolor%2Cfont-weight%2Cfont-size%2Cbackground-color%2Cnesting%2Cbottom%2Csans-serif%2Cperiod%2Cpound+sign%2C%EF%B9%A4body%EF%B9%A5%2C%EF%B9%A4ul%EF%B9%A5%2C%EF%B9%A4h1%EF%B9%A5%2Cmargin%2C%3C++%3E%2C{+}%2C%EF%B9%A4p%EF%B9%A5%2C%EF%B9%A4!DOCTYPE+html%EF%B9%A5%2C%EF%B9%A4head%EF%B9%A5%2Ccolon%2C%EF%B9%A4style%EF%B9%A5%2C.html%2CHTML%2CCSS%2CJavaScript%2Cborder&freespace=true&freespaceValue=Web+Design+Master&freespaceRandom=false&width=5&height=5&number=35#results
 
         var data = [
-                    {"label":"1",  "value":1,  "question":"What is: "}, // padding
-                    {"label":"2",  "value":2,  "question":"What is factor[2] x data[picked].value}?"}, //font-family
-                    {"label":"3",  "value":3,  "question":"What is factor[2] x data[picked].value}?"}, //color
+                    {"label":"1",  "value":1,  "question":"What is {value x factor}?"}, // padding
+                    {"label":"2",  "value":2,  "question":"What is {value x factor}?"}, //font-family
+                    {"label":"3",  "value":3,  "question":"What is {value x factor}?"}, //color
                     {"label":"4",  "value":4,  "question":"What is {value x factor}?"}, //font-weight
                     {"label":"5",  "value":5,  "question":"What is {value x factor}?"}, //font-size
                     {"label":"6",  "value":6,  "question":"What is {value x factor}?"}, //background-color
@@ -294,18 +295,24 @@ SOFTWARE.
             return factor_scale, factor_value;
         }
 
+        //Main spinner and logic to do the showtime stuff
         function spin(d){
+            //hide the spin click so it cant be done again until we are ready
             container.on("click", null);
 
             //all slices have been seen, all done
             console.log("OldPick: " + oldpick.length, "Data length: " + data.length);
             if(oldpick.length == data.length){
+                //done like a dogs dinner
                 console.log("done");
+                //hide the clicky things
                 container.on("click", null);
+                //hide the running text elements and get ready to put up the score
                 document.getElementById("enter_answer").style.display = "none";
                 document.getElementById("show_answer").style.display = "none";
-
-                result = Math.floor(((entered.filter(x => x === '&#9989;').length)/data.length)*100) + '%';
+                //work out the score
+                result = Math.floor((correct_answers/data.length)*100) + '%';
+                //now post the score to the elements and unhide them
                 document.getElementById("result").innerHTML = result;
                 document.getElementById("result").style.display = "block";
                 document.getElementById("reset").style.display = "block";
@@ -325,10 +332,8 @@ SOFTWARE.
                 oldpick.push(picked);
             }
             rotation += 90 - Math.round(ps/2);
+            //make a random choice from the array
             random_factor = random(factor);
-            console.log("Random Factor= " + factor_scale + factor_value);
-            answer = parseInt(data[picked].value)*(parseInt(factor_value));
-            correct_answers.push(answer);
             vis.transition()
                 .duration(2000)
                 .attrTween("transform", rotTween)
@@ -387,21 +392,35 @@ SOFTWARE.
             } else {
                 //no support for crypto, get crappy random numbers
                 for(var i=0; i < 1000; i++){
-                    array[i] = Math.floor(Math.random() * 100000) + 1;
+                    array[i] = Math.floor(Math.random() * 100000) + 1;correct_answers
                 }
             }
             return array;
         }
         function store_answer(){
+          //get what the user entered
           var x = document.getElementById("enter_answer").value;
+          //check to console for testing
+          console.log("Random Factor: Scale = " + factor_scale + " Wheel factor = " + factor_value);
+          //generate the correct anser so we can check the user input
+          answer = parseInt(data[picked].value)*(parseInt(factor_value));
+          //check the anser is correct
           if (parseInt(x) === parseInt(answer)){
-            entered.push("&#9989;")
+            //add a green tick to the array of results
+            entered.push("<span style='color:green;'>&#10004;</span>")
+            correct_answers += 1;
+            console.log("Correct Answers: "+ correct_answers);
           } else {
-            entered.push("&#10006;")
+            //add a incorrect cross to the array of results
+            entered.push("<span style='color:red;'>&#10006;</span>")
           }
+          //display progress of right and wrong answers
           document.getElementById("answer_array").innerHTML = entered.join(' ');
+          //reset the input to avoid confusion
           document.getElementById("enter_answer").value = '';
+          //chill out for a second as its been busy
           sleep(1000);
+          //go to nest qeustion until all 12 are marked completed
           spin();
         }
         function sleep(ms) {
