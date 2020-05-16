@@ -29,11 +29,14 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 -->
 
-    <style type="text/css">
+<style type="text/css">
+@import url('https://fonts.googleapis.com/css2?family=Concert+One&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Nunito&display=swap');
+
     body {
       margin:0 auto;
       background-color: #fff;
-      font-family: 'Roboto', sans-serif;
+      font-family: 'Nunito', sans-serif;
     }
     text{
         font-size:40px;
@@ -51,18 +54,23 @@ SOFTWARE.
     border: 1px dotted #ccc;
     border-bottom:2px solid #ccc;
     width:15%;
-    -webkit-appearance: none;
     margin: 0;
     margin-left: 30%;
     margin-right: 20px;
     float: left;
     box-sizing: content-box;
+    font-family: 'Nunito', sans-serif;
+    }
+    input[type=number]::-webkit-outer-spin-button,
+    input[type=number]::-webkit-inner-spin-button {
+        -webkit-appearance: none;
+        margin: 0;
+        text-align: center
+    }
 
-}
-    /* Firefox */
-  input[type=number] {
-    -moz-appearance: textfield;
-  }
+    input[type=number] {
+        -moz-appearance:textfield;
+    }
 
     .container {
       width = 100%;
@@ -80,9 +88,8 @@ SOFTWARE.
       display: flex;
       justify-content: center;
       align-content: center;
-      font-family: 'Ubuntu', sans-serif;
-      font-weight: 900;
-      font-style: italic;
+      font-size: 40px;
+      font-weight: 100;
     }
     .footer {
       width = 100%;
@@ -91,10 +98,24 @@ SOFTWARE.
       display: flex;
       justify-content: center;
       align-content: center;
-      font-family: 'Ubuntu', sans-serif;
       font-weight: 400;
       font-style: italic;
       padding: 20px;
+    }
+    .type {
+        font-size: 30px;
+        font-family: 'Nunito', sans-serif;
+        font-weight: 900;
+        width: 75%;
+        padding: 10px;
+        padding-bottom: 10px;
+        margin-top: 20px;
+        color: black;
+        border: 1px solid black;
+    }
+    button.type:hover {
+    color: #ccc;
+    background-color: #000;
     }
     #content{
         width = 100%;
@@ -125,32 +146,40 @@ SOFTWARE.
         position: relative;
         display: inline-block;
         width:500px;
-        height:500px;
+        height:auto;
         float:left;
+        padding: 70px 0;
+        text-align: center;
+
+    }
+    #choices{
+        position: relative;
+        display: inline-block;
         text-align: center;
 
     }
     #question h2{
-        font-size: 100px;
+        font-size: 60px;
         font-weight: 900;
-        font-family: 'Ubuntu', sans-serif;
         color: black;
         line-height: 20px;
     }
     #answer_array {
-        font-size: 35px;
-        font-weight: 900;
-        font-family: 'Ubuntu', sans-serif;
-        width: inherit;
+        font-size: 55px;
+        font-weight: 600;
+        width: 80%;
         position: relative;
         bottom: 0px;
         margin-top: 50px;
+        display: inline-block;
 
+    }
+    #answer_array span {
+      margin-right: 0;
     }
     #result {
       font-size: 30px;
       font-weight: 900;
-      font-family: 'Ubuntu', sans-serif;
       border: 10px dotted green;
       display: none;
       margin: 15px;
@@ -166,20 +195,22 @@ SOFTWARE.
     }
     button.show_answer {
     height: 52px;
+    width: 150px;
     border: 1px solid #000;
     border-radius: 5px;
     box-sizing: border-box;
     text-decoration: none;
-    font-family: 'Roboto',sans-serif;
-    font-weight: 800;
+    font-weight: 100;
+    font-size: 20px;
     color: #000;
+    font-family: 'Nunito', sans-serif;
     text-align: center;
-    transition: all 0.2s;
+    transition: all 0.3s;
 		float: left;
     }
     button.show_answer:hover {
     color: #ccc;
-    background-color: #000;
+    background-color: green;
     }
     button.reset {
     height: 30px;
@@ -188,19 +219,20 @@ SOFTWARE.
     border-radius: 5px;
     box-sizing: border-box;
     text-decoration: none;
-    font-family: 'Roboto',sans-serif;
     font-weight: 800;
+    font-family: 'Nunito', sans-serif;
     color: #000;
+    padding-top: 10px;
+    padding-bottom: 25px;
     text-align: center;
-    transition: all 0.2s;
+    transition: all 0.3s;
     display: none;
     }
     button.reset:hover {
     color: #ccc;
-    background-color: #000;
+    background-color: green;
     }
-
-    </style>
+</style>
 
 </head>
 <body>
@@ -211,23 +243,33 @@ SOFTWARE.
     <hr>
     <div id="content" class="content">
       <div id="chart"></div>
-      <div id="question"><h1></h1><h2>Ready?</h2>
-      <div id="ans_res">
-      <input id="enter_answer" class="enter_answer" name="enter_answer" type="number" placeholder="   ?" required>
-      <button id="show_answer" class="show_answer" onclick="store_answer(); this.disabled = true;">Input Answer</button>
-    </div >
-      <div id="answer_array"></div>
-      <div id="result"></div>
-      <button id="reset" class="reset" onclick="location.reload();">Play Again</button>
+
+        <div id="choices">
+          <button class="type" onmouseup="set_factor('multiply')">Try Multiplication</button>
+          <button class="type" onmouseup="set_factor('addition')">Try Addition</button>
+          <button class="type" onmouseup="set_factor('subtraction')">Try Subtraction</button>
+        </div>
+      <div id="question">
+          <h2 id="equation">Ready to spin?</h2>
+          <div id="ans_res">
+          <input id="enter_answer" class="enter_answer" name="enter_answer" type="number" placeholder="" required>
+          <button id="show_answer" class="show_answer" onclick="store_answer(); this.disabled = true;">Check Answer</button>
+        </div >
+        <div id="answer_array"></div>
+        <div id="result"></div>
+        <button id="reset" class="reset" onclick="location.reload();">Play Again</button>
     </div>
   </div>
   <hr>
       <div id="footer" class="footer">Cobbled together by Marcus using COVID-19 skills in JS</div>
   </div>
+  <input type="hidden" id="factor" value="" />
     <script src="https://d3js.org/d3.v3.min.js" charset="utf-8"></script>
     <script type="text/javascript" charset="utf-8">
         window.onload=function() {
           document.getElementById("show_answer").disabled=true;
+          document.getElementById("question").style.display = "none";
+          document.getElementById("chart").style.display = "none";
         }
         var padding = {top:20, right:40, bottom:0, left:0},
             w = 500 - padding.left - padding.right,
@@ -239,8 +281,10 @@ SOFTWARE.
             oldpick = [],
             entered = [],
             correct_answers = 0;
+            answer = 0;
             color = d3.scale.category20();//category20c()
-            factor = [{"scale":"1x","value":"1"},
+
+            multiply = [{"scale":"1x","value":"1"},
                       {"scale":"2x","value":"2"},
                       {"scale":"3x","value":"3"},
                       {"scale":"4x","value":"4"},
@@ -253,8 +297,33 @@ SOFTWARE.
                       {"scale":"11x","value":"11"},
                       {"scale":"12x","value":"12"}
                     ];
+            addition = [{"scale":"1+","value":"1"},
+                      {"scale":"2+","value":"2"},
+                      {"scale":"3+","value":"3"},
+                      {"scale":"4+","value":"4"},
+                      {"scale":"5+","value":"5"},
+                      {"scale":"6+","value":"6"},
+                      {"scale":"7+","value":"7"},
+                      {"scale":"8+","value":"8"},
+                      {"scale":"9+","value":"9"},
+                      {"scale":"10+","value":"10"},
+                      {"scale":"11+","value":"11"},
+                      {"scale":"12+","value":"12"}
+                    ];
+            subtraction = [{"scale":"1-","value":"1"},
+                      {"scale":"2-","value":"2"},
+                      {"scale":"3-","value":"3"},
+                      {"scale":"4-","value":"4"},
+                      {"scale":"5-","value":"5"},
+                      {"scale":"6-","value":"6"},
+                      {"scale":"7-","value":"7"},
+                      {"scale":"8-","value":"8"},
+                      {"scale":"9-","value":"9"},
+                      {"scale":"10-","value":"10"},
+                      {"scale":"11-","value":"11"},
+                      {"scale":"12-","value":"12"}
+                    ];
             //randomNumbers = getRandomNumbers();
-
         //http://osric.com/bingo-card-generator/?title=HTML+and+CSS+BINGO!&words=padding%2Cfont-family%2Ccolor%2Cfont-weight%2Cfont-size%2Cbackground-color%2Cnesting%2Cbottom%2Csans-serif%2Cperiod%2Cpound+sign%2C%EF%B9%A4body%EF%B9%A5%2C%EF%B9%A4ul%EF%B9%A5%2C%EF%B9%A4h1%EF%B9%A5%2Cmargin%2C%3C++%3E%2C{+}%2C%EF%B9%A4p%EF%B9%A5%2C%EF%B9%A4!DOCTYPE+html%EF%B9%A5%2C%EF%B9%A4head%EF%B9%A5%2Ccolon%2C%EF%B9%A4style%EF%B9%A5%2C.html%2CHTML%2CCSS%2CJavaScript%2Cborder&freespace=true&freespaceValue=Web+Design+Master&freespaceRandom=false&width=5&height=5&number=35#results
 
         var data = [
@@ -277,7 +346,8 @@ SOFTWARE.
             .append("svg")
             .data([data])
             .attr("width",  w + padding.left + padding.right)
-            .attr("height", h + padding.top + padding.bottom);
+            .attr("height", h + padding.top + padding.bottom)
+            .attr("id", "chartsvg");
 
         var container = svg.append("g")
             .attr("class", "chartholder")
@@ -297,7 +367,7 @@ SOFTWARE.
             .enter()
             .append("g")
             .attr("class", "slice");
-        var answer = 0;
+
 
         arcs.append("path")
             .attr("fill", function(d, i){ return color(i); })
@@ -308,18 +378,51 @@ SOFTWARE.
                 d.innerRadius = 0;
                 d.outerRadius = r;
                 d.angle = (d.startAngle + d.endAngle)/2;
-                return "rotate(" + (d.angle * 180 / Math.PI - 90) + ")translate(" + (d.outerRadius -10) +")";
+                return "rotate(" + (d.angle * 180 / Math.PI - 85) + ")translate(" + (d.outerRadius -10) +")";
             })
             .attr("text-anchor", "end")
             .text( function(d, i) {
                 return data[i].label;
             });
+        //make arrow
+        svg.append("g")
+            .attr("transform", "translate(" + (w + padding.left + padding.right) + "," + ((h/2)+padding.top) + ")")
+            .append("path")
+            .attr("d", "M-" + (r*.15) + ",0L0," + (r*.05) + "L0,-" + (r*.05) + "Z")
+            .style({"fill":"black"});
+
+        //draw spin circle
+        container.append("circle")
+            .attr("cx", 0)
+            .attr("cy", 0)
+            .attr("r", 60)
+            .style({"fill":"white","cursor":"pointer"});
+
+        //spin text
+        container.append("text")
+            .attr("id", "spintext")
+            .attr("x", 0)
+            .attr("y", 15)
+            .attr("text-anchor", "middle")
+            .text("SPIN")
+            .style({"font-weight":"bold", "font-size":"40px"});
+
         container.on("click", spin);
+
+        function set_factor(input) {
+          document.getElementById("choices").style.display = "none";
+          document.getElementById("question").style.display = "inline-block";
+          document.getElementById("chart").style.display = "inline-block";
+          document.getElementById("factor").value = input;
+          factor = document.getElementById("factor").value;
+          return factor;
+        }
 
         function random(array) {
             index = Math.floor(Math.random() * array.length);
             factor_scale = array[index].scale;
             factor_value = array[index].value;
+            console.log("RandomScale = " + factor_scale + " RandomValue = " + factor_value);
             return factor_scale, factor_value;
         }
 
@@ -327,6 +430,7 @@ SOFTWARE.
         function spin(d){
             //hide the spin click so it cant be done again until we are ready
             container.on("click", null);
+            document.getElementById("spintext").style.display = "none";
 
             //all slices have been seen, all done
             console.log("OldPick: " + oldpick.length, "Data length: " + data.length);
@@ -363,7 +467,8 @@ SOFTWARE.
             }
             rotation += 90 - Math.round(ps/2);
             //make a random choice from the array
-            random_factor = random(factor);
+            random_factor = random(window[factor]);
+            console.log(factor_scale + " - " + factor_value);
             vis.transition()
                 .duration(2000)
                 .attrTween("transform", rotTween)
@@ -372,11 +477,12 @@ SOFTWARE.
                     //mark as seen
                     d3.select(".slice:nth-child(" + (picked + 1) + ") path")
                         .attr("fill", "#111")
-                        .attr("opacity","0.5");
+                        .attr("opacity","0.75");
 
                     //populate question
                     d3.select("#question h2")
-                        .text(factor_scale + data[picked].label);
+                        .text(factor_scale + data[picked].label)
+                        .style({"font-weight":"bold", "font-size":"80px"});
 
                     oldrotation = rotation;
                     sleep(3000);
@@ -385,28 +491,8 @@ SOFTWARE.
 
                 });
         }
-        //make arrow
-        svg.append("g")
-            .attr("transform", "translate(" + (w + padding.left + padding.right) + "," + ((h/2)+padding.top) + ")")
-            .append("path")
-            .attr("d", "M-" + (r*.15) + ",0L0," + (r*.05) + "L0,-" + (r*.05) + "Z")
-            .style({"fill":"black"});
 
-        //draw spin circle
-        container.append("circle")
-            .attr("cx", 0)
-            .attr("cy", 0)
-            .attr("r", 60)
-            .style({"fill":"white","cursor":"pointer"});
 
-        //spin text
-        container.append("text")
-            .attr("id", "spintext")
-            .attr("x", 0)
-            .attr("y", 15)
-            .attr("text-anchor", "middle")
-            .text("SPIN")
-            .style({"font-weight":"bold", "font-size":"30px"});
         function rotTween(to) {
           var i = d3.interpolate(oldrotation % 360, rotation);
           return function(t) {
@@ -433,8 +519,17 @@ SOFTWARE.
           var x = document.getElementById("enter_answer").value;
           //check to console for testing
           console.log("Random Factor: Scale = " + factor_scale + " Wheel factor = " + factor_value);
-          //generate the correct anser so we can check the user input
+          //generate the correct answer so we can check the user input
+          if (document.getElementById("factor").value === 'multiply') {
           answer = parseInt(data[picked].value)*(parseInt(factor_value));
+          console.log("we are multiply");
+        } else if (document.getElementById("factor").value === 'addition') {
+          answer = (parseInt(factor_value)+parseInt(data[picked].value));
+          console.log("we are addition");
+        } else {
+          answer = (parseInt(factor_value)-parseInt(data[picked].value));
+          console.log("we are subtraction");
+        }
           //check the anser is correct
           if (parseInt(x) === parseInt(answer)){
             //add a green tick to the array of results
@@ -443,6 +538,8 @@ SOFTWARE.
             console.log("Correct Answers: "+ correct_answers);
           } else {
             //add a incorrect cross to the array of results
+            document.getElementById("equation").style.font = "italic 40px";
+            document.getElementById("equation").innerHTML = 'Oops! = ' + answer;
             entered.push("<span style='color:red;'>&#10006;</span>")
           }
           //display progress of right and wrong answers
