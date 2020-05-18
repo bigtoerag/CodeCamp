@@ -4,7 +4,7 @@
     <meta charset="utf-8">
     <title>Maths Factor Spinner</title>
     <style>html{visibility: hidden;opacity:0;}</style>
-
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 <!--
 
 MIT License
@@ -118,6 +118,9 @@ SOFTWARE.
     color: #ccc;
     background-color: #000;
     }
+    #answer_hr {
+      margin-top: 0;
+    }
     #content{
         width = 100%;
         height = auto;
@@ -149,7 +152,7 @@ SOFTWARE.
         width:500px;
         height:auto;
         float:left;
-        padding: 70px 0;
+        padding: 70px 0 10px 0;
         text-align: center;
 
     }
@@ -166,17 +169,25 @@ SOFTWARE.
         line-height: 20px;
     }
     #answer_array {
-        font-size: 55px;
+        font-size: 30px;
         font-weight: 600;
-        width: 80%;
+        width: 100%;
         position: relative;
         bottom: 0px;
-        margin-top: 50px;
+        margin-top: 15px;
         display: inline-block;
+        text-align: center;
 
     }
-    #answer_array span {
-      margin-right: 0;
+    #answer_array_title {
+              font-size: 30px;
+          margin-top: 35px;
+        }
+    .fa-times-circle {
+    	color: red;
+    }
+    .fa-check-circle {
+    	color: green;
     }
     #ans_res {
       width: 100%;
@@ -297,6 +308,8 @@ SOFTWARE.
           <input id="enter_answer" class="enter_answer" name="enter_answer" type="number" placeholder="" required>
           <button id="show_answer" class="show_answer" onclick="store_answer(); this.disabled = true;">Check Answer</button>
         </div >
+        <div id="answer_array_title">Answer History<hr id="answer_hr"></div>
+
         <div id="answer_array"></div>
     </div>
     <div id="modal">
@@ -458,6 +471,7 @@ SOFTWARE.
         function set_factor(input) {
           document.getElementById("choices").style.display = "none";
           document.getElementById("ans_res").style.display = "none";
+          document.getElementById("answer_array_title").style.display = "none";
           document.getElementById("chart").style.display = "inline-block";
           document.getElementById("question").style.display = "inline-block";
           document.getElementById("factor").value = input;
@@ -495,13 +509,13 @@ SOFTWARE.
                 //now post the score to the elements and unhide them
                 if (result == 100) {
                   document.getElementById("result").style.backgroundColor = "green";
-                  document.getElementById("result").innerHTML = "Winner winner chicken dinner! Your passing score was: " + result + "%";
+                  document.getElementById("result").innerHTML = "Winner winner chicken dinner! Your score was perfect: " + result + "%";
                 } else if (result >= 50 && result != 100) {
                   document.getElementById("result").style.backgroundColor = "green";
                   document.getElementById("result").innerHTML = "Your passing score was: " + result + "%";
                 } else {
                   document.getElementById("result").style.backgroundColor = "red";
-                  document.getElementById("result").innerHTML = "Your not so good score was: " + result + "%";
+                  document.getElementById("result").innerHTML = "Your score was: " + result + "%";
                 }
                 document.getElementById("modal").style.display = "inline-block";
                 return;
@@ -589,17 +603,19 @@ SOFTWARE.
           if (parseInt(x) === parseInt(answer)){
             //add a green tick to the array of results
             document.getElementById("equation").innerHTML = "Correct";
-            entered.push("<span style='color:green;'>&#10004;</span>")
+            entered.push("<i class='fa fa-check-circle' style='font-size:34px'></i>")
             correct_answers += 1;
             console.log("Correct Answers: "+ correct_answers);
+            document.getElementById("answer_array").innerHTML = entered.join(' ');
           } else {
             //add a incorrect cross to the array of results
             document.getElementById("equation").innerHTML = "Oops! = " + answer;
             document.getElementById("equation").style.font = "italic 40px";
-            entered.push("<span style='color:red;'>&#10006;</span>")
+            entered.push("<i class='fa fa-times-circle' style='font-size:34px'></i>")
+            document.getElementById("answer_array").innerHTML = entered.join(' ');
           }
           //display progress of right and wrong answers
-          document.getElementById("answer_array").innerHTML = entered.join(' ');
+          document.getElementById("answer_array_title").style.display = "block";
           //reset the input to avoid confusion
           document.getElementById("enter_answer").value = '';
           //chill out for a second as its been busy
