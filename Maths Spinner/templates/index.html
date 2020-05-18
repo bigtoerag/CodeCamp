@@ -3,6 +3,7 @@
 <head>
     <meta charset="utf-8">
     <title>Maths Factor Spinner</title>
+    <style>html{visibility: hidden;opacity:0;}</style>
 
 <!--
 
@@ -177,15 +178,6 @@ SOFTWARE.
     #answer_array span {
       margin-right: 0;
     }
-    #result {
-      font-size: 30px;
-      font-weight: 900;
-      border: 10px dotted green;
-      display: none;
-      margin: 15px;
-      padding-top: 10px;
-      padding-bottom: 10px;
-    }
     #ans_res {
       width: 100%;
       height: auto;
@@ -232,6 +224,56 @@ SOFTWARE.
     color: #ccc;
     background-color: green;
     }
+    #modal {
+	/* basic */
+  padding: 10px;
+  margin-top: 20px;
+  text-decoration: none;
+  font-weight: 800;
+  font-family: 'Nunito', sans-serif;
+  color: #000;
+  padding-top: 10px;
+  padding-bottom: 25px;
+  text-align: center;
+  display: none;
+}
+
+  #modal h1 {
+  	text-align:center;
+  	margin:0;
+  	font-size:30px;
+  	margin-bottom:10px;
+  }
+
+  #modal div {
+  	color: #ccc;
+  	font-size:35px;
+  	text-align:center;
+  }
+
+  button.yes {
+    width: 100%;
+    margin-top: 20px;
+    border: 1px solid #000;
+    border-radius: 5px;
+    box-sizing: border-box;
+    text-decoration: none;
+    font-weight: 800;
+    font-size:30px;
+    font-family: 'Nunito', sans-serif;
+    color: #000;
+    padding: 10px;
+    text-align: center;
+    transition: all 0.3s;
+    float: left;
+  }
+  button.yes:hover {
+  color: #ccc;
+  background-color: green;
+  }
+  html {
+     visibility: visible;
+     opacity: 1; }
 </style>
 
 </head>
@@ -256,10 +298,14 @@ SOFTWARE.
           <button id="show_answer" class="show_answer" onclick="store_answer(); this.disabled = true;">Check Answer</button>
         </div >
         <div id="answer_array"></div>
-        <div id="result"></div>
-        <button id="reset" class="reset" onclick="location.reload();">Play Again</button>
     </div>
+    <div id="modal">
+        <h1>Thanks for playing 🏆</h1>
+        <div id="result"></div>
+        <button class="yes" onclick="location.reload();" >Play Again</button>
   </div>
+  </div>
+
   <hr>
       <div id="footer" class="footer">Cobbled together by Marcus using COVID-19 skills in JS</div>
   </div>
@@ -411,8 +457,9 @@ SOFTWARE.
 
         function set_factor(input) {
           document.getElementById("choices").style.display = "none";
-          document.getElementById("question").style.display = "inline-block";
+          document.getElementById("ans_res").style.display = "none";
           document.getElementById("chart").style.display = "inline-block";
+          document.getElementById("question").style.display = "inline-block";
           document.getElementById("factor").value = input;
           factor = document.getElementById("factor").value;
           return factor;
@@ -431,8 +478,9 @@ SOFTWARE.
             //hide the spin click so it cant be done again until we are ready
             container.on("click", null);
             document.getElementById("spintext").style.display = "none";
-
-            //all slices have been seen, all done
+            document.getElementById("ans_res").style.display = "inline-block";
+            document.getElementById("equation").innerHTML = "Spinning...";
+           //all slices have been seen, all done
             console.log("OldPick: " + oldpick.length, "Data length: " + data.length);
             if(oldpick.length == data.length){
                 //done like a dogs dinner
@@ -440,16 +488,22 @@ SOFTWARE.
                 //hide the clicky things
                 container.on("click", null);
                 //hide the running text elements and get ready to put up the score
-                document.getElementById("enter_answer").style.display = "none";
-                document.getElementById("show_answer").style.display = "none";
-                d3.select("#question h2")
-                    .text("");
+                document.getElementById("question").style.display = "none";
+                document.getElementById("chart").style.display = "none";
                 //work out the score
-                result = Math.floor((correct_answers/data.length)*100) + '%';
+                result = Math.floor((correct_answers/data.length)*100);
                 //now post the score to the elements and unhide them
-                document.getElementById("result").innerHTML = result;
-                document.getElementById("result").style.display = "block";
-                document.getElementById("reset").style.display = "block";
+                if (result = 100) {
+                  document.getElementById("result").style.backgroundColor = "green";
+                  document.getElementById("result").innerHTML = "Winner winner chicken dinner! Your passing score was: " + result + "%";
+                } else if (result >= 50) {
+                  document.getElementById("result").style.backgroundColor = "green";
+                  document.getElementById("result").innerHTML = "Your passing score was: " + result + "%";
+                } else {
+                  document.getElementById("result").style.backgroundColor = "red";
+                document.getElementById("result").innerHTML = "Your not so good score was: " + result + "%";
+                }
+                document.getElementById("modal").style.display = "inline-block";
                 return;
             }
             var  ps       = 360/data.length,
@@ -468,6 +522,7 @@ SOFTWARE.
             rotation += 90 - Math.round(ps/2);
             //make a random choice from the array
             random_factor = random(window[factor]);
+
             console.log(factor_scale + " - " + factor_value);
             vis.transition()
                 .duration(2000)
@@ -489,6 +544,7 @@ SOFTWARE.
                     //container.on("click", spin);
 
                 });
+
         }
 
 
@@ -532,13 +588,14 @@ SOFTWARE.
           //check the anser is correct
           if (parseInt(x) === parseInt(answer)){
             //add a green tick to the array of results
+            document.getElementById("equation").innerHTML = "Correct";
             entered.push("<span style='color:green;'>&#10004;</span>")
             correct_answers += 1;
             console.log("Correct Answers: "+ correct_answers);
           } else {
             //add a incorrect cross to the array of results
+            document.getElementById("equation").innerHTML = "Oops! = " + answer;
             document.getElementById("equation").style.font = "italic 40px";
-            document.getElementById("equation").innerHTML = 'Oops! = ' + answer;
             entered.push("<span style='color:red;'>&#10006;</span>")
           }
           //display progress of right and wrong answers
@@ -547,7 +604,8 @@ SOFTWARE.
           document.getElementById("enter_answer").value = '';
           //chill out for a second as its been busy
           //go to nest qeustion until all 12 are marked completed
-          spin();
+          sleep(2000).then(() => { spin(); });
+          //spin();
         }
         function sleep(ms) {
           return new Promise(resolve => setTimeout(resolve, ms));
