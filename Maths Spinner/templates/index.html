@@ -300,7 +300,7 @@ SOFTWARE.
         <div id="answer_array"></div>
     </div>
     <div id="modal">
-        <h1>Thanks for playing 🏆</h1>
+        <h1>Thanks for playing &#127942;</h1>
         <div id="result"></div>
         <button class="yes" onclick="location.reload();" >Play Again</button>
   </div>
@@ -493,15 +493,15 @@ SOFTWARE.
                 //work out the score
                 result = Math.floor((correct_answers/data.length)*100);
                 //now post the score to the elements and unhide them
-                if (result = 100) {
+                if (result == 100) {
                   document.getElementById("result").style.backgroundColor = "green";
                   document.getElementById("result").innerHTML = "Winner winner chicken dinner! Your passing score was: " + result + "%";
-                } else if (result >= 50) {
+                } else if (result >= 50 && result != 100) {
                   document.getElementById("result").style.backgroundColor = "green";
                   document.getElementById("result").innerHTML = "Your passing score was: " + result + "%";
                 } else {
                   document.getElementById("result").style.backgroundColor = "red";
-                document.getElementById("result").innerHTML = "Your not so good score was: " + result + "%";
+                  document.getElementById("result").innerHTML = "Your not so good score was: " + result + "%";
                 }
                 document.getElementById("modal").style.display = "inline-block";
                 return;
