@@ -195,7 +195,7 @@ SOFTWARE.
     }
     button.show_answer {
     height: 52px;
-    width: 150px;
+    width: 180px;
     border: 1px solid #000;
     border-radius: 5px;
     box-sizing: border-box;
@@ -485,7 +485,6 @@ SOFTWARE.
                         .style({"font-weight":"bold", "font-size":"80px"});
 
                     oldrotation = rotation;
-                    sleep(3000);
                     document.getElementById("show_answer").disabled=false;
                     //container.on("click", spin);
 
@@ -547,7 +546,6 @@ SOFTWARE.
           //reset the input to avoid confusion
           document.getElementById("enter_answer").value = '';
           //chill out for a second as its been busy
-          sleep(1000);
           //go to nest qeustion until all 12 are marked completed
           spin();
         }
