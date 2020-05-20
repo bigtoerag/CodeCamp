@@ -20,7 +20,7 @@ def input():
         roll_result = []
         size=0
         def operands():
-            signs = ['+','-']
+            signs = ['+','-','*']
             operand = random.choice(signs)
             return operand
         
