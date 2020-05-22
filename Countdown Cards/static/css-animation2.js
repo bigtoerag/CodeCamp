@@ -12,7 +12,7 @@ var CardGame = function(targetId)
   var started = false;
   var matches_found = 0;
   var card1 = false, card2 = false;
-
+  var firstClick = true;
 
   var hideCard = function(id) // turn card face down
   {
@@ -47,9 +47,11 @@ var CardGame = function(targetId)
           setTimeout(function() { cardMatched(card1); cardMatched(card2); }, 600);
         })(card1, card2);
         if(++matches_found == total_cards/2) { // game over, reset
+          pauseTimer();
+          final_time = document.getElementById('stopwatch').innerHTML
           matches_found = 0;
           started = false;
-          alert("Well Done");
+          alert("Well Done, Your time was " + final_time);
         }
 
       } else { // no match
@@ -66,12 +68,19 @@ var CardGame = function(targetId)
 
   var cardClick = function(id)
   {
-    if(started) {
-      showCard(id);
-    } else {
-      started = true;
-			showCard(id);
-    }
+    if (firstClick == true) {
+      startTimer();
+      if(started) {
+        showCard(id);
+      } else {
+        started = true;
+  			showCard(id);
+      }
+      firstClick = false;
+  } else {
+    started = true;
+    showCard(id);
+  }
   };
   var cardMatched = function(card)
   {
@@ -107,9 +116,9 @@ var CardGame = function(targetId)
 
   var stage = document.getElementById(targetId);
   var felt = document.createElement("div");
+  var stopwatch = document.getElementById('stopwatch');
   felt.id = "felt";
   stage.appendChild(felt);
-
   // template for card
   var card = document.createElement("div");
   card.innerHTML = "&#x1F0A0";

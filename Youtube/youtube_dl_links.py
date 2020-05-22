@@ -30,19 +30,22 @@ ydl_opts = {
 outdir = '/mnt/oldmedialib/youtubedl'
 browser = webdriver.Chrome()
 
-browser.get("https://www.youtube.com/user/Fluidified/videos")
+browser.get("https://www.youtube.com/playlist?list=PLCC51BF0C94BE62E8")
 time.sleep(1)
 
 elem = browser.find_element_by_tag_name("body")
 
-no_of_pagedowns = 30
+no_of_pagedowns = 100
 
 while no_of_pagedowns:
     elem.send_keys(Keys.PAGE_DOWN)
     time.sleep(0.2)
     no_of_pagedowns-=1
 
+#For users and other channels use this XPATH
 user_data = browser.find_elements_by_xpath('//*[@id="video-title"]')
+#For playists use this XPATH
+user_data = browser.find_elements_by_xpath('//*[@id="content"]/a')
 links = []
 for i in user_data:
     links.append(i.get_attribute('href'))
