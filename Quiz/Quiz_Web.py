@@ -32,7 +32,7 @@ def input():
         else:
             question_type = 'multiple'
         app.logger.info(question_type)   
-        url = 'https://opentdb.com/api.php?amount=1&&difficulty=easy&category=27&type=' + question_type
+        url = 'https://opentdb.com/api.php?amount=1&&type=' + question_type
         resp = requests.get(url=url)
         json_array = resp.json() # Check the JSON Response Content documentation below
         quiz_list = []

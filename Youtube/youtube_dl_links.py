@@ -15,22 +15,28 @@ from selenium.webdriver.common.keys import Keys
 import youtube_dl
 import re
 
+is_playlist = False;
+
 ydl_opts = {
-    'format': 'bestaudio/best',
+    'format': 'bestvideo[height<=480]+bestaudio/best',
+    #'format': 'bestaudio/best',
     'outtmpl': '/mnt/oldmedialib/youtubedl/%(title)s-%(id)s.%(ext)s',
     'continuedl': 'true',
+    'ignoreerrors': True,
     'download_archive': '/mnt/oldmedialib/youtubedl/archive.txt',
     'postprocessors': [{
-        'key': 'FFmpegExtractAudio',
-        'preferredcodec': 'mp3',
-        'preferredquality': '192'
+        'key': 'FFmpegMetadata'
+   
+        #   'key': 'FFmpegExtractAudio',
+      #  'preferredcodec': 'mp3',
+       # 'preferredquality': '192'
 
     }]
 }
 outdir = '/mnt/oldmedialib/youtubedl'
 browser = webdriver.Chrome()
 
-browser.get("https://www.youtube.com/playlist?list=PLCC51BF0C94BE62E8")
+browser.get("https://www.youtube.com/user/sheepsempire/videos")
 time.sleep(1)
 
 elem = browser.find_element_by_tag_name("body")
@@ -42,10 +48,13 @@ while no_of_pagedowns:
     time.sleep(0.2)
     no_of_pagedowns-=1
 
-#For users and other channels use this XPATH
-user_data = browser.find_elements_by_xpath('//*[@id="video-title"]')
-#For playists use this XPATH
-user_data = browser.find_elements_by_xpath('//*[@id="content"]/a')
+if is_playlist:
+    #For playists use this XPATH
+    user_data = browser.find_elements_by_xpath('//*[@id="content"]/a')
+else:
+    #For users and other channels use this XPATH
+    user_data = browser.find_elements_by_xpath('//*[@id="video-title"]')
+
 links = []
 for i in user_data:
     links.append(i.get_attribute('href'))
@@ -69,11 +78,22 @@ for x in links:
         #v_duration = browser.find_element_by_class_name("ytp-time-duration").text
         dlink = "https://www.youtube.com/watch?v=" + v_id.group('id')
         with youtube_dl.YoutubeDL(ydl_opts) as ydl:
-            with open(outdir + '/videos.txt', 'a+') as file:
-                file.write(dlink + "\n")
-            file.close()
-            #ydl.download([dlink])
+            dictMeta = ydl.extract_info(dlink, download=False)
+            #print(dictMeta)
+            if dictMeta['duration'] <= 3000:
+                print("***************************************************\nSkipped short track that doesn't look like a mix\n***************************************************")
+            else:
+                with open(outdir + '/videos.txt', 'a+') as file:
+                    file.write(dlink + "\n")
+                    file.close()
+                    ydl.download([dlink])
+                    print("****************************************************************************************************")
+                    print("Completed " + v_title + " \nSo we have completed " + str(count) + "/" + str(job_size))
+                    print("****************************************************************************************************")
+
         count += 1
-        print("****************************************************************************************************")
-        print("Completed " + v_title + " \nSo we have completed " + str(count) + "/" + str(job_size))
-        print("****************************************************************************************************")
+        
+#Audio downloads
+#for i in $(<videos.txt); do youtube-dl -x --audio-format mp3 $i --embed-thumbnail --add-metadata --write-thumbnail; done
+#Video Downloads
+#for i in $(<videos.txt); do youtube-dl -f 'bestvideo[height<=480]+bestaudio/best[height<=480]' $i --embed-thumbnail --add-metadata --write-thumbnail --match-filter 'duration > 3000'; done
