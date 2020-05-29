@@ -2,7 +2,7 @@
 <html>
 <head>
     <meta charset="utf-8">
-    <title>Wheel of Fortune Bingo</title>
+    <title>Basic Spinner</title>
 
 <!--
 http://bl.ocks.org/jrue/a2aaf36b3c096925ccbf
@@ -33,25 +33,31 @@ SOFTWARE.
     <style type="text/css">
     text{
         font-family:Helvetica, Arial, sans-serif;
-        font-size:28px;
+        font-size:40px;
         pointer-events:none;
     }
+    #content {
+      height: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: center
+    }
     #chart{
-        position:absolute;
+        position:relative;
         width:500px;
         height:500px;
         top:0;
         left:0;
     }
     #question{
-        position: absolute;
+        position: relative;
         width:400px;
         height:500px;
         top:0;
-        left:520px;
+        left:120px;
     }
     #question h1{
-        font-size: 50px;
+        font-size: 100px;
         font-weight: bold;
         font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
         position: absolute;
@@ -65,9 +71,10 @@ SOFTWARE.
 
 </head>
 <body>
+  <div id="content">
     <div id="chart"></div>
     <div id="question"><h1></h1></div>
-
+  </div>
     <script src="https://d3js.org/d3.v3.min.js" charset="utf-8"></script>
     <script type="text/javascript" charset="utf-8">
         var padding = {top:20, right:40, bottom:0, left:0},
@@ -85,9 +92,10 @@ SOFTWARE.
 
         var data = [
                     {"label":"1",  "value":1,  "question":"One"}, // padding
-                    {"label":"2",  "value":2,  "question":"Two"}, //font-family
-                    {"label":"3",  "value":3,  "question":"Three"}, //color
-                    {"label":"4",  "value":4,  "question":"Four"}, //font-weight
+                    {"label":"Free",  "value":2,  "question":"Free Look"}, //font-family
+                    {"label":"2",  "value":3,  "question":"Two"}, //color
+                    {"label":"3",  "value":4,  "question":"Three"}, //font-weight
+                    {"label":"Free",  "value":5,  "question":"Free Look"}, //font-size
                     {"label":"5",  "value":5,  "question":"Five"}, //font-size
         ];
 
