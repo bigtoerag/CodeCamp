@@ -1,0 +1,56 @@
+body {
+    margin-top: 60px;
+}
+
+.slotwrapper, .slotwrapper2 {
+    overflow: hidden;
+    display: inline-block;
+    border: 1px solid #000;
+    height: 100px;
+		width: 100%;
+}
+.slotwrapper ul, .slotwrapper2 ul {
+    padding: 0;
+    margin: 0;
+    list-style: none;
+    position: relative;
+    float: left;
+		background: white;
+}
+.slotwrapper ul {
+    width: 150px;
+    font-size: 100px;
+    line-height: 100px;
+    text-align: center;
+}
+.slotwrapper2 ul {
+    width: 100px;
+    font-size: 100px;
+    line-height: 100px;
+    text-align: center;
+}
+.slotwrapper ul li img, , .slotwrapper2 ul li img {
+    vertical-align: top;
+
+}
+
+@media screen and (max-width: 1024px) {
+		.slotwrapper, .slotwrapper2 {
+				height: 60px;
+		}
+		.slotwrapper ul, .slotwrapper2 ul {
+        font-size: 60px;
+        line-height: 60px;
+				width: 100px;
+    }
+}
+@media screen and (max-width: 768px) {
+		.slotwrapper, .slotwrapper2 {
+				height: 30px;
+		}
+    .slotwrapper ul, .slotwrapper2 ul {
+        font-size: 30px;
+        line-height: 30px;
+			  width: 40px;
+    }
+}
