@@ -1,4 +1,138 @@
-var startSeqs = {};
+<!DOCTYPE HTML>
+<html>
+<head>
+    <title>Drinking Games for COVID-19</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+ <!-- Latest compiled and minified CSS -->
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css">
+<style>
+body {
+    margin-top: 0px;
+}
+
+.slotwrapper {
+    overflow: hidden;
+    display: inline-block;
+    border: 1px solid #000;
+    height: 200px;
+		width: 100%;
+}
+.slotwrapper ul {
+    padding: 0;
+    margin: 0;
+    list-style: none;
+    position: relative;
+    float: left;
+		background: white;
+}
+.slotwrapper ul {
+    width: 33%;
+    font-size: 100px;
+    line-height: 200px;
+    text-align: center;
+}
+
+.slotwrapper ul li img {
+    vertical-align: top;
+
+}
+
+@media screen and (max-width: 1024px) {
+		.slotwrapper  {
+				height: 120px;
+		}
+		.slotwrapper ul {
+        font-size: 60px;
+        line-height: 120px;
+				width: 33%;
+    }
+}
+@media screen and (max-width: 768px) {
+		.slotwrapper {
+				height: 60px;
+		}
+    .slotwrapper ul {
+        font-size: 30px;
+        line-height: 60px;
+			  width: 33%;
+    }
+}
+
+
+</style>
+</head>
+
+<body>
+<nav class="navbar navbar-expand-md bg-dark navbar-dark">
+  <a class="navbar-brand" href="#">COVID Drinking Games</a>
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#collapsibleNavbar">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+</nav>
+
+
+    <div id="singledigits" class="container">
+        <div class="card card-primary">
+            <div class="card-header text-center font-weight-bold bg-success text-white">Simple words to make a drinking game</div>
+						</div>
+
+  <div class="card">
+    <div class="card-header">
+      <a class="card-link" data-toggle="collapse" href="#collapseOne">
+      Words
+      </a>
+    </div>
+    <div id="collapseOne" class="collapse show" data-parent="#accordion">
+      <div class="card-body">
+      <div class="card-title" id="addition">
+      <div class="slotwrapper shadow " id="additioneq">
+          <ul>
+              <li>beer</li>
+              <li>wine</li>
+              <li>whiskey</li>
+              <li>tequila</li>
+              <li>water</li>
+          </ul>
+					<ul>
+              <li>10mls</li>
+              <li>shot</li>
+              <li>mug</li>
+              <li>pint</li>
+              <li>litre</li>
+						</ul>
+						<ul>
+              <li>running</li>
+              <li>jumping</li>
+              <li>riding bike</li>
+              <li>hopping</li>
+              <li>nose</li>
+          </ul>
+      </div>
+       <div class="justify-content-center align-items-center">
+          <button type="button" class="btn-block btn-success btn-lg" id="btn-addition">Start Spin!</button>
+      </div>
+      </div>
+      </div>
+    </div>
+  </div>
+
+
+
+
+
+
+
+<!-- jQuery library -->
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+
+<!-- Popper JS -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+
+<!-- Latest compiled JavaScript -->
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"></script>
+     <script type="text/javascript">
+     var startSeqs = {};
 var startNum = 0;
 
 // jQuery FN
@@ -176,3 +310,10 @@ var slotMachine = function (el, options, track) {
 
     this.init();
 };
+        $('#btn-addition').click(function() {
+            $('#additioneq ul').playSpin();
+        });
+
+    </script>
+</body>
+</html>
