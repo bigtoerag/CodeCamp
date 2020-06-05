@@ -12,6 +12,15 @@
   body {
       margin-top: 80px;
   }
+  @media only screen
+    and (device-width : 414px)
+    and (device-height : 736px)
+    and (-webkit-device-pixel-ratio : 3) {
+      display-1 {
+
+      }
+    }
+
 </style>
 
 </head>
@@ -26,14 +35,17 @@
   </nav>
   <div id="content" class="container">
     <div class="card card-primary border-dark">
-        <div class="card-header text-center font-weight-bold bg-success text-white h3">Ola chicos, estas listo beber?</div>
+        <div class="card-header text-center font-weight-bold bg-success text-white h3">Ola chicos, ¿Estás listo para beber</div>
         <div class="card-body text-center">
           <button id="dice1" class="display-1 btn-light" onclick="holdTheDie(1)"></button><button id="dice2" class="display-1 btn-light" onclick="holdTheDie(2)"></button><br><br><br>
           <button type="button" onclick="rollTheDice()" class="btn btn-success btn-lg" id="dice_roll">Roll the Dice</button>
-            <button type="button" onclick="location.reload();" class="btn btn-success btn-lg" id="restart">Next Player</button>
+          <button type="button" onclick="scoreit('final')" class="btn btn-success btn-lg" id="scoreit">Score It</button>
+            <button type="button" onclick="nextplayer()" class="btn btn-success btn-lg" id="nextplayer">Next Player</button>
+            <button type="button" onclick="location.reload();" class="btn btn-dark btn-lg" id="restart">New Round</button>
         </div>
         <div id="footer" class="card-footer text-center ">
-          <div id="show_answer" class="h3">El que la hace, la paga.</div>
+          <div id="show_answer" class="h3">El que la hace, la paga.</div><br>
+          <div id="scores" class="h3 font-weight-bold"></div>
         </div>
         </div>
     </div>
@@ -45,11 +57,15 @@
       document.getElementById('die_on_hold').value = "";
       document.getElementById('dice1').innerHTML = "&#x2672";
       document.getElementById('dice2').innerHTML = "&#x2672";
+      document.getElementById("dice1").disabled=true;
+      document.getElementById("dice2").disabled=true;
+      document.getElementById("nextplayer").style.display = "none";
+      document.getElementById("restart").style.display = "none";
+      document.getElementById("scoreit").style.display = "none";
+
     }
-    var rollcount = 0;
-
-
-
+    var rollcount = 0,
+        scores = [];
     var data = {
       "1:1":"100",
       "2:1":"Mexican – beats all other throws. If any player throws one of these, the eventual loser has to drink double the standard drinking quantity being used for the game. Each subsequent Mexican in that round will double the required drink for loser.",
@@ -90,7 +106,6 @@
     };
     function rollTheDice() {
     die_to_hold = 0;
-    rolled = [];
     die_to_hold = document.getElementById('die_on_hold').value
     if (die_to_hold == "1"){
       dice2roll = diceRoll();
@@ -119,10 +134,48 @@
       outcome(dice1roll,dice2roll);
     }
     rollcount++
-    if (rollcount == 3){
+    document.getElementById("dice1").disabled=false;
+    document.getElementById("dice2").disabled=false;
+    document.getElementById("scoreit").style.display = "inline-block";
+    if (rollcount >= 3){
+      console.log("Third roll");
+        if (combination == "1:3" || combination == "3:1") {
+          console.log("Third roll, but it is a scumbag");
+          rollcount--;
+          document.getElementById("scoreit").style.display = "none";
+          }
+        else if (combination == "1:2" || combination == "2:1"){
+            console.log("Third roll, and its a mexican");
+            scoreit("mexican");
+            return;
+          }
+        else {
+        scoreit("final");
+        document.getElementById("dice_roll").style.display = "none";
+        document.getElementById("nextplayer").style.display = "inline-block";
+        document.getElementById("restart").style.display = "inline-block";
+        document.getElementById('show_answer').innerHTML = "";
+        document.getElementById("scoreit").style.display = "none";
+        document.getElementById("dice1").disabled=true;
+        document.getElementById("dice2").disabled=true;
+        }
+
+    } else if (combination == "1:2" || combination == "2:1"){
+      scoreit("mexican");
       document.getElementById("dice_roll").style.display = "none";
+      document.getElementById("nextplayer").style.display = "inline-block";
+      document.getElementById("restart").style.display = "inline-block";
+      document.getElementById("scoreit").style.display = "none";
+      document.getElementById('show_answer').innerHTML = "";
+      document.getElementById("dice1").disabled=true;
+      document.getElementById("dice2").disabled=true;
+    } else if (combination == "1:3" || combination == "3:1") {
+      console.log("It is a scumbag");
+      rollcount--;
+      document.getElementById("scoreit").style.display = "none";
     }
     }
+
     function diceRoll() {
       var facevalue,
           output;
@@ -130,6 +183,7 @@
         output = "&#x268" + faceValue + ";";
         return output;
     }
+
     function holdTheDie(die) {
       if (die == "1") {
         document.getElementById('die_on_hold').value = "1";
@@ -142,15 +196,58 @@
       }
       console.log("The die on hold is " + document.getElementById('die_on_hold').value);
     }
+
     function outcome(dice1roll,dice2roll) {
       combination = (parseInt(dice1roll[6]) + 1) + ":" + (parseInt(dice2roll[6]) + 1);
       console.log(combination);
-      console.log("The index of the combo is " + data[combination]);
+      console.log("The score of the combo is " + data[combination]);
       if (data.hasOwnProperty(combination)) {
       document.getElementById('show_answer').innerHTML = data[combination];
     } else {
       document.getElementById('show_answer').innerHTML = "Thats a nothing roll, try again";
     }
+    }
+
+    function nextplayer() {
+      document.getElementById('die_on_hold').value = "";
+      document.getElementById('dice1').innerHTML = "&#x2672";
+      document.getElementById('dice2').innerHTML = "&#x2672";
+      document.getElementById("dice_roll").style.display = "inline-block";
+      document.getElementById("nextplayer").style.display = "none";
+      document.getElementById("restart").style.display = "none";
+      document.getElementById("scoreit").style.display = "none";
+      document.getElementById("dice1").disabled=true;
+      document.getElementById("dice2").disabled=true;
+    }
+
+    function newround() {
+      score = [];
+      document.getElementById('die_on_hold').value = "";
+      document.getElementById('dice1').innerHTML = "&#x2672";
+      document.getElementById('dice2').innerHTML = "&#x2672";
+      document.getElementById("dice_roll").style.display = "inline-block";
+      document.getElementById("nextplayer").style.display = "none";
+      document.getElementById("restart").style.display = "none";
+      document.getElementById("scoreit").style.display = "none";
+      document.getElementById("dice1").disabled=true;
+      document.getElementById("dice2").disabled=true;
+    }
+
+    function scoreit(type) {
+      console.log(type);
+      if (type == "mexican") {
+        scores.push("Mexican")
+        document.getElementById('scores').innerHTML = scores.join(' , ');
+        rollcount = 0;
+        alert("You got a Mexican");
+        nextplayer();
+      } else if (type == "final") {
+        scores.push(document.getElementById('show_answer').innerHTML)
+        document.getElementById('scores').innerHTML = scores.join(' , ');
+        rollcount = 0;
+        nextplayer();
+      }
+
     }
 </script>
 <input hidden id="die_on_hold" value=""/>
