@@ -16,7 +16,7 @@ def input():
 
     if request.method == 'GET':
         input_number = random.randrange(1000,9000,1)
-        return render_template('index.html', input_number=input_number)
+        return render_template('index_bs4.html', input_number=input_number)
     if request.method == 'POST':
         def generate_answers(base_number,equation):
             correct_answers = {"q1":None,"q2":None,"q3":None, "q4":None, "q5":None, "q6":None, "q7":None, "q8":None, "q9":None, "q10":None,"q11":None, "q12":None, "q13":None, "blocks1000":None, "blocks100":None, "blocks10":None, "blocks1":None, "tallies1000":None, "tallies100":None, "tallies10":None, "tallies1":None}
@@ -201,11 +201,13 @@ def input():
                 
                 if key != 'master_number':
                     if value1 == 'true':
-                        flash(key + ' was correct. You entered ' + value2, 'w3-green')
+                        flash(key + ' was correct.', 'bg-success')
+                        flash('You entered ' + value2, 'bg-success')
                     else:
-                        flash(key + ' was incorrect. ' + value3 + value2, 'w3-red')
+                        flash(key + ' was incorrect. ', 'bg-danger')
+                        flash(value3 + value2, 'bg-danger')
             except KeyError:
                  continue
-        return render_template('index.html', input_number=answers['master_number'])
+        return render_template('index_bs4.html', input_number=answers['master_number'])
 if __name__ == '__main__':
     app.run(debug=True,host='0.0.0.0')
