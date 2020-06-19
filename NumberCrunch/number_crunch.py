@@ -15,7 +15,7 @@ app.secret_key = b'_5#y2L"F4Q8z\n\xec]/'
 def input():
 
     if request.method == 'GET':
-        input_number = random.randrange(1000,9000,1)
+        input_number = random.randrange(10,99,1)
         return render_template('index.html', input_number=input_number)
     if request.method == 'POST':
         def generate_answers(base_number,equation):
