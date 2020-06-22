@@ -3,9 +3,14 @@
 <head>
     <meta charset="utf-8">
     <title>Maths Factor Spinner</title>
-    <style>html{visibility: hidden;opacity:0;}</style>
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css">
+
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Ubuntu" rel="stylesheet">
+    <style>html{visibility: hidden;opacity:0;}</style>
 <!--
 
 MIT License
@@ -32,17 +37,18 @@ SOFTWARE.
 -->
 
 <style type="text/css">
-@import url('https://fonts.googleapis.com/css2?family=Concert+One&display=swap');
-@import url('https://fonts.googleapis.com/css2?family=Nunito&display=swap');
 
     body {
       margin:0 auto;
       background-color: #fff;
-      font-family: 'Nunito', sans-serif;
+      font-family: 'Ubuntu', sans-serif;
     }
     text{
         font-size: calc(25px + (40 - 25) * ((100vw - 400px) / (1600 - 300)));
         pointer-events:none;
+    }
+    .name {
+      font-size: calc(20px + (60 - 20) * ((100vw - 400px) / (1600 - 300)));
     }
     .enter_answer {
     font-size: 40px;
@@ -52,7 +58,7 @@ SOFTWARE.
     border: 1px dotted #ccc;
     border-bottom:2px solid #ccc;
     box-sizing: content-box;
-    font-family: 'Nunito', sans-serif;
+    font-family: 'Ubuntu', sans-serif;
     }
     input[type=number]::-webkit-outer-spin-button,
     input[type=number]::-webkit-inner-spin-button {
@@ -86,13 +92,13 @@ SOFTWARE.
     #chart{
         position:relative;
         display: inline-block;
-        width:500px;
-        height:500px;
+        width:400px;
+        height:400px;
         float:left;
         font-weight: 700;
 
     }
-    #equation, #result {
+    #equation, #result, #question {
       font-size: calc(40px + (80 - 40) * ((100vw - 400px) / (1600 - 300)));
     }
     #answer_array {
@@ -154,59 +160,58 @@ SOFTWARE.
 <div id="container" class="container-fluid mt-5">
     <div id="accordion">
       <div class="card" id="type">
-        <div id="choices">
-        <div class="btn btn-outline-dark btn-block btn-lg text-center shadow">
-          <div class="card-link" data-toggle="collapse" href="#collapseOne" onmouseup="set_factor('multiply')">
-            Try Multiplication
+          <div id="choices">
+            <div class="btn btn-outline-dark btn-block btn-lg text-center shadow">
+              <div class="card-link name" data-toggle="collapse" href="#collapseOne" onmouseup="set_factor('multiply')" onclick="document.getElementById('choices').style.display = 'none';">
+                Try Multiplication
+              </div>
+            </div>
+            <div class="btn btn-outline-dark btn-block btn-lg text-center shadow">
+              <div class="card-link name" data-toggle="collapse" href="#collapseOne" onmouseup="set_factor('addition')" onclick="document.getElementById('choices').style.display = 'none';">
+                Try Addition
+              </div>
+            </div>
+            <div class="btn btn-outline-dark btn-block btn-lg text-center shadow">
+              <div class="card-link name" data-toggle="collapse" href="#collapseOne" onmouseup="set_factor('subtraction')" onclick="document.getElementById('choices').style.display = 'none';">
+                Try Subtraction
+              </div>
+            </div>
           </div>
-        </div>
-        <div class="btn btn-outline-dark btn-block btn-lg text-center shadow">
-          <div class="card-link" data-toggle="collapse" href="#collapseOne" onmouseup="set_factor('addition')">
-            Try Addition
-          </div>
-        </div>
+          <div id="collapseOne" class="collapse" data-parent="#accordion">
+              <div class="card-body">
+                  <div id="content" class="content">
+                      <div id="chart"></div>
+                      <div id="question" class="pt-2">
+                          <div id="equation" class="mt-5">Ready to spin?</div>
+                          <div id="ans_res" class="mt-3">
+                            <div id="answer_input" class="mt-3">
+                              <input id="enter_answer" class="enter_answer" name="enter_answer" type="number" placeholder="" required>
+                            </div>
+                            <div id="answer_button" class="mt-3">
+                              <button id="show_answer" class="btn btn-lg btn-primary" onclick="store_answer(); this.disabled = true;">Check Answer</button>
+                            </div >
+                          </div>
+                        <div id="answer_array_title">Answer History
+                          <hr id="answer_hr" class="border border-secondary">
+                        </div>
+                        <div id="answer_array"></div>
+                    </div>
+                    <div id="modal" class="w-75">
+                        <h1>Thanks for playing &#127942;</h1>
+                        <div id="result" class="mb-2"></div>
+                        <button class="btn btn-block btn-lg btn-secondary" onclick="location.reload();">Play Again</button>
+                    </div>
+                </div>
+              </div>
+            </div>
 
-        <div class="btn btn-outline-dark btn-block btn-lg text-center shadow">
-          <div class="card-link" data-toggle="collapse" href="#collapseOne" onmouseup="set_factor('subtraction')">
-            Try Subtraction
-          </div>
-        </div>
       </div>
-        <div id="collapseOne" class="collapse" data-parent="#accordion">
-          <div class="card-body">
-
-  <div id="content" class="content">
-      <div id="chart"></div>
-      <div id="question" class="pt-2">
-          <div id="equation" class="mt-5">Ready to spin?</div>
-            <div id="ans_res" class="mt-3">
-          <div id="answer_input" class="mt-3">
-          <input id="enter_answer" class="enter_answer" name="enter_answer" type="number" placeholder="" required>
-        </div>
-          <div id="answer_button" class="mt-3">
-          <button id="show_answer" class="btn btn-lg btn-primary" onclick="store_answer(); this.disabled = true;">Check Answer</button>
-        </div >
-      </div>
-        <div id="answer_array_title">Answer History
-          <hr id="answer_hr" class="border border-secondary">
-        </div>
-
-        <div id="answer_array"></div>
     </div>
-    <div id="modal" class="w-75">
-        <h1>Thanks for playing &#127942;</h1>
-        <div id="result" class="mb-2"></div>
-        <button class="btn btn-block btn-lg btn-secondary" onclick="location.reload();">Play Again</button>
-  </div>
-  </div>
 </div>
+<hr class="border border-secondary">
+<div id="footer" class="footer p-3 text-center">
+  <p class="">Cobbled together by Marcus using COVID-19 skills in JS</p>
 </div>
-</div>
-</div>
-      <hr class="border border-secondary">
-          <div id="footer" class="footer p-3 text-center">
-            <p class="">Cobbled together by Marcus using COVID-19 skills in JS</p>
-          </div>
   <input type="hidden" id="factor" value="" />
     <script src="https://d3js.org/d3.v3.min.js" charset="utf-8"></script>
     <script type="text/javascript" charset="utf-8">
@@ -216,8 +221,8 @@ SOFTWARE.
           document.getElementById("chart").style.display = "none";
         }
         var padding = {top:20, right:40, bottom:0, left:0},
-            w = 500 - padding.left - padding.right,
-            h = 500 - padding.top  - padding.bottom,
+            w = 400 - padding.left - padding.right,
+            h = 400 - padding.top  - padding.bottom,
             r = Math.min(w, h)/2,
             rotation = 0,
             oldrotation = 0,
