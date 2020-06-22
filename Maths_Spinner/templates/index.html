@@ -5,12 +5,9 @@
     <title>Maths Factor Spinner</title>
 
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css">
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"></script>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-    <link href="https://fonts.googleapis.com/css2?family=Ubuntu" rel="stylesheet">
-    <style>html{visibility: hidden;opacity:0;}</style>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+<link href="https://fonts.googleapis.com/css2?family=Ubuntu" rel="stylesheet">
+<style>html{visibility: hidden;opacity:0;}</style>
 <!--
 
 MIT License
@@ -51,13 +48,14 @@ SOFTWARE.
       font-size: calc(20px + (60 - 20) * ((100vw - 400px) / (1600 - 300)));
     }
     .enter_answer {
-    font-size: 40px;
-    height: 47px;
-    width: 20%;
-    margin-top: 10px;
-    border: 1px dotted #ccc;
-    border-bottom:2px solid #ccc;
+    font-size: calc(25px + (40 - 25) * ((100vw - 400px) / (1600 - 300)));
+    width: 15%;
     box-sizing: content-box;
+    font-family: 'Ubuntu', sans-serif;
+    }
+    .show_answer {
+    font-size: calc(25px + (40 - 25) * ((100vw - 400px) / (1600 - 300)));
+    height: 30px;
     font-family: 'Ubuntu', sans-serif;
     }
     input[type=number]::-webkit-outer-spin-button,
@@ -98,28 +96,28 @@ SOFTWARE.
         font-weight: 700;
 
     }
-    #equation, #result, #question {
+    #equation, #result {
+      line-height: 1;
       font-size: calc(40px + (80 - 40) * ((100vw - 400px) / (1600 - 300)));
     }
     #answer_array {
-        font-size: 30px;
+        font-size: calc(15px + (25 - 15) * ((100vw - 400px) / (1600 - 300)));
         font-weight: 600;
         position: relative;
-        bottom: 0px;
-        margin-top: 15px;
         display: inline-block;
         text-align: center;
 
     }
     #answer_array_title {
-        font-size: 30px;
-        margin-top: 35px;
+        font-size: calc(15px + (25 - 15) * ((100vw - 400px) / (1600 - 300)));
         }
     .fa-times-circle {
     	color: red;
+      margin: 0;
     }
     .fa-check-circle {
     	color: green;
+      margin: 0;
     }
     #modal {
 	  display: none;
@@ -183,18 +181,16 @@ SOFTWARE.
                       <div id="chart"></div>
                       <div id="question" class="pt-2">
                           <div id="equation" class="mt-5">Ready to spin?</div>
-                          <div id="ans_res" class="mt-3">
-                            <div id="answer_input" class="mt-3">
-                              <input id="enter_answer" class="enter_answer" name="enter_answer" type="number" placeholder="" required>
-                            </div>
-                            <div id="answer_button" class="mt-3">
-                              <button id="show_answer" class="btn btn-lg btn-primary" onclick="store_answer(); this.disabled = true;">Check Answer</button>
+                          <div id="ans_res" class="mt-2  mx-auto">
+                            <div id="answer_input" class="">
+                              <input id="enter_answer" class="enter_answer border border-secondary mt-3 mr-3" name="enter_answer" type="number" placeholder="" required>
+                              <button id="show_answer" class="btn btn-lg btn-primary w-50" onclick="store_answer(); this.disabled = true;">Check Answer</button>
                             </div >
                           </div>
-                        <div id="answer_array_title">Answer History
-                          <hr id="answer_hr" class="border border-secondary">
+                        <div id="answer_array_title" class="mb-0 mt-2">Answer History
+                          <hr id="answer_hr" class="border border-secondary w-100">
                         </div>
-                        <div id="answer_array"></div>
+                        <div id="answer_array" class="m-0"></div>
                     </div>
                     <div id="modal" class="w-75">
                         <h1>Thanks for playing &#127942;</h1>
@@ -493,7 +489,7 @@ SOFTWARE.
           if (parseInt(x) === parseInt(answer)){
             //add a green tick to the array of results
             document.getElementById("equation").innerHTML = "Correct";
-            entered.push("<i class='fa fa-check-circle' style='font-size:34px'></i>")
+            entered.push("<i class='fa fa-check-circle''></i>")
             correct_answers += 1;
             console.log("Correct Answers: "+ correct_answers);
             document.getElementById("answer_array").innerHTML = entered.join(' ');
@@ -501,7 +497,7 @@ SOFTWARE.
             //add a incorrect cross to the array of results
             document.getElementById("equation").innerHTML = "Oops! = " + answer;
             document.getElementById("equation").style.font = "italic";
-            entered.push("<i class='fa fa-times-circle' style='font-size:34px'></i>")
+            entered.push("<i class='fa fa-times-circle''></i>")
             document.getElementById("answer_array").innerHTML = entered.join(' ');
           }
           //display progress of right and wrong answers
