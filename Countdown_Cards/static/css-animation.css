@@ -1,21 +1,23 @@
-html, body { height: 100%; width: 100%; margin: 0; text-align: center; }
+html, body { height: 100%; width: 100%; margin: 0; text-align: center; font-family: 'Ubuntu', sans-serif; }
 #stage {
   border: 5px solid black;
-  display: block;
-  position:absolute;
+  display: inline-block;
+  position:relative;
   height:auto;
   top:0;
   left:0;
   right:0;
-  margin-top:50px;
+  margin-top:10px;
   margin-bottom:20px;
   margin-right: 20px;
   margin-left:20px;
-
   padding: 20px;
+  font-size: calc(20px + (60 - 20) * ((100vw - 400px) / (1600 - 300)));
+
 }
 
 #felt {
+  font-size: calc(20px + (60 - 20) * ((100vw - 400px) / (1600 - 300)));
   display: inline-block;
   position: relative;
   margin: 0;
@@ -37,6 +39,8 @@ html, body { height: 100%; width: 100%; margin: 0; text-align: center; }
   font-size: 120px;
 }
 #stopwatch {
+  font-size: calc(20px + (60 - 20) * ((100vw - 400px) / (1600 - 300)));
   display: inline-block;
-  font-size: 40px;
+  width: 100%;
+  text-align: center;
 }
