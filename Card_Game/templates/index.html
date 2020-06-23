@@ -4,49 +4,27 @@
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css">
+
 <link href="https://fonts.googleapis.com/css2?family=Roboto" rel="stylesheet">
+
 <style>
 /* Add some margin to the page and set a default font and colour */
 
 body {
-  margin: auto;
-  font-family: 'Roboto', sans-serif;
-  color: #000;
-  background-color: #000;
+  font-family: 'Ubuntu', sans-serif;
 }
 
-/* Give headings their own font */
-
-h1, h2, h3, h4 {
-  font-family: 'Roboto', sans-serif;
+#choices {
+  display: flex;
+  align-content: center;
+  justify-content: center;
 }
+#score_footer {
+  display: flex;
+  align-content: center;
+  justify-content: center;
 
-/* Main content area */
-
-#content {
-  margin: auto;
-
-  text-align: center;
-  -moz-user-select: none;
-  -webkit-user-select: none;
-  user-select: none;
 }
-
-/* Header/footer boxes */
-
-.wideBox {
-  padding: 1%;
-  text-align: center;
-  background: #ebedf2;
-}
-
-.wideBox h1 {
-  font-weight: bold;
-  margin: 0;
-  color: #000;
-  font-size: 2.5em;
-}
-
 /* Slots for final card positions */
 
 #cardSlots {
@@ -92,7 +70,7 @@ clear:both;
 }
 /* Individual cards and slots */
 
-#cardSlots div, #cardPile div {
+#cardPile div {
   float: left;
   min-width: 80px;
   min-height: 105px;
@@ -103,15 +81,22 @@ clear:both;
   margin: 0 0 0 10px;
   background: #fff;
 }
-
-
+#cardSlots div{
+  float: left;
+  min-width: 80px;
+  min-height: 105px;
+  -moz-border-radius: 10px;
+  -webkit-border-radius: 10px;
+  border-radius: 10px;
+  margin: 0 0 0 10px;
+  background: #fff;
+}
 
 #cardSlots div.hovered {
   background: #aaa;
 }
 
 #cardSlots div {
-  border-style: dashed;
   font-size: 70px;
   margin-bottom: 20px;
 }
@@ -130,34 +115,16 @@ clear:both;
 }
 
 /* Individually coloured cards */
-
+.name {
+  font-size: calc(20px + (40 - 20) * ((100vw - 400px) / (1600 - 300)));
+}
 .correct {
   color: green;
  }
  .incorrect {
    color: red;
   }
-#total, #correcttotal {
-  color: black;
-}
-#scoreheader{
-  color: grey;
-  width: 15%;
-  margin: auto;
-  padding: 1%;
-  border: 5px dashed #333;
-  -moz-border-radius: 8px;
-  -webkit-border-radius: 8px;
-  border-radius: 8px;
-  -moz-box-shadow: 0 0 .3em rgba(0, 0, 0, .8);
-  -webkit-box-shadow: 0 0 .3em rgba(0, 0, 0, .8);
-  box-shadow: 0 0 .3em rgba(0, 0, 0, .8);
-}
-#score{
-  color: grey;
-  width: 30%;
-  margin: auto;
-}
+
 .check {
   background-color: black;
   color: #ddf;
@@ -174,6 +141,9 @@ clear:both;
 .check:hover {
   background-color: #ddf;
   color: white;
+}
+#missing {
+  border: 2px dashed #000;
 }
 </style>
 <script>
@@ -213,36 +183,80 @@ clear:both;
   </div>
 </nav>
 
-  <div id="content">
-    <div id="header" class="wideBox"><h1>Card Maths Game</h1></div>
-    <div id="cardPile"></div>
-    <div id="cardSlots"></div>
-    <br>
-    <div id="check"> <button class="check" onclick="check()">Check/Score Answer</button> </div>
-    <br>
-    <div id="scoreboard">
-      <div id="scoreheader">Your current session score
-        <div id="score">0</div>
+  <div id="container-fluid">
+    <div class="card m-2" id="year1">
+      <div class="card-header text-center">
+        <div class="card-link name" data-toggle="collapse" href="#collapseOne">
+          Drag the card to solve the equation
+        </div>
       </div>
+    <div class="card-body">
+    <div id="choices" class="bg-light border text-center">
+        <div class="dropdown">
+          <button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown">
+            How many cards in the equation?
+          </button>
+          <div class="dropdown-menu">
+            <a class="dropdown-item" href="#">2</a>
+            <a class="dropdown-item" href="#">3</a>
+            <a class="dropdown-item" href="#">4</a>
+            <a class="dropdown-item" href="#">5</a>
+          </div>
+        </div>
+        <div class="dropdown ml-3">
+          <button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown">
+            How many cards to hide?
+          </button>
+          <div class="dropdown-menu">
+            <a class="dropdown-item" href="#">1</a>
+            <a class="dropdown-item" href="#">2</a>
+            <a class="dropdown-item" href="#">3</a>
+            <a class="dropdown-item" href="#">4</a>
+          </div>
+        </div>
     </div>
-    <br>
-    <div id="footer" class="wideBox">Made by Marcus using JS and JQuery 3.4</div>
+    <div id="cardPile" class="bg-light"></div>
+    <div id="cardSlots" class="bg-light"></div>
+
   </div>
-  <div id="total"></div>
-  <div id="correcttotal"></div>
+
+    <div class="card-footer text-center" id="footer_score">
+          <div id="check" class="w-100">
+            <button class="btn btn-primary btn-lg" onclick="check()">Check/Score Answer</button>
+          </div>
+
+
+            <div id="score_footer" class="text-center mt-4">
+              <div id="card-text" class="w-25 border border-secondary rounded-lg bg-ligh">
+                <div class="w-100">Your current session score</div>
+                <div id="score"  class="w-100">0</div>
+                </div>
+            </div>
+
+  </div>
+</div>
+  <input hidden id="total"></input>
+  <input hidden id="correcttotal"></input>
+  <hr class="border border-secondary">
+  <div id="footer" class="footer p-3 text-center">
+    <p class="">Cobbled together by Marcus using COVID-19 skills in JS</p>
+  </div>
+
+</div>
 <script src="https://code.jquery.com/jquery-2.2.4.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.11.4/jquery-ui.min.js"></script>
 <script>
 var correctCards = 0;
 limit = 4;
-$( init );
+hide = 0;
+$( init(limit) );
 
-function init() {
+function init(limit, hide) {
 
   // Reset the game
   correctCards = 0;
   total = 0;
-  hide = 0;
+
   score = document.getElementById("score").innerHTML;
   document.getElementById("correcttotal").innerHTML = "0";
   $('#cardPile').html( '' );
@@ -274,7 +288,7 @@ function init() {
     //console.log(i);
     //console.log(hidekey);
     if (i === hidekey[0]) {
-      $('<div></div>').data( 'number', item[0] ).appendTo( '#cardSlots' ).droppable( {
+      $('<div id="missing"></div>').data( 'number', item[0] ).appendTo( '#cardSlots' ).droppable( {
         accept: '#cardPile div',
         hoverClass: 'hovered',
         drop: handleCardDrop
@@ -295,14 +309,14 @@ function init() {
   }
 
     if (i === limit-1) {
-      $('<div id="equals" style="width:30px; font-size:40px; padding-top: 0.5%;">&equals;</div>').appendTo( '#cardSlots' );
+      $('<div id="equals" style="width:30px; font-size:40px; padding-top: 20px; padding-left: 28px;">&equals;</div>').appendTo( '#cardSlots' );
     } else {
-      $('<div id="plus" style="width:30px; font-size:20px; padding-top: 1.5%;">&#10133;</div>').appendTo( '#cardSlots' );
+      $('<div id="plus" style="width:30px; font-size:20px; padding-top: 40px; padding-left: 28px;">&#10133;</div>').appendTo( '#cardSlots' );
     }
     correcttotal += values[item[0]]
   }
     //$('<div id="equals"> = </div>').appendTo( '#cardSlots' );
-    $('<div id="result" style="width:80px;font-size:50px;">' + correcttotal + '</div>').appendTo( '#cardSlots' );
+    $('<div id="result" style="width:80px;font-size:50px; padding-top: 13px; padding-left: 10px;">' + correcttotal + '</div>').appendTo( '#cardSlots' );
 }
 function shuffle(array) {
     let counter = array.length;
@@ -359,7 +373,7 @@ function check(total) {
   console.log(total);
 if (total === correcttotal) {
   document.getElementById("score").innerHTML = parseInt(document.getElementById("score").innerHTML,10) + 1
-  init();
+  init(limit);
 } else {
   if (document.getElementById("score").innerHTML != 0){
   document.getElementById("score").innerHTML = parseInt(document.getElementById("score").innerHTML,10) - 1
@@ -369,6 +383,13 @@ if (total === correcttotal) {
 }
 
      </script>
+     <!-- jQuery library -->
+     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 
+     <!-- Popper JS -->
+     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+
+     <!-- Latest compiled JavaScript -->
+     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"></script>
 
 </body></html>
