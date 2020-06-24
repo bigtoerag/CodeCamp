@@ -13,6 +13,9 @@
 body {
   font-family: 'Ubuntu', sans-serif;
 }
+#toastable {
+  display: none;
+}
 
 #choices {
   display: flex;
@@ -35,7 +38,8 @@ body {
 /* The initial pile of unsorted cards */
 
 #cardPile {
-  margin: 2%;
+  margin-left: 2%;
+  margin-right: 2%;
   background: #ffd;
 }
 
@@ -190,8 +194,15 @@ clear:both;
           Drag the card to solve the equation
         </div>
       </div>
-    <div class="card-body">
-    <div id="choices" class="bg-light border text-center">
+    <div class="card-body text-center" >
+      <div id="toastable" class="alert alert-warning alert-dismissible fade show w-50" role="alert">
+        <strong>Oops!</strong> You should have try at least before clicking the answer button.
+        <button type="button" class="close" aria-label="Close" onclick="document.getElementById('toastable').style.display = 'none';">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+</div>
+    <!-- <div id="choices" class="bg-light border text-center">
         <div class="dropdown">
           <button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown">
             How many cards in the equation?
@@ -214,7 +225,7 @@ clear:both;
             <a class="dropdown-item" href="#">4</a>
           </div>
         </div>
-    </div>
+    </div> -->
     <div id="cardPile" class="bg-light"></div>
     <div id="cardSlots" class="bg-light"></div>
 
@@ -378,13 +389,13 @@ if (total === correcttotal) {
   if (document.getElementById("score").innerHTML != 0){
   document.getElementById("score").innerHTML = parseInt(document.getElementById("score").innerHTML,10) - 1
   }
-    alert("Nope! somethings not right.")
+     document.getElementById('toastable').style.display = 'inline-block';
+    //alert("Nope! somethings not right.")
   }
 }
 
      </script>
-     <!-- jQuery library -->
-     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+
 
      <!-- Popper JS -->
      <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
