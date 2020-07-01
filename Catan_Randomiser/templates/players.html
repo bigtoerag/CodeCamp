@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://fonts.googleapis.com/css2?family=Ubuntu" rel="stylesheet">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"></script>
+    <style type="text/css">
+      * {
+        font-family: 'Ubuntu', sans-serif;
+        font-size: 16px;
+      }
+      circle {
+        fill: grey;
+        fill-opacity: 1;
+      }
+      text{
+          pointer-events:none;
+      }
+      .red {
+        fill: red;
+        fill-opacity: 1;
+      }
+      .blue {
+        fill: blue;
+        fill-opacity: 1;
+      }
+      .green {
+        fill: green;
+        fill-opacity: 1;
+      }
+      .white {
+        fill: white;
+        fill-opacity: 1;
+      }
+    </style>
+  </head>
+
+  <body>
+
+    <div id="canvas"></div>
+
+    <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>
+    <script type="text/javascript" src="https://d3js.org/d3.v5.min.js"></script>
+    <script type="text/javascript">
+    //Many thanks to this champ for the inspiration http://bl.ocks.org/bycoffe
+    //Find the original code and demo here http://bl.ocks.org/bycoffe/3404776
+
+      (function() {
+        var colors = [
+        'blue'
+        ,'blue'
+        ,'red'
+        ,'red'
+        ,'green'
+        ,'green'
+        ,'white'
+        ,'white'
+        ];
+      var my_color = null;
+      var lastchoice = [];
+
+        function getColor(id) {
+            var random = Math.floor(Math.random() * (18));
+            if (lastchoice.length === 0) {
+              if (random < 8) {
+                var my_color = colors.splice(0,1);
+              } else {
+                var my_color = colors.splice(colors.length-1,1);
+              }
+              lastchoice.push(random);
+              console.log(lastchoice);
+              return my_color;
+           } else {
+             for (i = 0; (i < lastchoice.length); i++) {
+                    if (lastchoice[lastchoice.length-1] < 8) {
+                      break;
+                  } else {
+                  random = Math.floor(Math.random() * (18));
+                  continue;
+                  }
+              }
+              if (random < 8) {
+                var my_color = colors.splice(0,1);
+              } else {
+                var my_color = colors.splice(colors.length-1,1);
+              }
+              lastchoice.push(random);
+              console.log(lastchoice);
+              return my_color;
+
+           }
+           console.log(lastchoice);
+      }
+
+       var createNodes = function (numNodes, radius) {
+         var nodes = [],
+             width = (radius * 2) + 150,
+             height = (radius * 2) + 150,
+             angle,
+             x,
+             y,
+             i;
+         for (i=0; i<numNodes; i++) {
+          angle = (i / (numNodes/2)) * Math.PI; // Calculate the angle at which the element will be placed.
+                                                // For a semicircle, we would use (i / numNodes) * Math.PI.
+          x = (radius * Math.cos(angle)) + (width/2); // Calculate the x position of the element.
+          y = (radius * Math.sin(angle)) + (width/2); // Calculate the y position of the element.
+          nodes.push({'id': i, 'x': x, 'y': y});
+         }
+         return nodes;
+       }
+
+       var createSvg = function (radius, callback) {
+         d3.selectAll('svg').remove();
+         var svg = d3.select('#canvas').append('svg:svg')
+                    .attr('width', (radius * 2) + 150)
+                    .attr('height', (radius * 2) + 150);
+         callback(svg);
+       }
+
+       var createElements = function (svg, nodes, elementRadius) {
+         g = svg.selectAll('g')
+                        .data(nodes)
+                      .enter().append('g')
+                      .attr('id', function (d, i) {
+                        return i;
+                      })
+         element = g.append('svg:circle')
+                        .attr('r', elementRadius)
+                        .style("fill", function(d, i){ return getColor(i); })
+                        .style("stroke", "black")
+                       .attr('cx', function (d, i) {
+                          return d.x;
+                        })
+                        .attr('cy', function (d, i) {
+                          return d.y;
+                        });
+          text = g.append("svg:text")
+                .attr('text-anchor', 'middle')
+                .attr('alignment-baseline', 'middle')
+                .attr('x', function (d, i) {
+                   return d.x;
+                 })
+                 .attr('y', function (d, i) {
+                   return d.y+5;
+                 })
+                .text(function (d, i) {
+                  return i+1;
+                })
+                .style({"font-weight":"bold", "font-size":"20px"});
+
+       }
+
+
+       var draw = function () {
+         var numNodes = 18;
+         var radius = 220;
+         var nodes = createNodes(numNodes, radius);
+         createSvg(radius, function (svg) {
+           createElements(svg, nodes, 35);
+         });
+       }
+
+      $(document).ready(function() {
+          draw();
+      });
+
+      $("#radius, #numNodes").bind('keyup', function(e) {
+          draw();
+          lastchoice = [];
+      });
+            })();
+    </script>
+  </body>
+</html>
