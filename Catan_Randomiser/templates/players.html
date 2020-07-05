@@ -19,6 +19,7 @@
       }
       text{
           pointer-events:none;
+          color: "yellow";
       }
       .red {
         fill: red;
@@ -42,7 +43,7 @@
   <body>
 
     <div id="canvas"></div>
-
+    <input hidden id="color_array"></input>
     <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>
     <script type="text/javascript" src="https://d3js.org/d3.v5.min.js"></script>
     <script type="text/javascript">
@@ -50,51 +51,67 @@
     //Find the original code and demo here http://bl.ocks.org/bycoffe/3404776
 
       (function() {
-        var colors = [
-        'blue'
-        ,'blue'
-        ,'red'
-        ,'red'
-        ,'green'
-        ,'green'
-        ,'white'
-        ,'white'
-        ];
-      var my_color = null;
-      var lastchoice = [];
+        function ColorArray() {
+          var colors = [
+          'blue'
+          ,'blue'
+          ,'red'
+          ,'red'
+          ,'#282828'
+          ,'#282828'
+          ,'white'
+          ,'white'
+          ];
+          var grey = [
+            '#D3D3D3'
+            ,'#D3D3D3'
+            ,'#D3D3D3'
+            ,'#D3D3D3'
+            ,'#D3D3D3'
+            ,'#D3D3D3'
+            ,'#D3D3D3'
+            ,'#D3D3D3'
+            ,'#D3D3D3'
+            ,'#D3D3D3'
+          ];
+        var my_color = [];
+          colors_shuffled = shuffle(colors);
+          while (colors_shuffled.length != 0) {
+            my_color.splice(0,0,colors_shuffled.splice(0,1));
+            my_color.splice(0, 0, grey.splice(0,1));
+              }
+          while (my_color.length < 18){
+              var random = Math.floor(Math.random() * (my_color.length));
+              my_color.splice(random, 0, grey.splice(0,1));
+          }
+          console.log(my_color);
+          document.getElementById("color_array").innerHTML = my_color;
+        }
 
-        function getColor(id) {
-            var random = Math.floor(Math.random() * (18));
-            if (lastchoice.length === 0) {
-              if (random < 8) {
-                var my_color = colors.splice(0,1);
-              } else {
-                var my_color = colors.splice(colors.length-1,1);
-              }
-              lastchoice.push(random);
-              console.log(lastchoice);
-              return my_color;
-           } else {
-             for (i = 0; (i < lastchoice.length); i++) {
-                    if (lastchoice[lastchoice.length-1] < 8) {
-                      break;
-                  } else {
-                  random = Math.floor(Math.random() * (18));
-                  continue;
-                  }
-              }
-              if (random < 8) {
-                var my_color = colors.splice(0,1);
-              } else {
-                var my_color = colors.splice(colors.length-1,1);
-              }
-              lastchoice.push(random);
-              console.log(lastchoice);
-              return my_color;
+        function getColor() {
+          color_items = document.getElementById("color_array").innerHTML;
+          console.log(color_items);
+          color = color_items.split(',').shift();
+          var color_items_new = color_items.split(",").slice(1).join(",");
+          console.log('color chosen = ' + color);
+          document.getElementById("color_array").innerHTML = color_items_new;
+          return color;
+        }
 
-           }
-           console.log(lastchoice);
-      }
+      function shuffle(array) {
+					var m = array.length, t, i;
+					// While there remain elements to shuffle…
+					while (m) {
+						// Pick a remaining element…
+						i = Math.floor(Math.random() * m--);
+						// And swap it with the current element.
+						t = array[m];
+						array[m] = array[i];
+						array[i] = t;
+					}
+					return array;
+				}
+
 
        var createNodes = function (numNodes, radius) {
          var nodes = [],
@@ -131,7 +148,7 @@
                       })
          element = g.append('svg:circle')
                         .attr('r', elementRadius)
-                        .style("fill", function(d, i){ return getColor(i); })
+                        .style("fill", function(d, i){ return getColor(); })
                         .style("stroke", "black")
                        .attr('cx', function (d, i) {
                           return d.x;
@@ -157,12 +174,14 @@
 
 
        var draw = function () {
+         ColorArray();
          var numNodes = 18;
          var radius = 220;
          var nodes = createNodes(numNodes, radius);
          createSvg(radius, function (svg) {
            createElements(svg, nodes, 35);
          });
+
        }
 
       $(document).ready(function() {
@@ -171,7 +190,6 @@
 
       $("#radius, #numNodes").bind('keyup', function(e) {
           draw();
-          lastchoice = [];
       });
             })();
     </script>
