@@ -16,7 +16,12 @@
   #myChart {
       height: 600px;
   }
-@media only screen and (max-width: 600px)  {
+  .dice {
+    font-size: 6rem;
+    font-weight: 300;
+    line-height: 1.2;
+  }
+@media screen and (max-width: 769px)  {
       #myChart {
           height: 500px;
       }
@@ -55,7 +60,8 @@
           <button id="playerfour" type="button" class="btn btn-light" onclick="currentPlayer('white')">White</button>
         </div>
         <div class="card-body text-center">
-          <button id="dice1" class="display-1 btn-light" onclick="holdTheDie(1)"></button><button id="dice2" class="display-1 btn-light" onclick="holdTheDie(2)"></button><br><br><br>
+          <button id="dice1" class="dice btn-light" onclick="holdTheDie(1)"></button>
+          <button id="dice2" class="dice btn-light" onclick="holdTheDie(2)"></button><br><br>
           <button type="button" onclick="rollTheDice()" class="btn btn-success btn-lg" id="dice_roll">Roll the Dice</button><br>
           <button type="button" onclick="chart()" class="btn btn-dark btn-lg mt-3" id="roll_summary">Click here to see a summary of all the rolls</button>
         </div>
@@ -108,8 +114,6 @@
       document.getElementById('p2').style.display = "none";
       document.getElementById('p3').style.display = "none";
       document.getElementById('p4').style.display = "none";
-
-
     }
     var rollcount = 0,
         scores = [],
@@ -322,6 +326,11 @@
           }
           return numMatches;
       }
+
+      function dicesize() {
+          var element = document.getElementById("dice1");
+          element.classList.remove("display-1");
+        }
 </script>
 
 
