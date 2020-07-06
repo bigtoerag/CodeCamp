@@ -1,0 +1,329 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+ <title>CATAN Dice Roll</title>
+ <meta charset="utf-8">
+ <meta name="viewport" content="width=device-width, initial-scale=1">
+ <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css">
+ <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+ <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+ <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"></script>
+ <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.5.0/Chart.min.js"></script>
+<style>
+  body {
+      margin-top: 80px;
+  }
+  #myChart {
+      height: 600px;
+  }
+@media only screen and (max-width: 600px)  {
+      #myChart {
+          height: 500px;
+      }
+    }
+
+</style>
+
+</head>
+<body>
+
+<div class="container">
+  <nav class="navbar navbar-expand-md bg-dark navbar-dark fixed-top">
+    <a class="navbar-brand" href="#">CATAN Dice Roll</a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#collapsibleNavbar">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+  </nav>
+  <div id="content" class="container">
+    <div class="card card-primary border-dark">
+        <div class="card-header text-center font-weight-bold bg-success text-white h3">
+          <div class="dropdown" id="playernumbers">
+            <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+              How many players?
+            </button>
+            <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+              <a class="dropdown-item" onclick="playing(1)">One</a>
+              <a class="dropdown-item" onclick="playing(2)">Two</a>
+              <a class="dropdown-item" onclick="playing(3)">Three</a>
+              <a class="dropdown-item" onclick="playing(4)">Four</a>
+            </div>
+           <input hidden id="currentplayer" value=""></input>
+          </div>
+          <button id="playerone" type="button" class="btn btn-primary" onclick="currentPlayer('blue')">Blue</button>
+          <button id="playertwo" type="button" class="btn btn-warning" onclick="currentPlayer('orange')">Orange</button>
+          <button id="playerthree" type="button" class="btn btn-dark" onclick="currentPlayer('black')">Black</button>
+          <button id="playerfour" type="button" class="btn btn-light" onclick="currentPlayer('white')">White</button>
+        </div>
+        <div class="card-body text-center">
+          <button id="dice1" class="display-1 btn-light" onclick="holdTheDie(1)"></button><button id="dice2" class="display-1 btn-light" onclick="holdTheDie(2)"></button><br><br><br>
+          <button type="button" onclick="rollTheDice()" class="btn btn-success btn-lg" id="dice_roll">Roll the Dice</button><br>
+          <button type="button" onclick="chart()" class="btn btn-dark btn-lg mt-3" id="roll_summary">Click here to see a summary of all the rolls</button>
+        </div>
+        <div id="footer" class="card-footer text-center ">
+          <div id="show_answer" class="h3">What you rolled?</div><br>
+          <div class="row p-2">
+          <div id="1" class="font-weight-bold col-sm-2 my-1"></div><kbd id="p1" class="font-weight-bold col-sm-10 text-left my-1"></kbd>
+          <div id="2" class="font-weight-bold col-sm-2 my-1"></div><kbd id="p2" class="font-weight-bold col-sm-10 text-left my-1"></kbd>
+          <div id="3" class="font-weight-bold col-sm-2 my-1"></div><kbd id="p3" class="font-weight-bold col-sm-10 text-left my-1"></kbd>
+          <div id="4" class="font-weight-bold col-sm-2 my-1"></div><kbd id="p4" class="font-weight-bold col-sm-10 text-left my-1"></kbd>
+        </div>
+        </div>
+        </div>
+
+        <div id="accordion">
+          <div class="card mt-3">
+            <div class="btn btn-outline-dark btn-block btn-lg text-center shadow">
+              <div class="card-link name" data-toggle="collapse" href="#collapseOne">
+                Dice Rolling Chart
+              </div>
+            </div>
+
+            <div id="collapseOne" class="collapse" aria-labelledby="headingOne" data-parent="#accordion">
+              <div class="card-body">
+                <canvas id="myChart"><canvas>
+              </div>
+            </div>
+          </div>
+        </div>
+
+
+
+
+
+
+      </div>
+    </div>
+<script type="text/javascript" charset="utf-8">
+    window.onload=function() {
+      document.getElementById('dice1').innerHTML = "&#x2672";
+      document.getElementById('dice2').innerHTML = "&#x2672";
+      document.getElementById("dice1").disabled=true;
+      document.getElementById("dice2").disabled=true;
+      document.getElementById("dice_roll").disabled=true;
+      document.getElementById('playerone').style.display = "none";
+      document.getElementById('playertwo').style.display = "none";
+      document.getElementById('playerthree').style.display = "none";
+      document.getElementById('playerfour').style.display = "none";
+      document.getElementById('p1').style.display = "none";
+      document.getElementById('p2').style.display = "none";
+      document.getElementById('p3').style.display = "none";
+      document.getElementById('p4').style.display = "none";
+
+
+    }
+    var rollcount = 0,
+        scores = [],
+        players = [];
+    var data = {
+      "1:1":"2",
+      "2:1":"3",
+      "1:2":"3",
+      "2:2":"4",
+      "3:1":"4",
+      "1:3":"4",
+      "3:2":"5",
+      "2:3":"5",
+      "3:3":"6",
+      "4:1":"5",
+      "4:2":"6",
+      "4:3":"7",
+      "4:4":"8",
+      "1:4":"5",
+      "2:4":"6",
+      "3:4":"7",
+      "5:1":"6",
+      "5:2":"7",
+      "5:3":"8",
+      "5:4":"9",
+      "1:5":"6",
+      "2:5":"7",
+      "3:5":"8",
+      "4:5":"9",
+      "5:5":"10",
+      "6:1":"7",
+      "6:2":"8",
+      "6:3":"9",
+      "6:4":"10",
+      "6:5":"11",
+      "1:6":"7",
+      "2:6":"8",
+      "3:6":"9",
+      "4:6":"10",
+      "5:6":"11",
+      "6:6":"12"
+    };
+    function playing(id) {
+      if (id == 1) {
+        document.getElementById('playernumbers').style.display = "none";
+        document.getElementById('playerone').style.display = "inline-block";
+      } else if (id == 2) {
+        document.getElementById('playernumbers').style.display = "none";
+        document.getElementById('playerone').style.display = "inline-block";
+        document.getElementById('playertwo').style.display = "inline-block";
+      } else if (id == 3) {
+        document.getElementById('playernumbers').style.display = "none";
+        document.getElementById('playerone').style.display = "inline-block";
+        document.getElementById('playertwo').style.display = "inline-block";
+        document.getElementById('playerthree').style.display = "inline-block";
+      } else {
+        document.getElementById('playernumbers').style.display = "none";
+        document.getElementById('playerone').style.display = "inline-block";
+        document.getElementById('playertwo').style.display = "inline-block";
+        document.getElementById('playerthree').style.display = "inline-block";
+        document.getElementById('playerfour').style.display = "inline-block";
+      }
+    }
+    function currentPlayer(color) {
+      document.getElementById('show_answer').innerHTML = "";
+      if (color == "blue") {
+          document.getElementById('currentplayer').value = "1";
+          document.getElementById('1').textContent = "Blue rolls: ";
+          document.getElementById('p1').style.display = "inline-block";
+
+      } else if (color == "orange") {
+          document.getElementById('currentplayer').value = "2";
+          document.getElementById('2').textContent = "Orange rolls: ";
+          document.getElementById('p2').style.display = "inline-block";
+
+      } else if (color == "black") {
+          document.getElementById('currentplayer').value = "3";
+          document.getElementById('3').textContent = "Black rolls: ";
+          document.getElementById('p3').style.display = "inline-block";
+      } else {
+          document.getElementById('currentplayer').value = "4";
+          document.getElementById('4').textContent = "White rolls: ";
+          document.getElementById('p4').style.display = "inline-block";
+
+      }
+      document.getElementById("dice_roll").disabled=false;
+    }
+    function rollTheDice() {
+      player = document.getElementById('currentplayer').value;
+      dice1roll = diceRoll();
+      dice2roll = diceRoll();
+      document.getElementById('dice1').innerHTML = dice1roll;
+      document.getElementById('dice2').innerHTML = dice2roll;
+      console.log("We rolled both");
+
+      outcome(player,dice1roll,dice2roll);
+      rollcount++
+      document.getElementById("dice1").disabled=false;
+      document.getElementById("dice2").disabled=false;
+    }
+
+    function diceRoll() {
+      var facevalue,
+          output;
+        faceValue = Math.floor(Math.random() * 6);
+        output = "&#x268" + faceValue + ";";
+        return output;
+    }
+
+
+    function outcome(player,dice1roll,dice2roll) {
+      combination = (parseInt(dice1roll[6]) + 1) + ":" + (parseInt(dice2roll[6]) + 1);
+      console.log(player,combination);
+      console.log("The score of the combo is " + data[combination]);
+      if (data.hasOwnProperty(combination)) {
+      document.getElementById('p' + player).innerHTML += data[combination] + ",";
+    } else {
+      document.getElementById('show_answer').innerHTML = "Try again";
+    }
+    }
+
+    function chart() {
+    var arr=["1","2","3","4","5","6","7","8","9","10","11","12"];
+    bluerolled = document.getElementById('p1').innerHTML;
+    orangerolled = document.getElementById('p2').innerHTML;
+    blackrolled = document.getElementById('p3').innerHTML;
+    whiterolled = document.getElementById('p4').innerHTML;
+    var blueArr = bluerolled.split(',');
+    var orangeArr = orangerolled.split(',');
+    var blackArr = blackrolled.split(',');
+    var whiteArr = whiterolled.split(',');
+    blueArr.pop();
+    var bluegraphArr = [];
+    var orangegraphArr = [];
+    var blackgraphArr = [];
+    var whitegraphArr = [];
+    for (let i=1, j = 13; i < j; i += 1) {
+      bluegraphArr.push(getNumMatches(blueArr, i));
+      orangegraphArr.push(getNumMatches(orangeArr, i));
+      blackgraphArr.push(getNumMatches(blackArr, i));
+      whitegraphArr.push(getNumMatches(whiteArr, i));
+    }
+    var ctx = document.getElementById('myChart').getContext('2d');
+    var chart = new Chart(ctx, {
+            // The type of chart we want to create
+            type: 'bar',
+            // The data for our dataset
+            data: {
+                labels:arr,
+                datasets: [
+                      {
+                        label: "Dice rolled by Blue",
+                        backgroundColor: 'blue',
+                        borderColor: 'grey',
+                        borderWidth: 1,
+                        data: bluegraphArr,
+                    },
+                    {
+                      label: "Dice rolled by Orange",
+                      backgroundColor: 'orange',
+                      borderColor: 'grey',
+                      borderWidth: 1,
+                      data: orangegraphArr,
+                  },
+                  {
+                    label: "Dice rolled by Black",
+                    backgroundColor: 'black',
+                    borderColor: 'grey',
+                    borderWidth: 1,
+                    data: blackgraphArr,
+                },
+                {
+                  label: "Dice rolled by White",
+                  backgroundColor: 'white',
+                  borderColor: 'grey',
+                  borderWidth: 1,
+                  data: whitegraphArr,
+              }
+              ]
+            },
+
+            // Configuration options go here
+            options: {
+                      responsive: true,
+                      maintainAspectRatio: false,
+                      scales: {
+                        xAxes: [{ stacked: true,
+                          scaleLabel: {
+                                      display: true,
+                                      labelString: 'Rolled Numbers'
+                                    }
+                        }],
+                        yAxes: [{ stacked: true,
+                          scaleLabel: {
+                                      display: true,
+                                      labelString: 'Frequency'
+                                    }
+
+                         }]
+                      }
+                    }
+        });
+      }
+      function getNumMatches(array, valToFind) {
+          let numMatches = 0;
+          for (let i = 0, j = array.length; i < j; i += 1) {
+              if (array[i] == valToFind) {
+                	numMatches += 1;
+              }
+          }
+          return numMatches;
+      }
+</script>
+
+
+</body>
+</html>
