@@ -54,19 +54,19 @@
             </div>
            <input hidden id="currentplayer" value=""></input>
           </div>
-          <button id="playerone" type="button" class="btn btn-primary" onclick="currentPlayer('blue')">Blue</button>
-          <button id="playertwo" type="button" class="btn btn-warning" onclick="currentPlayer('orange')">Orange</button>
-          <button id="playerthree" type="button" class="btn btn-dark" onclick="currentPlayer('black')">Black</button>
-          <button id="playerfour" type="button" class="btn btn-light" onclick="currentPlayer('white')">White</button>
+          <button id="playerone" type="button" class="btn btn-outline-primary btn-lg mr-5 font-weight-bolder" onclick="currentPlayer('blue')">Blue</button>
+          <button id="playertwo" type="button" class="btn btn-outline-warning btn-lg mr-5 font-weight-bolder" onclick="currentPlayer('orange')">Orange</button>
+          <button id="playerthree" type="button" class="btn btn-outline-danger btn-lg mr-5 font-weight-bolder" onclick="currentPlayer('red')">Red</button>
+          <button id="playerfour" type="button" class="btn btn-outline-light btn-lg font-weight-bolder" onclick="currentPlayer('white')">White</button>
         </div>
         <div class="card-body text-center">
-          <button id="dice1" class="dice btn-light" onclick="holdTheDie(1)"></button>
-          <button id="dice2" class="dice btn-light" onclick="holdTheDie(2)"></button><br><br>
+          <button id="dice1" class="dice btn-light" onclick=""></button>
+          <button id="dice2" class="dice btn-light" onclick=""></button><br><br>
           <button type="button" onclick="rollTheDice()" class="btn btn-success btn-lg" id="dice_roll">Roll the Dice</button><br>
           <button type="button" onclick="chart()" class="btn btn-dark btn-lg mt-3" id="roll_summary">Click here to see a summary of all the rolls</button>
         </div>
         <div id="footer" class="card-footer text-center ">
-          <div id="show_answer" class="h3">What you rolled?</div><br>
+          <div id="show_answer" class="h3">Rolling history.</div><br>
           <div class="row p-2">
           <div id="1" class="font-weight-bold col-sm-2 my-1"></div><kbd id="p1" class="font-weight-bold col-sm-10 text-left my-1"></kbd>
           <div id="2" class="font-weight-bold col-sm-2 my-1"></div><kbd id="p2" class="font-weight-bold col-sm-10 text-left my-1"></kbd>
@@ -180,20 +180,36 @@
     function currentPlayer(color) {
       document.getElementById('show_answer').innerHTML = "";
       if (color == "blue") {
+          document.getElementById("playerone").classList.add("bg-dark");
+          document.getElementById("playertwo").classList.remove("bg-dark");
+          document.getElementById("playerthree").classList.remove("bg-dark");
+          document.getElementById("playerfour").classList.remove("bg-dark");
           document.getElementById('currentplayer').value = "1";
           document.getElementById('1').textContent = "Blue rolls: ";
           document.getElementById('p1').style.display = "inline-block";
 
       } else if (color == "orange") {
+          document.getElementById("playerone").classList.remove("bg-dark");
+          document.getElementById("playertwo").classList.add("bg-dark");
+          document.getElementById("playerthree").classList.remove("bg-dark");
+          document.getElementById("playerfour").classList.remove("bg-dark");
           document.getElementById('currentplayer').value = "2";
           document.getElementById('2').textContent = "Orange rolls: ";
           document.getElementById('p2').style.display = "inline-block";
 
-      } else if (color == "black") {
+      } else if (color == "red") {
+        document.getElementById("playerone").classList.remove("bg-dark");
+        document.getElementById("playertwo").classList.remove("bg-dark");
+        document.getElementById("playerthree").classList.add("bg-dark");
+        document.getElementById("playerfour").classList.remove("bg-dark");
           document.getElementById('currentplayer').value = "3";
-          document.getElementById('3').textContent = "Black rolls: ";
+          document.getElementById('3').textContent = "Red rolls: ";
           document.getElementById('p3').style.display = "inline-block";
       } else {
+        document.getElementById("playerone").classList.remove("bg-dark");
+        document.getElementById("playertwo").classList.remove("bg-dark");
+        document.getElementById("playerthree").classList.remove("bg-dark");
+        document.getElementById("playerfour").classList.add("bg-dark");
           document.getElementById('currentplayer').value = "4";
           document.getElementById('4').textContent = "White rolls: ";
           document.getElementById('p4').style.display = "inline-block";
@@ -202,6 +218,9 @@
       document.getElementById("dice_roll").disabled=false;
     }
     function rollTheDice() {
+      document.getElementById("dice_roll").disabled=true;
+      document.getElementById("dice1").disabled=false;
+      document.getElementById("dice2").disabled=false;
       player = document.getElementById('currentplayer').value;
       dice1roll = diceRoll();
       dice2roll = diceRoll();
@@ -211,8 +230,7 @@
 
       outcome(player,dice1roll,dice2roll);
       rollcount++
-      document.getElementById("dice1").disabled=false;
-      document.getElementById("dice2").disabled=false;
+
     }
 
     function diceRoll() {
@@ -239,21 +257,21 @@
     var arr=["2","3","4","5","6","7","8","9","10","11","12"];
     bluerolled = document.getElementById('p1').innerHTML;
     orangerolled = document.getElementById('p2').innerHTML;
-    blackrolled = document.getElementById('p3').innerHTML;
+    redrolled = document.getElementById('p3').innerHTML;
     whiterolled = document.getElementById('p4').innerHTML;
     var blueArr = bluerolled.split(',');
     var orangeArr = orangerolled.split(',');
-    var blackArr = blackrolled.split(',');
+    var redArr = redrolled.split(',');
     var whiteArr = whiterolled.split(',');
     blueArr.pop();
     var bluegraphArr = [];
     var orangegraphArr = [];
-    var blackgraphArr = [];
+    var redgraphArr = [];
     var whitegraphArr = [];
     for (let i=2, j = 13; i < j; i += 1) {
       bluegraphArr.push(getNumMatches(blueArr, i));
       orangegraphArr.push(getNumMatches(orangeArr, i));
-      blackgraphArr.push(getNumMatches(blackArr, i));
+      redgraphArr.push(getNumMatches(redArr, i));
       whitegraphArr.push(getNumMatches(whiteArr, i));
     }
     var ctx = document.getElementById('myChart').getContext('2d');
@@ -279,11 +297,11 @@
                       data: orangegraphArr,
                   },
                   {
-                    label: "Dice rolled by Black",
-                    backgroundColor: 'black',
+                    label: "Dice rolled by Red",
+                    backgroundColor: 'red',
                     borderColor: 'grey',
                     borderWidth: 1,
-                    data: blackgraphArr,
+                    data: redgraphArr,
                 },
                 {
                   label: "Dice rolled by White",
