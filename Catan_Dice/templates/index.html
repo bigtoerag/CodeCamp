@@ -32,14 +32,14 @@
 </head>
 <body>
 
-<div class="container">
+<div class="container-fluid">
   <nav class="navbar navbar-expand-md bg-dark navbar-dark fixed-top">
     <a class="navbar-brand" href="#">CATAN Dice Roll</a>
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#collapsibleNavbar">
       <span class="navbar-toggler-icon"></span>
     </button>
   </nav>
-  <div id="content" class="container">
+  <div id="content" class="container-fluid">
     <div class="card card-primary border-dark">
         <div class="card-header text-center font-weight-bold bg-success text-white h3">
           <div class="dropdown" id="playernumbers">
@@ -236,7 +236,7 @@
     }
 
     function chart() {
-    var arr=["1","2","3","4","5","6","7","8","9","10","11","12"];
+    var arr=["2","3","4","5","6","7","8","9","10","11","12"];
     bluerolled = document.getElementById('p1').innerHTML;
     orangerolled = document.getElementById('p2').innerHTML;
     blackrolled = document.getElementById('p3').innerHTML;
@@ -250,7 +250,7 @@
     var orangegraphArr = [];
     var blackgraphArr = [];
     var whitegraphArr = [];
-    for (let i=1, j = 13; i < j; i += 1) {
+    for (let i=2, j = 13; i < j; i += 1) {
       bluegraphArr.push(getNumMatches(blueArr, i));
       orangegraphArr.push(getNumMatches(orangeArr, i));
       blackgraphArr.push(getNumMatches(blackArr, i));
