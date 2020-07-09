@@ -16,7 +16,7 @@
       margin-top: 0px;
   }
   #myChart {
-      height: 600px;
+      max-height: 600px;
   }
   .dice {
     font-size: 6rem;
@@ -25,7 +25,7 @@
   }
 @media screen and (max-width: 769px)  {
       #myChart {
-          height: 500px;
+          max-height: 500px;
       }
     }
 
@@ -68,7 +68,7 @@
 <div class="container-fluid mt-5">
   <div id="content" class="container-fluid">
     <div class="card card-primary border-dark">
-        <div class="card-header text-center font-weight-bold bg-success text-white h3">
+        <div class="card-header text-center font-weight-bold bg-success text-white h3 d-flex justify-content-center">
           <div class="dropdown" id="playernumbers">
             <button class="btn btn-dark dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
               How many players?
@@ -81,10 +81,12 @@
             </div>
            <input hidden id="currentplayer" value=""></input>
           </div>
+          <div class="border border-dark bg-light d-table rounded p-1">
           <button id="playerone" type="button" class="btn btn-outline-primary btn-lg mr-5 font-weight-bolder" onclick="currentPlayer('blue')">Blue</button>
           <button id="playertwo" type="button" class="btn btn-outline-warning btn-lg mr-5 font-weight-bolder" onclick="currentPlayer('orange')">Orange</button>
           <button id="playerthree" type="button" class="btn btn-outline-danger btn-lg mr-5 font-weight-bolder" onclick="currentPlayer('red')">Red</button>
-          <button id="playerfour" type="button" class="btn btn-outline-light btn-lg font-weight-bolder" onclick="currentPlayer('white')">White</button>
+          <button id="playerfour" type="button" class="btn btn-outline-dark btn-lg font-weight-bolder" onclick="currentPlayer('white')">White</button>
+        </div>
         </div>
         <div class="card-body text-center">
           <button id="dice1" class="dice btn-light" onclick=""></button>
