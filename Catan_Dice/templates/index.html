@@ -11,18 +11,35 @@
  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"></script>
  <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.5.0/Chart.min.js"></script>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 <style>
   body {
       margin-top: 0px;
   }
-  #myChart {
-      max-height: 800px;
-  }
   .dice {
     font-size: 6rem;
-    font-weight: 300;
+    font-weight: 900;
     line-height: 1.2;
   }
+  .chart-container {
+    position: relative;
+    margin: auto;
+    height: 80vh;
+    width: 80vw;
+  }
+  @media all and (max-width:480px) {
+     .custom-buttons {
+       width: 100%;
+       display:block;
+      margin-bottom: 5px;
+    }
+    .dice {
+      font-size: 3.5rem;
+      font-weight: 200;
+      line-height: 2;
+    }
+  }
+
 
 </style>
 
@@ -77,15 +94,16 @@
            <input hidden id="currentplayer" value=""></input>
           </div>
           <div id="player_buttons" class="border border-dark bg-light rounded p-1">
-          <button id="playerone" type="button" class="btn btn-outline-primary btn-lg mr-5 font-weight-bolder" onclick="currentPlayer('blue')">Blue</button>
-          <button id="playertwo" type="button" class="btn btn-outline-warning btn-lg mr-5 font-weight-bolder" onclick="currentPlayer('orange')">Orange</button>
-          <button id="playerthree" type="button" class="btn btn-outline-danger btn-lg mr-5 font-weight-bolder" onclick="currentPlayer('red')">Red</button>
-          <button id="playerfour" type="button" class="btn btn-outline-dark btn-lg font-weight-bolder" onclick="currentPlayer('white')">White</button>
+          <button id="playerone" type="button" class="btn btn-outline-primary btn-lg mr-5 font-weight-bolder custom-buttons" onclick="currentPlayer('blue')">Blue</button>
+          <button id="playertwo" type="button" class="btn btn-outline-warning btn-lg mr-5 font-weight-bolder custom-buttons" onclick="currentPlayer('orange')">Orange</button>
+          <button id="playerthree" type="button" class="btn btn-outline-danger btn-lg mr-5 font-weight-bolder custom-buttons" onclick="currentPlayer('red')">Red</button>
+          <button id="playerfour" type="button" class="btn btn-outline-dark btn-lg font-weight-bolder custom-buttons" onclick="currentPlayer('white')">White</button>
         </div>
         </div>
         <div class="card-body text-center">
+
           <button id="dice1" class="dice btn-light" onclick=""></button>
-          <button id="dice2" class="dice btn-light" onclick=""></button><br><br>
+          <button id="dice2" class="dice btn-light" onclick=""></button><br><i class="fa fa-dice-one" style='font-size:48px;color:red'></i><br>
           <button type="button" onclick="rollTheDice()" class="btn btn-success btn-lg" id="dice_roll">Roll the Dice</button><br>
           <button type="button" onclick="chart()" class="btn btn-dark btn-lg mt-3" id="roll_summary">Click here to see a summary of all the rolls</button>
         </div>
@@ -110,7 +128,9 @@
 
             <div id="collapseOne" class="collapse" aria-labelledby="headingOne" data-parent="#accordion">
               <div class="card-body">
-                <canvas id="myChart"><canvas>
+                <div class="chart-container">
+                    <canvas id="myChart"></canvas>
+                </div>
               </div>
             </div>
           </div>
@@ -125,7 +145,7 @@
     </div>
 <script type="text/javascript" charset="utf-8">
     window.onload=function() {
-      document.getElementById('dice1').innerHTML = "&#x2672";
+      document.getElementById('dice1').innerHTML = "&#xf525;";
       document.getElementById('dice2').innerHTML = "&#x2672";
       document.getElementById("dice1").disabled=true;
       document.getElementById("dice2").disabled=true;
@@ -342,8 +362,9 @@
 
             // Configuration options go here
             options: {
-                      //responsive: true,
-                      maintainAspectRatio: false,
+                    maintainAspectRatio: false,
+                    aspectRatio: 2,
+                    responsive: true,
                       scales: {
                         xAxes: [{ stacked: true,
                           scaleLabel: {
