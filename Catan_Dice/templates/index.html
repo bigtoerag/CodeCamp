@@ -24,19 +24,17 @@
     width: 80vw;
   }
   @media all and (max-width:480px) {
-     .custom-buttons {
-       width: 100%;
-       display:block;
-      margin-bottom: 5px;
+    .custom-buttons {
+      width: 120px;
     }
-  }
-#dice1, #dice2 {
-
- 
+    .custom-buttons:nth-last-child(-n + 2) {
+    margin-top: 10px;
 }
-.dice2 {
 
-  
+  }
+
+  .custom-buttons:nth-last-child(-n + 3) {
+  margin-left: 16px;
 }
 table { border: 5pt solid white}
 </style>
@@ -91,10 +89,10 @@ table { border: 5pt solid white}
             </div>
            <input hidden id="currentplayer" value=""></input>
           </div>
-          <div id="player_buttons" class="border border-dark bg-light rounded p-1">
-          <button id="playerone" type="button" class="btn btn-outline-primary btn-lg mr-5 font-weight-bolder custom-buttons" onclick="currentPlayer('blue')">Blue</button>
-          <button id="playertwo" type="button" class="btn btn-outline-warning btn-lg mr-5 font-weight-bolder custom-buttons" onclick="currentPlayer('orange')">Orange</button>
-          <button id="playerthree" type="button" class="btn btn-outline-danger btn-lg mr-5 font-weight-bolder custom-buttons" onclick="currentPlayer('red')">Red</button>
+          <div id="player_buttons" class="border border-dark bg-light rounded d-inline-flex flex-wrap justify-content-around align-items-center p-1">
+          <button id="playerone" type="button" class="btn btn-outline-primary btn-lg font-weight-bolder custom-buttons" onclick="currentPlayer('blue')">Blue</button>
+          <button id="playertwo" type="button" class="btn btn-outline-warning btn-lg font-weight-bolder custom-buttons" onclick="currentPlayer('orange')">Orange</button>
+          <button id="playerthree" type="button" class="btn btn-outline-danger btn-lg font-weight-bolder custom-buttons" onclick="currentPlayer('red')">Red</button>
           <button id="playerfour" type="button" class="btn btn-outline-dark btn-lg font-weight-bolder custom-buttons" onclick="currentPlayer('white')">White</button>
         </div>
         </div>
@@ -146,7 +144,9 @@ table { border: 5pt solid white}
       document.getElementById("dice1").disabled=true;
       document.getElementById("dice2").disabled=true;
       document.getElementById("dice_roll").disabled=true;
-      document.getElementById('player_buttons').style.display = "none";
+      //document.getElementById('player_buttons').style.display = "d-none";
+      document.getElementById("player_buttons").classList.remove("d-inline-flex");
+      document.getElementById("player_buttons").classList.add("d-none");
       document.getElementById('playerone').style.display = "none";
       document.getElementById('playertwo').style.display = "none";
       document.getElementById('playerthree').style.display = "none";
@@ -198,7 +198,8 @@ table { border: 5pt solid white}
       "6:6":"12"
     };
     function playing(id) {
-      document.getElementById('player_buttons').style.display = "";
+      document.getElementById("player_buttons").classList.remove("d-none");
+      document.getElementById("player_buttons").classList.add("d-inline-flex");
       if (id == 1) {
         document.getElementById('playernumbers').style.display = "none";
         document.getElementById('playerone').style.display = "inline-block";
