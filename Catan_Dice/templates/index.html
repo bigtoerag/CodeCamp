@@ -16,18 +16,13 @@
       margin-top: 0px;
   }
   #myChart {
-      max-height: 600px;
+      max-height: 800px;
   }
   .dice {
     font-size: 6rem;
     font-weight: 300;
     line-height: 1.2;
   }
-@media screen and (max-width: 769px)  {
-      #myChart {
-          max-height: 500px;
-      }
-    }
 
 </style>
 
@@ -81,7 +76,7 @@
             </div>
            <input hidden id="currentplayer" value=""></input>
           </div>
-          <div class="border border-dark bg-light d-table rounded p-1">
+          <div id="player_buttons" class="border border-dark bg-light rounded p-1">
           <button id="playerone" type="button" class="btn btn-outline-primary btn-lg mr-5 font-weight-bolder" onclick="currentPlayer('blue')">Blue</button>
           <button id="playertwo" type="button" class="btn btn-outline-warning btn-lg mr-5 font-weight-bolder" onclick="currentPlayer('orange')">Orange</button>
           <button id="playerthree" type="button" class="btn btn-outline-danger btn-lg mr-5 font-weight-bolder" onclick="currentPlayer('red')">Red</button>
@@ -135,6 +130,7 @@
       document.getElementById("dice1").disabled=true;
       document.getElementById("dice2").disabled=true;
       document.getElementById("dice_roll").disabled=true;
+      document.getElementById('player_buttons').style.display = "none";
       document.getElementById('playerone').style.display = "none";
       document.getElementById('playertwo').style.display = "none";
       document.getElementById('playerthree').style.display = "none";
@@ -186,6 +182,7 @@
       "6:6":"12"
     };
     function playing(id) {
+      document.getElementById('player_buttons').style.display = "";
       if (id == 1) {
         document.getElementById('playernumbers').style.display = "none";
         document.getElementById('playerone').style.display = "inline-block";
@@ -251,8 +248,8 @@
       document.getElementById("dice1").disabled=false;
       document.getElementById("dice2").disabled=false;
       player = document.getElementById('currentplayer').value;
-      dice1roll = diceRoll();
-      dice2roll = diceRoll();
+      dice1roll = diceRoll(1,6);
+      dice2roll = diceRoll(1,6);
       document.getElementById('dice1').innerHTML = dice1roll;
       document.getElementById('dice2').innerHTML = dice2roll;
       console.log("We rolled both");
@@ -262,11 +259,12 @@
 
     }
 
-    function diceRoll() {
-      var facevalue,
+    function diceRoll(min, max) {
+      var faceValue,
           output;
-        faceValue = Math.floor(Math.random() * 6);
-        output = "&#x268" + faceValue + ";";
+        faceValue = (Math.floor(Math.random() * (max - min) + 1) + min);
+        output = "&#x268" + (faceValue - 1) + ";";
+        console.log(output);
         return output;
     }
 
@@ -344,7 +342,7 @@
 
             // Configuration options go here
             options: {
-                      responsive: true,
+                      //responsive: true,
                       maintainAspectRatio: false,
                       scales: {
                         xAxes: [{ stacked: true,
