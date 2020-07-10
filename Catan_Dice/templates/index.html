@@ -16,11 +16,7 @@
   body {
       margin-top: 0px;
   }
-  .dice {
-    font-size: 6rem;
-    font-weight: 900;
-    line-height: 1.2;
-  }
+
   .chart-container {
     position: relative;
     margin: auto;
@@ -33,14 +29,16 @@
        display:block;
       margin-bottom: 5px;
     }
-    .dice {
-      font-size: 3.5rem;
-      font-weight: 200;
-      line-height: 2;
-    }
   }
+#dice1, #dice2 {
 
+ 
+}
+.dice2 {
 
+  
+}
+table { border: 5pt solid white}
 </style>
 
 </head>
@@ -100,10 +98,15 @@
           <button id="playerfour" type="button" class="btn btn-outline-dark btn-lg font-weight-bolder custom-buttons" onclick="currentPlayer('white')">White</button>
         </div>
         </div>
-        <div class="card-body text-center">
-
-          <button id="dice1" class="dice btn-light" onclick=""></button>
-          <button id="dice2" class="dice btn-light" onclick=""></button><br><i class="fa fa-dice-one" style='font-size:48px;color:red'></i><br>
+        <div class="card-body text-center justify-content-center">
+          <table class="table">
+            <tbody>
+                  <tr>
+                    <td align="right"><div id="dice1" class="dice1"></div></td>
+                    <td align="left"><div id="dice2" class="dice2"></div></td>
+                  </tr>
+                </tbody>
+              </table>
           <button type="button" onclick="rollTheDice()" class="btn btn-success btn-lg" id="dice_roll">Roll the Dice</button><br>
           <button type="button" onclick="chart()" class="btn btn-dark btn-lg mt-3" id="roll_summary">Click here to see a summary of all the rolls</button>
         </div>
@@ -134,19 +137,12 @@
               </div>
             </div>
           </div>
-        </div>
-
-
-
-
-
-
       </div>
     </div>
 <script type="text/javascript" charset="utf-8">
     window.onload=function() {
-      document.getElementById('dice1').innerHTML = "&#xf525;";
-      document.getElementById('dice2').innerHTML = "&#x2672";
+      document.getElementById('dice1').innerHTML = "<img src='../static/128px-Dice-0.svg.png'></img>";
+      document.getElementById('dice2').innerHTML = "<img src='../static/128px-Dice-0.svg.png'></img>";
       document.getElementById("dice1").disabled=true;
       document.getElementById("dice2").disabled=true;
       document.getElementById("dice_roll").disabled=true;
@@ -270,11 +266,11 @@
       player = document.getElementById('currentplayer').value;
       dice1roll = diceRoll(0,6);
       dice2roll = diceRoll(0,6);
-      document.getElementById('dice1').innerHTML = dice1roll;
-      document.getElementById('dice2').innerHTML = dice2roll;
+      document.getElementById('dice1').innerHTML = dice1roll[0];
+      document.getElementById('dice2').innerHTML = dice2roll[0];
       console.log("We rolled both");
 
-      outcome(player,dice1roll,dice2roll);
+      outcome(player,dice1roll[1],dice2roll[1]);
       rollcount++
 
     }
@@ -283,14 +279,41 @@
       var faceValue,
           output;
         faceValue = (Math.floor(Math.random() * (max - min) + 1) + min);
-        output = "&#x268" + (faceValue - 1) + ";";
-        console.log(output);
-        return output;
+        switch (faceValue) {
+          case 1:
+          output = "<img src='../static/128px-Dice-1-b.svg.png'></img>";
+          diceroll_value = 1;
+            break;
+          case 2:
+          output = "<img src='../static/128px-Dice-2-b.svg.png'></img>";
+          diceroll_value = 2;
+            break;
+          case 3:
+          output = "<img src='../static/128px-Dice-3-b.svg.png'></img>";
+          diceroll_value = 3;
+            break;
+          case 4:
+          output = "<img src='../static/128px-Dice-4-b.svg.png'></img>";
+          diceroll_value = 4;
+            break;
+          case 5:
+          output = "<img src='../static/128px-Dice-5-b.svg.png'></img>";
+          diceroll_value = 5;
+            break;
+          case 6:
+          output = "<img src='../static/128px-Dice-6a-b.svg.png'></img>";
+          diceroll_value = 6;
+            break;
+          default:
+          output = "Oops" + faceValue;
+          diceroll_value = 0;
+        }
+        return [output, diceroll_value];
     }
 
 
     function outcome(player,dice1roll,dice2roll) {
-      combination = (parseInt(dice1roll[6]) + 1) + ":" + (parseInt(dice2roll[6]) + 1);
+      combination = parseInt(dice1roll) + ":" + parseInt(dice2roll);
       console.log(player,combination);
       console.log("The score of the combo is " + data[combination]);
       if (data.hasOwnProperty(combination)) {
