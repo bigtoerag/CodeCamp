@@ -248,8 +248,8 @@
       document.getElementById("dice1").disabled=false;
       document.getElementById("dice2").disabled=false;
       player = document.getElementById('currentplayer').value;
-      dice1roll = diceRoll(1,6);
-      dice2roll = diceRoll(1,6);
+      dice1roll = diceRoll(0,6);
+      dice2roll = diceRoll(0,6);
       document.getElementById('dice1').innerHTML = dice1roll;
       document.getElementById('dice2').innerHTML = dice2roll;
       console.log("We rolled both");
