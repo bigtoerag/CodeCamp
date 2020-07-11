@@ -41,16 +41,14 @@
   </head>
 
   <body>
-
-    <div id="canvas"></div>
     <input hidden id="color_array"></input>
-    <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>
+    <div id="canvas"></div>
     <script type="text/javascript" src="https://d3js.org/d3.v5.min.js"></script>
     <script type="text/javascript">
     //Many thanks to this champ for the inspiration http://bl.ocks.org/bycoffe
     //Find the original code and demo here http://bl.ocks.org/bycoffe/3404776
 
-      (function() {
+
         function ColorArray() {
           var colors = [
           'blue'
@@ -84,16 +82,13 @@
               var random = Math.floor(Math.random() * (my_color.length));
               my_color.splice(random, 0, grey.splice(0,1));
           }
-          console.log(my_color);
           document.getElementById("color_array").innerHTML = my_color;
         }
 
         function getColor() {
           color_items = document.getElementById("color_array").innerHTML;
-          console.log(color_items);
           color = color_items.split(',').shift();
           var color_items_new = color_items.split(",").slice(1).join(",");
-          console.log('color chosen = ' + color);
           document.getElementById("color_array").innerHTML = color_items_new;
           return color;
         }
@@ -148,7 +143,7 @@
                       })
          element = g.append('svg:circle')
                         .attr('r', elementRadius)
-                        .style("fill", function(d, i){ return getColor(); })
+                        .style("fill", function(d){ return getColor(); })
                         .style("stroke", "black")
                        .attr('cx', function (d, i) {
                           return d.x;
@@ -191,7 +186,7 @@
       $("#radius, #numNodes").bind('keyup', function(e) {
           draw();
       });
-            })();
+
     </script>
   </body>
 </html>
