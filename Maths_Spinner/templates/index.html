@@ -50,7 +50,7 @@ SOFTWARE.
     }
     .enter_answer {
     font-size: calc(25px + (40 - 25) * ((100vw - 400px) / (1600 - 300)));
-    width: 15%;
+    width: 30%;
     box-sizing: content-box;
     font-family: 'Ubuntu', sans-serif;
     line-height: normal;
@@ -131,6 +131,11 @@ SOFTWARE.
   html {
      visibility: visible;
      opacity: 1; }
+     table { border: 5pt solid white}
+     td{
+    border:black thin white;
+    width:50%;
+}
 </style>
 
 </head>
@@ -197,8 +202,14 @@ SOFTWARE.
                           <div id="equation" class="mt-5">Ready to spin?</div>
                           <div id="ans_res" class="mt-2  mx-auto">
                             <div id="answer_input" class="">
-                              <input id="enter_answer" class="enter_answer border border-secondary mt-3 mr-3" name="enter_answer" type="number" placeholder="" required>
-                              <button id="show_answer" class="btn btn-lg btn-primary w-50" onclick="store_answer(); this.disabled = true;">Check Answer</button>
+                              <table class="table">
+                                <tbody>
+                                      <tr>
+                                        <td align="right"><input id="enter_answer" class="enter_answer border border-secondary mr-3" name="enter_answer" type="number" placeholder="" required></td>
+                                        <td align="left"><button id="show_answer" class="btn btn-lg btn-primary" onclick="store_answer(); this.disabled = true;">Check Answer</button></td>
+                                      </tr>
+                                    </tbody>
+                                  </table>
                             </div >
                           </div>
                         <div id="answer_array_title" class="mb-0 mt-2">Answer History

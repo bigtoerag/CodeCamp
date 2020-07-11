@@ -91,9 +91,9 @@ svg {
   left: 33%;
   font-size: 3rem;
   font-weight: 500;
-  color: gold;
+  color: white;
   font-family: Helvetica, Arial, sans-serif;
-  text-shadow: 0 0 5px black;
+  text-shadow: -2px 0 blue, 0 2px blue, 2px 0 blue, 0 -2px blue;
 }
 .number2digits {
   position: absolute;
@@ -101,9 +101,9 @@ svg {
   left: 35%;
   font-size: 2.6rem;
   font-weight: 400;
-  color: gold;
+  color: white;
   font-family: Helvetica, Arial, sans-serif;
-  text-shadow: 0 0 5px black;
+  text-shadow: -2px 0 blue, 0 2px blue, 2px 0 blue, 0 -2px blue;
 }
 
 
@@ -397,7 +397,6 @@ while (i<19){
     } else {
       var num = getNum(nums);
     }
-    console.log(num,image);
     if (image == '../static/catan.jpg') {
       document.getElementById(numtag).innerHTML = num;
       document.getElementById(numtag).className = "number2digits";
