@@ -1,0 +1,65 @@
+html, body {
+    margin: 0; padding: 0;
+    height: 100%;
+    overflow: auto;
+
+}
+html, body {
+    background-color: black;
+}
+
+/*
+#lit_quote {
+
+}
+*/
+#lit_quote em {
+    font-weight: 900;
+    color: rgb(19, 19, 19);
+    font-style: normal;
+    color: white;
+}
+
+
+#main_text {
+    width: 80vw;
+    margin: auto;
+    color: grey;
+    font-family: 'Merriweather', Times, serif;
+}
+
+cite {
+    float: right;
+    padding-left: 10vw;
+    font-size: 2.3vw;
+}
+cite #book{
+    font-style: normal;
+}
+
+#buttom {
+    font-size: 11px;
+    height: 10px;
+    width: 90%;
+    position: fixed;
+    bottom:2%;
+    color: grey;
+    padding-left: 40px;
+    padding-right: 0px;
+
+}
+#buttom a, a:visited {
+    color: rgb(66, 66, 66)
+}
+
+#github {
+    display: inline;
+    padding-right: 5px;
+    border-right-style: solid;
+    border-right-width: 2px;
+    border-right-color: grey;
+}
+
+#based_on {
+    padding-left: 5px;
+}

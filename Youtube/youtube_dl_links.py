@@ -15,7 +15,7 @@ from selenium.webdriver.common.keys import Keys
 import youtube_dl
 import re
 
-is_playlist = False;
+is_playlist = True;
 
 ydl_opts = {
     'format': 'bestvideo[height<=480]+bestaudio/best',
@@ -36,12 +36,12 @@ ydl_opts = {
 outdir = '/mnt/oldmedialib/youtubedl'
 browser = webdriver.Chrome()
 
-browser.get("https://www.youtube.com/user/sheepsempire/videos")
+browser.get("https://www.youtube.com/playlist?list=PL6RLee9oArCAxnSVxKlvK6y-mhVpDrgOE")
 time.sleep(1)
 
 elem = browser.find_element_by_tag_name("body")
 
-no_of_pagedowns = 100
+no_of_pagedowns = 10
 
 while no_of_pagedowns:
     elem.send_keys(Keys.PAGE_DOWN)
@@ -80,7 +80,7 @@ for x in links:
         with youtube_dl.YoutubeDL(ydl_opts) as ydl:
             dictMeta = ydl.extract_info(dlink, download=False)
             #print(dictMeta)
-            if dictMeta['duration'] <= 3000:
+            if dictMeta['duration'] <= 30:
                 print("***************************************************\nSkipped short track that doesn't look like a mix\n***************************************************")
             else:
                 with open(outdir + '/videos.txt', 'a+') as file:
