@@ -4,138 +4,1027 @@
     <title>Games for COVID-19</title>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link id="page_favicon" href="default.ico" rel="icon" type="image/x-icon">
-
-
  <!-- Latest compiled and minified CSS -->
- <link href="https://fonts.googleapis.com/css2?family=Ubuntu" rel="stylesheet">
- <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css">
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css">
+<style type="text/css">
+body {
+    margin-top: 0px;
+    font-family: 'Ubuntu', sans-serif;
+}
+text{
+    font-family: 'Ubuntu', sans-serif;
+    pointer-events:none;
+}
+.name {
+  font-size: calc(20px + (40 - 20) * ((100vw - 400px) / (1600 - 300)));
+}
+.slotwrapper {
+    overflow: hidden;
+    display: inline-block;
+    border: 1px solid #000;
+    height: calc(1.5em + 0.6 * ((100vw - 20em) / 10));
+		width: 100%;
+}
+.slotwrapper ul {
+    padding: 0;
+    margin: 0;
+    list-style: none;
+    position: relative;
+    float: left;
+		background: white;
+}
+.slotwrapper ul {
+    width: 25%;
+    font-size: calc(12px + (60 - 12) * ((100vw - 300px) / (1600 - 300)));
+    line-height: calc(1.5em + 0.6 * ((100vw - 20em) / 20));
+    text-align: center;
+}
 
- <style type="text/css">
- body {
-     font-family: 'Ubuntu', sans-serif;
+.slotwrapper ul li img {
+    vertical-align: top;
 
- }
- text{
-     font-family: 'Ubuntu', sans-serif;
-     pointer-events:none;
- }
- </style>
+}
+</style>
 </head>
 
 <body>
-  <nav class="navbar navbar-expand-lg bg-dark navbar-dark">
-  <a class="navbar-brand" href="#">COVID Games!</a>
-  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#collapsibleNavbar">
-    <span class="navbar-toggler-icon"></span>
-  </button>
-  <div class="collapse navbar-collapse" id="collapsibleNavbar">
-    <ul class="navbar-nav">
-      <li class="nav-item">
-        <a class="nav-link" href="Words/templates/index.html">Word Game</a>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link" href="Maths_Spinner/templates/index.html">Math Spinner</a>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link" href="Countdown_Cards/templates/index.html">Card Memory Game</a>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link" href="Card_Game/templates/index.html">Card Equation Game</a>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link" href="Image_Carousel/templates/index.html">Ocean Bingo</a>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link" href="Catan_Randomiser/templates/index.html">CATAN Randomiser</a>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link" href="Catan_Dice/templates/index.html">CATAN Dice Roller</a>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link" href="Lit_Clock/templates/index.html">Literature Clock</a>
-      </li>
-    </ul>
+  <!--Navigation bar-->
+  <div id="nav-placeholder">
 
   </div>
-</nav>
-  <div class="container-fluid">
-  <div class="card-deck mt-5 mb-5">
-      <div class="card">
-      <img class="card-img-top" src="Words/static/card_image.jpg" alt="Card image">
-      <div class="card-body">
-        <h4 class="card-title">Word Spinner</h4>
-        <p class="card-text">A roulette style spinner for Year 2 words to allow the creation of dynamic sentences and spelling options.</p>
-        <a href="Words/templates/index.html" class="btn btn-primary stretched-link">Play Now</a>
+
+
+  <!--end of Navigation bar-->
+
+
+<div id="container" class="container-fluid mt-5">
+  <div id="accordion">
+    <div class="card" id="year1">
+      <div class="btn btn-outline-dark btn-block btn-lg text-center shadow">
+        <div class="card-link name" data-toggle="collapse" href="#collapseOne">
+          Sight Words
+        </div>
+      </div>
+      <div id="collapseOne" class="collapse" data-parent="#accordion">
+        <div class="card-body">
+          <div class="slotwrapper shadow " id="year1slots">
+              <ul>
+                <li>an</li>
+                <li>from</li>
+                <li>let</li>
+                <li>stop</li>
+                <li>as</li>
+                <li>had</li>
+                <li>may</li>
+                <li>them</li>
+                <li>ask</li>
+                <li>has</li>
+              </ul>
+              <ul>
+                <li>of</li>
+                <li>then</li>
+                <li>by</li>
+                <li>her</li>
+                <li>old</li>
+                <li>walk</li>
+                <li>fly</li>
+                <li>him</li>
+                <li>some</li>
+                <li>when</li>
+              </ul>
+              <ul>
+                <li>after</li>
+                <li>give</li>
+                <li>live</li>
+                <li>round</li>
+                <li>again</li>
+                <li>going</li>
+                <li>once</li>
+                <li>take</li>
+                <li>any</li>
+                <li>how</li>
+              </ul>
+              <ul>
+                <li>open</li>
+                <li>thank</li>
+                <li>could</li>
+                <li>just</li>
+                <li>over</li>
+                <li>think</li>
+                <li>every</li>
+                <li>know</li>
+                <li>put</li>
+                <li>where</li>
+              </ul>
+          </div>
+           <div class="justify-content-center align-items-center">
+              <button type="button" class="btn-block btn-primary btn-lg" id="btn-year1">Start Spin!</button>
+          </div>
+        </div>
       </div>
     </div>
-    <div class="card">
-    <img class="card-img-top" src="Maths_Spinner/static/card_image.jpg" alt="Card image">
-    <div class="card-body">
-      <h4 class="card-title">Maths Spinner</h4>
-      <p class="card-text">A roulette style spinner for Year 4 maths to allow the practice of factors for *, + and - options.</p>
-      <a href="Maths_Spinner/templates/index.html" class="btn btn-primary stretched-link">Play Now</a>
-    </div>
-  </div>
-  <div class="card">
-  <img class="card-img-top" src="Countdown_Cards/static/card_image.jpg" alt="Card image">
-  <div class="card-body">
-    <h4 class="card-title">Card Memory Game</h4>
-    <p class="card-text">A card style memory game with a timer to up the ante.</p>
-    <a href="Countdown_Cards/templates/index.html" class="btn btn-primary stretched-link">Play Now</a>
-  </div>
-</div>
-<div class="card">
-<img class="card-img-top" src="Card_Game/static/card_image.jpg" alt="Card image">
-<div class="card-body">
-  <h4 class="card-title">Card Equation Game</h4>
-  <p class="card-text">A card style maths game the make solving equations more fun.</p>
-  <a href="Card_Game/templates/index.html" class="btn btn-primary stretched-link">Play Now</a>
-</div>
-</div>
+    <br>
 
-</div>
-<div class="card-deck mt-5 mb-5">
-  <div class="card">
-  <img class="card-img-top" src="Image_Carousel/static/card_image.jpg" alt="Card image">
-  <div class="card-body">
-    <h4 class="card-title">Ocean Bingo</h4>
-    <p class="card-text">A fully digital Ocean bingo board with Google API media names.</p>
-    <a href="Image_Carousel/templates/index.html" class="btn btn-primary stretched-link">Play Now</a>
-  </div>
-  </div>
-  <div class="card">
-  <img class="card-img-top" src="Catan_Randomiser/static/card_image.jpg" alt="Card image">
-  <div class="card-body">
-    <h4 class="card-title">CATAN Randomiser</h4>
-    <p class="card-text">A fully randomised board layout and player positioning from any starting point on the board.</p>
-    <a href="Catan_Randomiser/templates/index.html" class="btn btn-primary stretched-link">Play Now</a>
-  </div>
+      <div class="card" id="year2">
+        <div class="btn btn-outline-dark btn-block btn-lg text-center shadow">
+          <div class="card-link name" data-toggle="collapse" href="#collapseTwo">
+            Year Two Words
+          </div>
+        </div>
+        <div id="collapseTwo" class="collapse" data-parent="#accordion">
+          <div class="card-body">
+            <div class="slotwrapper shadow " id="year2slots">
+                <ul>
+                  <li>after</li>
+                  <li>always</li>
+                  <li>ask</li>
+                  <li>because</li>
+                  <li>between</li>
+                  <li>brother</li>
+                  <li>clean</li>
+                  <li>deep</li>
+                  <li>dress</li>
+                  <li>each</li>
+                  <li>every</li>
+                  <li>fight</li>
+                  <li>give</li>
+                  <li>grin</li>
+                  <li>him</li>
+                  <li>just</li>
+                  <li>line</li>
+                  <li>long</li>
+                  <li>mess</li>
+                  <li>new</li>
+                  <li>only</li>
+                  <li>place</li>
+                  <li>read</li>
+                  <li>says</li>
+                  <li>seven</li>
+                  <li>sister</li>
+                  <li>song</li>
+                  <li>still</li>
+                  <li>tell</li>
+                  <li>thing</li>
+                  <li>treat</li>
+                  <li>upon</li>
+                  <li>well</li>
+                  <li>why</li>
+                  <li>write</li>
+                </ul>
+      					<ul>
+                  <li>again</li>
+                  <li>animal</li>
+                  <li>away</li>
+                  <li>been</li>
+                  <li>blend</li>
+                  <li>buy</li>
+                  <li>clock</li>
+                  <li>deer</li>
+                  <li>drip</li>
+                  <li>eight</li>
+                  <li>family</li>
+                  <li>first</li>
+                  <li>goat</li>
+                  <li>happy</li>
+                  <li>home</li>
+                  <li>kind</li>
+                  <li>lion</li>
+                  <li>look</li>
+                  <li>might</li>
+                  <li>night</li>
+                  <li>or</li>
+                  <li>plus</li>
+                  <li>rest</li>
+                  <li>sea</li>
+                  <li>shape</li>
+                  <li>slid</li>
+                  <li>soon</li>
+                  <li>stone</li>
+                  <li>their</li>
+                  <li>think</li>
+                  <li>trick</li>
+                  <li>us</li>
+                  <li>went</li>
+                  <li>winter</li>
+                  <li>yard</li>
+      					</ul>
+      					<ul>
+                  <li>air</li>
+                  <li>another</li>
+                  <li>back</li>
+                  <li>before</li>
+                  <li>boat</li>
+                  <li>call</li>
+                  <li>cold</li>
+                  <li>dish</li>
+                  <li>drive</li>
+                  <li>eleven</li>
+                  <li>fast</li>
+                  <li>found</li>
+                  <li>goes</li>
+                  <li>help</li>
+                  <li>house</li>
+                  <li>kiss</li>
+                  <li>list</li>
+                  <li>loud</li>
+                  <li>most</li>
+                  <li>nine</li>
+                  <li>our</li>
+                  <li>pool</li>
+                  <li>right</li>
+                  <li>second</li>
+                  <li>sight</li>
+                  <li>slip</li>
+                  <li>sound</li>
+                  <li>such</li>
+                  <li>them</li>
+                  <li>ton</li>
+                  <li>tune</li>
+                  <li>use</li>
+                  <li>where</li>
+                  <li>wish</li>
+                  <li>year</li>
+                </ul>
+                <ul>
+                  <li>also</li>
+                  <li>any</li>
+                  <li>barn</li>
+                  <li>best</li>
+                  <li>both</li>
+                  <li>cannot</li>
+                  <li>could</li>
+                  <li>does</li>
+                  <li>drop</li>
+                  <li>end</li>
+                  <li>fed</li>
+                  <li>friend</li>
+                  <li>good</li>
+                  <li>here</li>
+                  <li>its</li>
+                  <li>large</li>
+                  <li>little</li>
+                  <li>lunch</li>
+                  <li>much</li>
+                  <li>now</li>
+                  <li>out</li>
+                  <li>put</li>
+                  <li>rock</li>
+                  <li>seem</li>
+                  <li>silly</li>
+                  <li>snack</li>
+                  <li>stamp</li>
+                  <li>summer</li>
+                  <li>there</li>
+                  <li>too</li>
+                  <li>twelve</li>
+                  <li>very</li>
+                  <li>which</li>
+                  <li>work</li>
+                  <li>yet</li>
+                </ul>
+            </div>
+             <div class="justify-content-center align-items-center">
+                <button type="button" class="btn-block btn-primary btn-lg" id="btn-year2">Start Spin!</button>
+            </div>
+          </div>
+        </div>
+      </div>
+      <br>
+      <div class="card" id="year3">
+        <div class="btn btn-outline-dark btn-block btn-lg text-center shadow">
+          <div class="card-link name" data-toggle="collapse" href="#collapseThree">
+            Year Three Words
+          </div>
+        </div>
+        <div id="collapseThree" class="collapse" data-parent="#accordion">
+          <div class="card-body">
+            <div class="slotwrapper shadow " id="year3slots">
+                <ul>
+                  <li>cries</li>
+                  <li>done</li>
+                  <li>everything</li>
+                  <li>food</li>
+                  <li>gift</li>
+                  <li>heard</li>
+                  <li>horse</li>
+                  <li>isn't</li>
+                  <li>knew</li>
+                  <li>leave</li>
+                  <li>lose</li>
+                  <li>meal</li>
+                  <li>more</li>
+                  <li>near</li>
+                  <li>once</li>
+                  <li>park</li>
+                  <li>point</li>
+                  <li>raised</li>
+                  <li>roll</li>
+                  <li>sale</li>
+                  <li>serve</li>
+                  <li>should</li>
+                  <li>smiling</li>
+                  <li>spread</li>
+                  <li>street</li>
+                  <li>summer</li>
+                  <li>threw</li>
+                  <li>together</li>
+                  <li>trouble</li>
+                  <li>used</li>
+                  <li>Wednesday</li>
+                  <li>wore</li>
+                  <li>age</li>
+                  <li>anything</li>
+                  <li>behind</li>
+                  <li>boxes</li>
+                  <li>buses</li>
+                  <li>cheese</li>
+                  <li>climb</li>
+                  <li>crazy</li>
+                  <li>dollar</li>
+                  <li>everyone</li>
+                </ul>
+      					<ul>
+                  <li>dinner</li>
+                  <li>driving</li>
+                  <li>eyes</li>
+                  <li>forgot</li>
+                  <li>grinned</li>
+                  <li>heart</li>
+                  <li>hurt</li>
+                  <li>it's</li>
+                  <li>know</li>
+                  <li>left</li>
+                  <li>love</li>
+                  <li>meat</li>
+                  <li>morning</li>
+                  <li>never</li>
+                  <li>other</li>
+                  <li>past</li>
+                  <li>prize</li>
+                  <li>really</li>
+                  <li>roses</li>
+                  <li>Saturday</li>
+                  <li>sew</li>
+                  <li>sitting</li>
+                  <li>soft</li>
+                  <li>spring</li>
+                  <li>stretch</li>
+                  <li>Sunday</li>
+                  <li>throw</li>
+                  <li>tooth</li>
+                  <li>true</li>
+                  <li>voice</li>
+                  <li>whole</li>
+                  <li>wrong</li>
+                  <li>foil</li>
+                  <li>funny</li>
+                  <li>happen</li>
+                  <li>himself</li>
+                  <li>I've</li>
+                  <li>knee</li>
+                  <li>law</li>
+                  <li>lived</li>
+                  <li>maybe</li>
+                  <li>Monday</li>
+      					</ul>
+      					<ul>
+                  <li>doctor</li>
+                  <li>early</li>
+                  <li>finish</li>
+                  <li>Friday</li>
+                  <li>guess</li>
+                  <li>heavy</li>
+                  <li>I'll</li>
+                  <li>kept</li>
+                  <li>lamb</li>
+                  <li>life</li>
+                  <li>mark</li>
+                  <li>meet</li>
+                  <li>mouse</li>
+                  <li>newspaper</li>
+                  <li>outside</li>
+                  <li>penny</li>
+                  <li>push</li>
+                  <li>riding</li>
+                  <li>rule</li>
+                  <li>school</li>
+                  <li>shelf</li>
+                  <li>skinned</li>
+                  <li>someone</li>
+                  <li>stairs</li>
+                  <li>string</li>
+                  <li>tenth</li>
+                  <li>Thursday</li>
+                  <li>touch</li>
+                  <li>Tuesday</li>
+                  <li>walk</li>
+                  <li>window</li>
+                  <li>wrote</li>
+                  <li>move</li>
+                  <li>none</li>
+                  <li>paint</li>
+                  <li>piece</li>
+                  <li>quickly</li>
+                  <li>rode</li>
+                  <li>sail</li>
+                  <li>scream</li>
+                  <li>shopping</li>
+                  <li>slept</li>
+                </ul>
+                <ul>
+                  <li>doesn't</li>
+                  <li>easy</li>
+                  <li>flies</li>
+                  <li>front</li>
+                  <li>half</li>
+                  <li>hello</li>
+                  <li>I'm</li>
+                  <li>key</li>
+                  <li>laugh</li>
+                  <li>lift</li>
+                  <li>match</li>
+                  <li>merry</li>
+                  <li>mouth</li>
+                  <li>noise</li>
+                  <li>own</li>
+                  <li>picnic</li>
+                  <li>queen</li>
+                  <li>river</li>
+                  <li>running</li>
+                  <li>scratch</li>
+                  <li>shiny</li>
+                  <li>sky</li>
+                  <li>something</li>
+                  <li>stopped</li>
+                  <li>strong</li>
+                  <li>that's</li>
+                  <li>tiny</li>
+                  <li>town</li>
+                  <li>turn</li>
+                  <li>warm</li>
+                  <li>without</li>
+                  <li>young</li>
+                  <li>speak</li>
+                  <li>straight</li>
+                  <li>suit</li>
+                  <li>thick</li>
+                  <li>today</li>
+                  <li>tries</li>
+                  <li>until</li>
+                  <li>we'll</li>
+                  <li>won't</li>
+                  <li>you're</li>
+                </ul>
+            </div>
+             <div class="justify-content-center align-items-center">
+                <button type="button" class="btn-block btn-primary btn-lg" id="btn-year3">Start Spin!</button>
+            </div>
+          </div>
+        </div>
+      </div>
+      <br>
+      <div class="card" id="year4">
+        <div class="btn btn-outline-dark btn-block btn-lg text-center shadow">
+          <div class="card-link name" data-toggle="collapse" href="#collapseFour">
+            Year Four Words
+          </div>
+        </div>
+        <div id="collapseFour" class="collapse" data-parent="#accordion">
+          <div class="card-body">
+            <div class="slotwrapper shadow " id="year4slots">
+                <ul>
+                  <li>against</li>
+                  <li>all right</li>
+                  <li>angriest</li>
+                  <li>attack</li>
+                  <li>beauty</li>
+                  <li>between</li>
+                  <li>bounce</li>
+                  <li>brought</li>
+                  <li>button</li>
+                  <li>caring</li>
+                  <li>chance</li>
+                  <li>choice</li>
+                  <li>cities</li>
+                  <li>common</li>
+                  <li>couch</li>
+                  <li>cover</li>
+                  <li>crowd</li>
+                  <li>danger</li>
+                  <li>decide</li>
+                  <li>disappear</li>
+                  <li>drain</li>
+                  <li>easier</li>
+                  <li>enough</li>
+                  <li>famous</li>
+                  <li>few</li>
+                  <li>forever</li>
+                  <li>fruit</li>
+                  <li>gentle</li>
+                  <li>grandmother</li>
+                  <li>happiest</li>
+                  <li>hiking</li>
+                  <li>hour</li>
+                  <li>hurry</li>
+                  <li>jacket</li>
+                  <li>kitchen</li>
+                  <li>listen</li>
+                  <li>meant</li>
+                  <li>moment</li>
+                  <li>nickel</li>
+                  <li>o'clock</li>
+                  <li>paper</li>
+                  <li>pencil</li>
+                  <li>pleasing</li>
+                  <li>question</li>
+                  <li>railroad</li>
+                  <li>return</li>
+                  <li>round</li>
+                  <li>search</li>
+                  <li>sharp</li>
+                  <li>sigh</li>
+                  <li>sixth</li>
+                  <li>soften</li>
+                  <li>steel</li>
+                  <li>suppose</li>
+                  <li>towel</li>
+                  <li>uncle</li>
+                  <li>visit</li>
+                  <li>whether</li>
+                  <li>worried</li>
+                  <li>yourself</li>
+                  <li>alive</li>
+                  <li>always</li>
+                  <li>asleep</li>
+                  <li>beautiful</li>
+                  <li>belong</li>
+                  <li>bought</li>
+                  <li>broken</li>
+                  <li>busy</li>
+                  <li>cardboard</li>
+                  <li>certain</li>
+                  <li>chief</li>
+                  <li>circle</li>
+                  <li>comb</li>
+                  <li>cotton</li>
+                  <li>cousin</li>
+                </ul>
+      					<ul>
+                  <li>agree</li>
+                  <li>alley</li>
+                  <li>angry</li>
+                  <li>aunt</li>
+                  <li>become</li>
+                  <li>blanket</li>
+                  <li>breath</li>
+                  <li>bubble</li>
+                  <li>buying</li>
+                  <li>carrying</li>
+                  <li>charge</li>
+                  <li>choose</li>
+                  <li>clothing</li>
+                  <li>copy</li>
+                  <li>cough</li>
+                  <li>crayon</li>
+                  <li>crumb</li>
+                  <li>dawn</li>
+                  <li>degree</li>
+                  <li>dislike</li>
+                  <li>drawer</li>
+                  <li>eighty</li>
+                  <li>evening</li>
+                  <li>fear</li>
+                  <li>fifth</li>
+                  <li>forgive</li>
+                  <li>gain</li>
+                  <li>giant</li>
+                  <li>groceries</li>
+                  <li>he'll</li>
+                  <li>holiday</li>
+                  <li>however</li>
+                  <li>husband</li>
+                  <li>jaw</li>
+                  <li>kneel</li>
+                  <li>lonely</li>
+                  <li>medal</li>
+                  <li>monkey</li>
+                  <li>ninety</li>
+                  <li>obeyed</li>
+                  <li>parent</li>
+                  <li>perfect</li>
+                  <li>police</li>
+                  <li>quiet</li>
+                  <li>reach</li>
+                  <li>ridge</li>
+                  <li>ruler</li>
+                  <li>season</li>
+                  <li>she'll</li>
+                  <li>sign</li>
+                  <li>sixty</li>
+                  <li>spare</li>
+                  <li>strange</li>
+                  <li>tennis</li>
+                  <li>tube</li>
+                  <li>understand</li>
+                  <li>wait</li>
+                  <li>wife</li>
+                  <li>wrist</li>
+                  <li>zebra</li>
+                  <li>crow</li>
+                  <li>damage</li>
+                  <li>death</li>
+                  <li>dirty</li>
+                  <li>downstairs</li>
+                  <li>earth</li>
+                  <li>engine</li>
+                  <li>false</li>
+                  <li>fever</li>
+                  <li>follow</li>
+                  <li>fright</li>
+                  <li>gather</li>
+                  <li>grandfather</li>
+                  <li>handsome</li>
+                  <li>heard</li>
+      					</ul>
+      					<ul>
+                  <li>airport</li>
+                  <li>alphabet</li>
+                  <li>animal</li>
+                  <li>banana</li>
+                  <li>beggar</li>
+                  <li>blood</li>
+                  <li>bridge</li>
+                  <li>building</li>
+                  <li>calf</li>
+                  <li>catch</li>
+                  <li>cheer</li>
+                  <li>chore</li>
+                  <li>coast</li>
+                  <li>corner</li>
+                  <li>couldn't</li>
+                  <li>crime</li>
+                  <li>curl</li>
+                  <li>deaf</li>
+                  <li>deliver</li>
+                  <li>divide</li>
+                  <li>earlier</li>
+                  <li>either</li>
+                  <li>except</li>
+                  <li>feather</li>
+                  <li>fifty</li>
+                  <li>forty</li>
+                  <li>garden</li>
+                  <li>glance</li>
+                  <li>grown</li>
+                  <li>he's</li>
+                  <li>honey</li>
+                  <li>howl</li>
+                  <li>important</li>
+                  <li>judge</li>
+                  <li>knight</li>
+                  <li>loyal</li>
+                  <li>middle</li>
+                  <li>movement</li>
+                  <li>ninth</li>
+                  <li>odd</li>
+                  <li>paste</li>
+                  <li>picture</li>
+                  <li>powerful</li>
+                  <li>quilt</li>
+                  <li>ready</li>
+                  <li>roast</li>
+                  <li>safe</li>
+                  <li>self</li>
+                  <li>she's</li>
+                  <li>simple</li>
+                  <li>sleeve</li>
+                  <li>special</li>
+                  <li>studied</li>
+                  <li>thirty</li>
+                  <li>tuna</li>
+                  <li>useful</li>
+                  <li>weather</li>
+                  <li>wonder</li>
+                  <li>worse</li>
+                  <li>zero</li>
+                  <li>hospital</li>
+                  <li>hungry</li>
+                  <li>invite</li>
+                  <li>kindness</li>
+                  <li>library</li>
+                  <li>mailbox</li>
+                  <li>mistake</li>
+                  <li>neither</li>
+                  <li>nobody</li>
+                  <li>often</li>
+                  <li>peaceful</li>
+                  <li>playground</li>
+                  <li>public</li>
+                  <li>quite</li>
+                  <li>remember</li>
+                </ul>
+                <ul>
+                  <li>alarm</li>
+                  <li>although</li>
+                  <li>answer</li>
+                  <li>battle</li>
+                  <li>believe</li>
+                  <li>bottle</li>
+                  <li>broke</li>
+                  <li>built</li>
+                  <li>camera</li>
+                  <li>center</li>
+                  <li>chicken</li>
+                  <li>chose</li>
+                  <li>coin</li>
+                  <li>cottage</li>
+                  <li>couple</li>
+                  <li>crooked</li>
+                  <li>dairy</li>
+                  <li>dear</li>
+                  <li>didn't</li>
+                  <li>double</li>
+                  <li>earn</li>
+                  <li>electric</li>
+                  <li>faint</li>
+                  <li>felt</li>
+                  <li>final</li>
+                  <li>fourth</li>
+                  <li>gasoline</li>
+                  <li>gold</li>
+                  <li>guard</li>
+                  <li>health</li>
+                  <li>honor</li>
+                  <li>hundred</li>
+                  <li>interest</li>
+                  <li>juice</li>
+                  <li>libraries</li>
+                  <li>machine</li>
+                  <li>mirror</li>
+                  <li>neighbor</li>
+                  <li>no one</li>
+                  <li>office</li>
+                  <li>path</li>
+                  <li>planet</li>
+                  <li>proper</li>
+                  <li>quit</li>
+                  <li>reason</li>
+                  <li>roof</li>
+                  <li>sauce</li>
+                  <li>seventh</li>
+                  <li>shout</li>
+                  <li>since</li>
+                  <li>smooth</li>
+                  <li>squirrel</li>
+                  <li>studying</li>
+                  <li>thumb</li>
+                  <li>twenty</li>
+                  <li>useless</li>
+                  <li>weight</li>
+                  <li>wood</li>
+                  <li>wouldn't</li>
+                  <li>zipper</li>
+                  <li>rough</li>
+                  <li>scrap</li>
+                  <li>seventy</li>
+                  <li>sidewalk</li>
+                  <li>sink</li>
+                  <li>sneeze</li>
+                  <li>steal</li>
+                  <li>style</li>
+                  <li>tool</li>
+                  <li>twice</li>
+                  <li>village</li>
+                  <li>whenever</li>
+                  <li>world</li>
+                  <li>written</li>
+                  <li>zoo</li>
+                </ul>
+            </div>
+             <div class="justify-content-center align-items-center">
+                <button type="button" class="btn-block btn-primary btn-lg" id="btn-year4">Start Spin!</button>
+            </div>
+          </div>
+        </div>
+      </div>
+
     </div>
-  <div class="card">
-  <img class="card-img-top" src="Catan_Dice/static/card_image.jpg" alt="Card image">
-  <div class="card-body">
-    <h4 class="card-title">CATAN Dice Roller</h4>
-    <p class="card-text">A fully randomised dice roller and graphing to show the normal distribution of outcomes.</p>
-    <a href="Catan_Dice/templates/index.html" class="btn btn-primary stretched-link">Play Now</a>
-  </div>
-  </div>
-  <div class="card">
-  <img class="card-img-top" src="Lit_Clock/static/card_image.jpg" alt="Card image">
-  <div class="card-body">
-    <h4 class="card-title">Literature Clock</h4>
-    <p class="card-text">A clock using times quoted from book passages to make it a quiz sort of.</p>
-    <a href="Lit_Clock/templates/index.html" class="btn btn-primary stretched-link">Play Now</a>
-  </div>
-  </div>
-</div>
+
+
+
 <hr class="border border-secondary">
     <div id="footer" class="footer p-3 text-center">
       <p class="">Cobbled together by Marcus using COVID-19 skills in JS</p>
     </div>
-</div>
+
+
+
+<!-- jQuery library -->
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+
+<!-- Popper JS -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+
+<!-- Latest compiled JavaScript -->
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"></script>
+<script>
+$(function(){
+  $("#nav-placeholder").load("../../nav.html");
+});
+</script>
+     <script type="text/javascript">
+     var startSeqs = {};
+var startNum = 0;
+
+// jQuery FN
+$.fn.playSpin = function (options) {
+    if (this.length) {
+        if ($(this).is(':animated')) return; // Return false if this element is animating
+        startSeqs['mainSeq' + (++startNum)] = {};
+        $(this).attr('data-playslot', startNum);
+
+        var total = this.length;
+        var thisSeq = 0;
+
+        // Initialize options
+        if (typeof options == 'undefined') {
+            options = new Object();
+        }
+
+        // Pre-define end nums
+        var endNums = [];
+        if (typeof options.endNum != 'undefined') {
+            if ($.isArray(options.endNum)) {
+                endNums = options.endNum;
+            } else {
+                endNums = [options.endNum];
+            }
+        }
+
+        for (var i = 0; i < this.length; i++) {
+            if (typeof endNums[i] == 'undefined') {
+                endNums.push(0);
+            }
+        }
+
+        startSeqs['mainSeq' + startNum]['totalSpinning'] = total;
+        return this.each(function () {
+            options.endNum = endNums[thisSeq];
+            startSeqs['mainSeq' + startNum]['subSeq' + (++thisSeq)] = {};
+            startSeqs['mainSeq' + startNum]['subSeq' + thisSeq]['spinning'] = true;
+            var track = {
+                total: total,
+                mainSeq: startNum,
+                subSeq: thisSeq
+            };
+            (new slotMachine(this, options, track));
+        });
+    }
+};
+
+$.fn.stopSpin = function () {
+    if (this.length) {
+        if (!$(this).is(':animated')) return; // Return false if this element is not animating
+        if ($(this)[0].hasAttribute('data-playslot')) {
+            $.each(startSeqs['mainSeq' + $(this).attr('data-playslot')], function(index, obj) {
+                obj['spinning'] = false;
+            });
+        }
+    }
+};
+
+var slotMachine = function (el, options, track) {
+    var slot = this;
+    slot.$el = $(el);
+
+    slot.defaultOptions = {
+        easing: 'swing',        // String: easing type for final spin
+        time: 1000,             // Number: total time of spin animation
+        loops: 6,               // Number: times it will spin during the animation
+        manualStop: false,      // Boolean: spin until user manually click to stop
+        stopSeq: 'random',      // String: sequence of slot machine end animation, random, leftToRight, rightToLeft
+        endNum: 0,              // Number: animation end at which number/ sequence of list
+        onEnd : 0,         // Function: run on each element spin end, it is passed endNum
+        onFinish: 0,        // Function: run on all element spin end, it is passed endNum
+    };
+
+    slot.spinSpeed = 0;
+    slot.loopCount = 0;
+
+    slot.init = function () {
+        slot.options = $.extend({}, slot.defaultOptions, options);
+        slot.setup();
+        slot.startSpin();
+    };
+
+    slot.setup = function () {
+        var $li = slot.$el.find('li').first();
+        slot.liHeight = $li.innerHeight();
+        slot.liCount = slot.$el.children().length;
+        slot.listHeight = slot.liHeight * slot.liCount;
+        slot.spinSpeed = slot.options.time / slot.options.loops;
+
+        $li.clone().appendTo(slot.$el); // Clone to last row for smooth animation
+
+        // Configure stopSeq
+        if (slot.options.stopSeq == 'leftToRight') {
+            if (track.subSeq != 1) {
+                slot.options.manualStop = true;
+            }
+        } else if (slot.options.stopSeq == 'rightToLeft') {
+            if (track.total != track.subSeq) {
+                slot.options.manualStop = true;
+            }
+        }
+    };
+
+    slot.startSpin = function () {
+        slot.$el
+            .css('top', -slot.listHeight)
+            .animate({'top': '0px'}, slot.spinSpeed, 'linear', function () {
+                slot.lowerSpeed();
+            });
+    };
+
+    slot.lowerSpeed = function () {
+        slot.loopCount++;
+
+        if (slot.loopCount < slot.options.loops ||
+            (slot.options.manualStop && startSeqs['mainSeq' + track.mainSeq]['subSeq' + track.subSeq]['spinning'])) {
+            slot.startSpin();
+        } else {
+            slot.endSpin();
+        }
+    };
+
+    slot.endSpin = function () {
+        if (slot.options.endNum == 0) {
+            slot.options.endNum = slot.randomRange(1, slot.liCount);
+        }
+
+        // Error handling if endNum is out of range
+        if (slot.options.endNum < 0 || slot.options.endNum > slot.liCount) {
+            slot.options.endNum = 1;
+        }
+
+        var finalPos = -((slot.liHeight * slot.options.endNum) - slot.liHeight);
+        var finalSpeed = ((slot.spinSpeed * 1.5) * (slot.liCount)) / slot.options.endNum;
+
+        slot.$el
+            .css('top', -slot.listHeight)
+            .animate({'top': finalPos}, finalSpeed, slot.options.easing, function () {
+                slot.$el.find('li').last().remove(); // Remove the cloned row
+
+                slot.endAnimation(slot.options.endNum);
+                if ($.isFunction(slot.options.onEnd)) {
+                    slot.options.onEnd(slot.options.endNum);
+                }
+
+                // onFinish is every element is finished animation
+                if (startSeqs['mainSeq' + track.mainSeq]['totalSpinning'] == 0) {
+                    var totalNum = '';
+                    $.each(startSeqs['mainSeq' + track.mainSeq], function(index, subSeqs) {
+                        if (typeof subSeqs == 'object') {
+                            totalNum += subSeqs['endNum'].toString();
+                        }
+                    });
+                    if ($.isFunction(slot.options.onFinish)) {
+                        slot.options.onFinish(totalNum);
+                    }
+                }
+            });
+    }
+
+    slot.endAnimation = function(endNum) {
+        if (slot.options.stopSeq == 'leftToRight' && track.total != track.subSeq) {
+            startSeqs['mainSeq' + track.mainSeq]['subSeq' + (track.subSeq + 1)]['spinning'] = false;
+        } else if (slot.options.stopSeq == 'rightToLeft' && track.subSeq != 1) {words
+            startSeqs['mainSeq' + track.mainSeq]['subSeq' + (track.subSeq - 1)]['spinning'] = false;
+        }
+        startSeqs['mainSeq' + track.mainSeq]['totalSpinning']--;
+        startSeqs['mainSeq' + track.mainSeq]['subSeq' + track.subSeq]['endNum'] = endNum;
+    }
+
+    slot.randomRange = function (low, high) {
+        return Math.floor(Math.random() * (1 + high - low)) + low;
+    };
+
+    this.init();
+};
+        $('#btn-year1').click(function() {
+            $('#year1slots ul').playSpin();
+        });
+        $('#btn-year2').click(function() {
+            $('#year2slots ul').playSpin();
+        });
+        $('#btn-year3').click(function() {
+            $('#year3slots ul').playSpin();
+        });
+        $('#btn-year4').click(function() {
+            $('#year4slots ul').playSpin();
+        });
+
+    </script>
+
 </body>
 </html>

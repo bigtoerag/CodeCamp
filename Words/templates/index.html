@@ -6,6 +6,15 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
  <!-- Latest compiled and minified CSS -->
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css">
+<!-- jQuery library -->
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+
+<!-- Popper JS -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+
+<!-- Latest compiled JavaScript -->
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"></script>
+
 <style type="text/css">
 body {
     margin-top: 0px;
@@ -48,38 +57,7 @@ text{
 </head>
 
 <body>
-  <nav class="navbar navbar-expand-lg bg-dark navbar-dark">
-  <a class="navbar-brand" href="../../index.html">COVID Games!</a>
-  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#collapsibleNavbar">
-    <span class="navbar-toggler-icon"></span>
-  </button>
-  <div class="collapse navbar-collapse" id="collapsibleNavbar">
-    <ul class="navbar-nav">
-      <li class="nav-item">
-        <a class="nav-link" href="../../Words/templates/index.html">Word Game</a>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link" href="../../Maths_Spinner/templates/index.html">Math Spinner</a>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link" href="../../Countdown_Cards/templates/index.html">Card Memory Game</a>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link" href="../../Card_Game/templates/index.html">Card Equation Game</a>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link" href="../../Image_Carousel/templates/index.html">Ocean Bingo</a>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link" href="../../Catan_Randomiser/templates/index.html">CATAN Randomiser</a>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link" href="../../Catan_Dice/templates/index.html">CATAN Dice Roller</a>
-      </li>
-    </ul>
-
-  </div>
-</nav>
+ <div w3-include-html="../../nav.html"></div>
 
 
 <div id="container" class="container-fluid mt-5">
@@ -844,14 +822,8 @@ text{
 
 
 
-<!-- jQuery library -->
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 
-<!-- Popper JS -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
 
-<!-- Latest compiled JavaScript -->
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"></script>
      <script type="text/javascript">
      var startSeqs = {};
 var startNum = 0;
@@ -1045,5 +1017,37 @@ var slotMachine = function (el, options, track) {
         });
 
     </script>
+    <script>
+   function includeHTML() {
+     var z, i, elmnt, file, xhttp;
+     /* Loop through a collection of all HTML elements: */
+     z = document.getElementsByTagName("*");
+     for (i = 0; i < z.length; i++) {
+       elmnt = z[i];
+       /*search for elements with a certain atrribute:*/
+       file = elmnt.getAttribute("w3-include-html");
+       if (file) {
+         /* Make an HTTP request using the attribute value as the file name: */
+         xhttp = new XMLHttpRequest();
+         xhttp.onreadystatechange = function() {
+           if (this.readyState == 4) {
+             if (this.status == 200) {elmnt.innerHTML = this.responseText;}
+             if (this.status == 404) {elmnt.innerHTML = "Page not found.";}
+             /* Remove the attribute, and call this function once more: */
+             elmnt.removeAttribute("w3-include-html");
+             includeHTML();
+           }
+         }
+         xhttp.open("GET", file, true);
+         xhttp.send();
+         /* Exit the function: */
+         return;
+       }
+     }
+   }
+   </script>
+   <script>
+includeHTML();
+</script>
 </body>
 </html>
