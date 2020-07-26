@@ -2,63 +2,67 @@
 <html>
 <link id="page_favicon" href="data:image/x-icon;base64," rel="icon" type="image/x-icon">
 <title>Magic 8 Ball</title>
- <link rel="stylesheet" type="text/css" href="../static/w3.css">
-<meta charset="UTF-8">
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css">
 <script type="text/javascript" charset="utf-8">
-var neverBeenClicked=true;
+var data = [
+            {"label":"0",  "answer_feedback":"Roll the 8 Ball", "answer_sentiment":"#happy_as"},
+            {"label":"1",  "answer_feedback":"It is certain.", "answer_sentiment":"#Affirmative"},
+            {"label":"2",  "answer_feedback":"It is decidedly so.",  "answer_sentiment":"#Affirmative"},
+            {"label":"3",  "answer_feedback":"Without a doubt.",  "answer_sentiment":"#Affirmative"},
+            {"label":"4",  "answer_feedback":"Yes - definitely.",  "answer_sentiment":"#Affirmative"},
+            {"label":"5",  "answer_feedback":"You may rely on it.",  "answer_sentiment":"#Affirmative"},
+            {"label":"6",  "answer_feedback":"As I see it, yes.",  "answer_sentiment":"#Affirmative"},
+            {"label":"7",  "answer_feedback":"Most likely.",  "answer_sentiment":"#Affirmative"},
+            {"label":"8",  "answer_feedback":"Outlook good.",  "answer_sentiment":"#Affirmative"},
+            {"label":"9",  "answer_feedback":"Yes.",  "answer_sentiment":"#Affirmative"},
+            {"label":"10", "answer_feedback":"Signs point to yes.", "answer_sentiment":"#Affirmative"},
+            {"label":"11", "answer_feedback":"Reply hazy, try again.", "answer_sentiment":"#Non commital"},
+            {"label":"12", "answer_feedback":"Ask again later.", "answer_sentiment":"#Non commital"},
+            {"label":"13", "answer_feedback":"Better not tell you now.", "answer_sentiment":"#Non commital"},
+            {"label":"14", "answer_feedback":"Cannot predict now.", "answer_sentiment":"#Non commital"},
+            {"label":"15", "answer_feedback":"Concentrate and ask again.", "answer_sentiment":"#Non commital"},
+            {"label":"16", "answer_feedback":"Don't count on it.", "answer_sentiment":"#Negative"},
+            {"label":"17", "answer_feedback":"My reply is no.", "answer_sentiment":"#Negative"},
+            {"label":"18", "answer_feedback":"My sources say no.", "answer_sentiment":"#Negative"},
+            {"label":"19", "answer_feedback":"Outlook not so good.", "answer_sentiment":"#Negative"},
+            {"label":"20", "answer_feedback":"Very doubtful.", "answer_sentiment":"#Negative"},
+            {"label":"99", "answer_feedback":"Oops something went wrong!", "answer_sentiment":"#Error"}
 
-    const argFunc = function(){
-      if(neverBeenClicked === true){
-        neverBeenClicked = false;
-        alert('One alert')
-      }
-    }
+];
 
-    function aoskDeviceMotion() {
-      document.querySelector('#overlay').addEventListener(
-        'click', _askDeviceMotion, false);
-      }
-
-    function _askDeviceMotion() {
-      document.querySelector('#contentLayer').style.display='block';
-      askDeviceMotion(argFunc)
-    }
-
-function askDeviceMotion(funcArg) {
-  try {
-      if (
-        DeviceMotionEvent &&
-        typeof DeviceMotionEvent.requestPermission === 'function'
-      ){
-        DeviceMotionEvent.requestPermission().then(
-          response => {
-            if (response === 'granted') {
-              grantedDeviceMotion(funcArg)
-            }else{
-              console.log('Device Motion permission not granted.')
-            }
-          })
-          .catch(console.error)
-      } else {
-        grantedDeviceMotion(funcArg)
-      }
-    } catch (oops) {
-      console.log('Your device and application combination do not support device motion events.')
-    }
+window.onload=function() {
+    ball_roll = 0;
+    write_it(data[ball_roll].answer_feedback, data[ball_roll].answer_sentiment);
   }
-
-function grantedDeviceMotion(funcArg) {
-  window.addEventListener(
-    'devicemotion',
-    funcArg,
-    false
-  );
-}
+function roll() {
+        ball_roll = Math.floor(Math.random() * (1 + 20 - 1)) + 1;
+        answer_feedback = data[ball_roll].answer_feedback;
+        answer_sentiment = data[ball_roll].answer_sentiment;
+        write_it(answer_feedback, answer_sentiment);
+  }
+function write_it(answer_feedback, answer_sentiment) {
+    document.getElementById("answer_feedback").innerHTML = answer_feedback;
+    document.getElementById("answer_sentiment").innerHTML = answer_sentiment;
+  }
 </script>
 <head>
 <style>
+html, body{
+  min-height: 100%;
+}
+body{
+  position: relative;
+
+}
+#ball {
+  max-width: 100%;
+}
 #overlay {
-position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 top: 0;
 left: 0;
 width: 100%;
@@ -66,61 +70,89 @@ height: 100%;
 text-align: center;
 margin-top: auto;
 margin-bottom: auto;
-
 }
-
-#overlay button {
-  color: #fff;
-  height:auto;
-  width:150px;
-  position:absolute;
-  top:50%;
-  left:50%;
-  margin-left:-75px;
-  margin-top:-35px;
-  display:block;
-  z-index: 10;
+#answer_feedback {
+  position: absolute;
+  top: 50%;
+  color: white;
+}
+#answer_sentiment {
+  position: absolute;
+  top: 54%;
+  color: white;
 }
 </style>
 <meta name="viewport" content="width=device-width, initial-scale=1">
 
 </head>
-<body class="w3-content">
+<body>
+  <nav class="navbar navbar-expand-lg bg-dark navbar-dark">
+  <a class="navbar-brand" href="../../index.html">COVID Games!</a>
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#collapsibleNavbar">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+  <div class="collapse navbar-collapse" id="collapsibleNavbar">
+    <ul class="navbar-nav">
+      <li class="nav-item">
+        <a class="nav-link" href="../../Words/templates/index.html">Word Game</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="../../Maths_Spinner/templates/index.html">Math Spinner</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="../../Countdown_Cards/templates/index.html">Card Memory Game</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="../../Card_Game/templates/index.html">Card Equation Game</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="../../Image_Carousel/templates/index.html">Ocean Bingo</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="../../Catan_Randomiser/templates/index.html">CATAN Randomiser</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="../../Catan_Dice/templates/index.html">CATAN Dice Roller</a>
+      </li>
+    </ul>
 
+  </div>
+</nav>
 <!-- First Grid: Logo & About -->
-<div class="w3-white" style="height:100vh">
-  <div class="w3-white w3-container w3-center w3-padding-16">
-   <!-- <div class="w3-text-teal w3-bottombar w3-topbar">
-      <h2>Risk Dice Roller</h2>
-    </div>-->
-    <div class="w3-padding-small">
-      <div class="w3-block w3-teal w3-padding-small" id="question"><h3><a href="#" onclick="_askDeviceMotion()">Ask the magic 8 ball a question?</a><h3></div>
-
-  	</div>
-  <div class="w3-white" style="height:100%">
-    <div class="w3-padding-16 w3-center ">
-            <div class="w3-padding-small w3-white" id="overlay">
-              <img src="../static/magicBallFinish.png" width="100%">
-
-              <form action="/" method="POST">
-              <button type="submit" id="answer_result" >{{ answer_feedback }}<br>{{ answer_sentiment }}</button>
-      <!--  <span id="answer_result">{{ answer_feedback }}<br>{{ answer_sentiment }}</span> -->
-      </form>
-	{% if answer_err %}
-	<p class="w3-red w3-block w3-padding-16">{{ answer_err }}</p>
-	{% endif %}
-
+<div id="container" class="container-fluid mt-5">
+    <div class="card  block  text-center">
+      <div class="card-header block text-center shadow">
+        <div class="" id="question" ><h3>Ask the magic 8 ball a question?<h3></div>
+    	</div>
+      <div class="card-body">
+        <div class="text-center" onclick="roll();">
+           <div >
+                  <img id="ball" src="../static/magicBallFinish.png">
+           </div>
+           <div id="overlay" >
+             <span id="answer_feedback"></span>
+             <span id="answer_sentiment"></span>
+           </div>
+        </div>
       </div>
     </div>
-  </div>
 </div>
 
 
 <!-- Footer -->
-<footer class="w3-container w3-white  w3-center w3-text-teal w3-codespan">
-  <hr>
-  <div>Designed by Marcus in python3.6</div>
+<hr class="border border-secondary">
+<footer id="footer" class="footer p-3 text-center">
+
+  <div>Designed by Marcus in JS 4.5</div>
 </footer>
+<!-- jQuery library -->
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+
+<!-- Popper JS -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+
+<!-- Latest compiled JavaScript -->
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"></script>
 
 </body>
 </html>
