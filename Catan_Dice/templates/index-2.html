@@ -60,20 +60,23 @@ table { border: 5pt solid white}
     <div class="card card-primary border-dark">
         <div class="card-header text-center font-weight-bold bg-success text-white h3 d-flex justify-content-center">
           <div class="dropdown" id="playernumbers" multiple>
-            <button class="btn btn-primary" type="button" id="playerOne" data-toggle="button" aria-pressed="false" onclick="currentPlayer('blue')">
-              Blue
+            <button class="btn btn-dark dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" aria-multiselectable="true">
+              How many players?
             </button>
-            <button class="btn btn-warning" type="button" id="playerOne" data-toggle="button" aria-pressed="false" onclick="currentPlayer('orange')">
-              Orange
-            </button>
-            <button class="btn btn-danger" type="button" id="playerOne" data-toggle="button" aria-pressed="false" onclick="currentPlayer('red')">
-              Red
-            </button>
-            <button class="btn btn-light" type="button" id="playerOne"data-toggle="button" aria-pressed="false" onclick="currentPlayer('white')">
-              White
-            </button>
+            <div class="dropdown-menu" aria-labelledby="dropdownMenuButton" aria-multiselectable="true">
+              <a class="dropdown-item" onclick="playing(1)">One</a>
+              <a class="dropdown-item" onclick="playing(2)">Two</a>
+              <a class="dropdown-item" onclick="playing(3)">Three</a>
+              <a class="dropdown-item" onclick="playing(4)">Four</a>
+            </div>
            <input hidden id="currentplayer" value=""></input>
           </div>
+          <div id="player_buttons" class="border border-dark bg-light rounded d-inline-flex flex-wrap justify-content-around align-items-center p-1">
+          <button id="playerone" type="button" class="btn btn-outline-primary btn-lg font-weight-bolder custom-buttons" onclick="currentPlayer('blue')">Blue</button>
+          <button id="playertwo" type="button" class="btn btn-outline-warning btn-lg font-weight-bolder custom-buttons" onclick="currentPlayer('orange')">Orange</button>
+          <button id="playerthree" type="button" class="btn btn-outline-danger btn-lg font-weight-bolder custom-buttons" onclick="currentPlayer('red')">Red</button>
+          <button id="playerfour" type="button" class="btn btn-outline-dark btn-lg font-weight-bolder custom-buttons" onclick="currentPlayer('white')">White</button>
+        </div>
         </div>
         <div class="card-body text-center justify-content-center">
           <table class="table">
@@ -89,14 +92,11 @@ table { border: 5pt solid white}
         </div>
         <div id="footer" class="card-footer text-center ">
           <div id="show_answer" class="h3">Rolling history.</div><br>
-          <div class="row p-1">
-          <div id="1" class="font-weight-bold col-sm-2 my-1"></div><kbd id="p1" class="font-weight-bold col-sm-10 text-left my-1"></kbd></div>
-          <div class="row p-1">
-          <div id="2" class="font-weight-bold col-sm-2 my-1"></div><kbd id="p2" class="font-weight-bold col-sm-10 text-left my-1"></kbd></div>
-          <div class="row p-1">
-          <div id="3" class="font-weight-bold col-sm-2 my-1"></div><kbd id="p3" class="font-weight-bold col-sm-10 text-left my-1"></kbd></div>
-          <div class="row p-1">
-          <div id="4" class="font-weight-bold col-sm-2 my-1"></div><kbd id="p4" class="font-weight-bold col-sm-10 text-left my-1"></kbd></div>
+          <div class="row p-2">
+          <div id="1" class="font-weight-bold col-sm-2 my-1"></div><kbd id="p1" class="font-weight-bold col-sm-10 text-left my-1"></kbd>
+          <div id="2" class="font-weight-bold col-sm-2 my-1"></div><kbd id="p2" class="font-weight-bold col-sm-10 text-left my-1"></kbd>
+          <div id="3" class="font-weight-bold col-sm-2 my-1"></div><kbd id="p3" class="font-weight-bold col-sm-10 text-left my-1"></kbd>
+          <div id="4" class="font-weight-bold col-sm-2 my-1"></div><kbd id="p4" class="font-weight-bold col-sm-10 text-left my-1"></kbd>
         </div>
         </div>
         </div>
@@ -126,6 +126,13 @@ table { border: 5pt solid white}
       document.getElementById("dice1").disabled=true;
       document.getElementById("dice2").disabled=true;
       document.getElementById("dice_roll").disabled=true;
+      //document.getElementById('player_buttons').style.display = "d-none";
+      document.getElementById("player_buttons").classList.remove("d-inline-flex");
+      document.getElementById("player_buttons").classList.add("d-none");
+      document.getElementById('playerone').style.display = "none";
+      document.getElementById('playertwo').style.display = "none";
+      document.getElementById('playerthree').style.display = "none";
+      document.getElementById('playerfour').style.display = "none";
       document.getElementById('p1').style.display = "none";
       document.getElementById('p2').style.display = "none";
       document.getElementById('p3').style.display = "none";
@@ -172,23 +179,62 @@ table { border: 5pt solid white}
       "5:6":"11",
       "6:6":"12"
     };
+    function playing(id) {
+      document.getElementById("player_buttons").classList.remove("d-none");
+      document.getElementById("player_buttons").classList.add("d-inline-flex");
+      if (id == 1) {
+        document.getElementById('playernumbers').style.display = "none";
+        document.getElementById('playerone').style.display = "inline-block";
+      } else if (id == 2) {
+        document.getElementById('playernumbers').style.display = "none";
+        document.getElementById('playerone').style.display = "inline-block";
+        document.getElementById('playertwo').style.display = "inline-block";
+      } else if (id == 3) {
+        document.getElementById('playernumbers').style.display = "none";
+        document.getElementById('playerone').style.display = "inline-block";
+        document.getElementById('playertwo').style.display = "inline-block";
+        document.getElementById('playerthree').style.display = "inline-block";
+      } else {
+        document.getElementById('playernumbers').style.display = "none";
+        document.getElementById('playerone').style.display = "inline-block";
+        document.getElementById('playertwo').style.display = "inline-block";
+        document.getElementById('playerthree').style.display = "inline-block";
+        document.getElementById('playerfour').style.display = "inline-block";
+      }
+    }
     function currentPlayer(color) {
       document.getElementById('show_answer').innerHTML = "";
       if (color == "blue") {
+          document.getElementById("playerone").classList.add("bg-dark");
+          document.getElementById("playertwo").classList.remove("bg-dark");
+          document.getElementById("playerthree").classList.remove("bg-dark");
+          document.getElementById("playerfour").classList.remove("bg-dark");
           document.getElementById('currentplayer').value = "1";
           document.getElementById('1').textContent = "Blue rolls: ";
           document.getElementById('p1').style.display = "inline-block";
 
       } else if (color == "orange") {
+          document.getElementById("playerone").classList.remove("bg-dark");
+          document.getElementById("playertwo").classList.add("bg-dark");
+          document.getElementById("playerthree").classList.remove("bg-dark");
+          document.getElementById("playerfour").classList.remove("bg-dark");
           document.getElementById('currentplayer').value = "2";
           document.getElementById('2').textContent = "Orange rolls: ";
           document.getElementById('p2').style.display = "inline-block";
 
       } else if (color == "red") {
+        document.getElementById("playerone").classList.remove("bg-dark");
+        document.getElementById("playertwo").classList.remove("bg-dark");
+        document.getElementById("playerthree").classList.add("bg-dark");
+        document.getElementById("playerfour").classList.remove("bg-dark");
           document.getElementById('currentplayer').value = "3";
           document.getElementById('3').textContent = "Red rolls: ";
           document.getElementById('p3').style.display = "inline-block";
       } else {
+        document.getElementById("playerone").classList.remove("bg-dark");
+        document.getElementById("playertwo").classList.remove("bg-dark");
+        document.getElementById("playerthree").classList.remove("bg-dark");
+        document.getElementById("playerfour").classList.add("bg-dark");
           document.getElementById('currentplayer').value = "4";
           document.getElementById('4').textContent = "White rolls: ";
           document.getElementById('p4').style.display = "inline-block";
