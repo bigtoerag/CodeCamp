@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <title>AFL Scoreboard</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+ <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css">
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+
+  <style>
+html,body {
+  background-color: white;
+  height: 100%; width: 100%; margin: 0; font-family: 'Ubuntu', sans-serif;
+}
+  </style>
+</head>
+<body>
+
+  <!--Navigation bar-->
+  <div id="nav-placeholder">
+
+  </div>
+
+  <script>
+  $(function(){
+    $("#nav-placeholder").load("../../nav.html");
+  });
+  </script>
+
+  <div class="container-fluid text-center">
+    <div class="d-flex  text-black">
+      <div class="col-1">Qtr</div>
+      <div class="col-2">1st</div>
+      <div class="col-5 border border-dark">AFL Scoreboard</div>
+      <div class="col-1 "><span class="fa fa-play" onclick="countdown('ten-countdown', 10, 0 );"></span></div>
+      <div class="col-2" id="ten-countdown">00:00</div>
+      <div class="col-1 "><span class="fa fa-pause"></span></div>
+     </div>
+  <br>
+    <div class="d-flex bg-secondary text-white">
+    <div class="col-2"></div>
+    <div class="col-4"></div>
+    <div class="col-2"><span class="fa fa-plus-square" style="font-size:32px;" onclick="scoring('ht_goals', 'a', 'ht');"></span></div>
+    <div class="col-2"><span class="fa fa-plus-square" style="font-size:32px;" onclick="scoring('ht_behinds', 'a', 'ht');"></span></div>
+    <div class="col-2"></div>
+    </div>
+    <div class="d-flex p-3 bg-secondary text-white" id="ht">
+    <div class="col-2">Home</div>
+    <div class="col-4">
+      <select class="browser-default custom-select" id="HomeSelect" onchange="bg_color('HomeSelect')">
+        <option selected>Home Team</option>
+        <option value="1">Newtown</option>
+        <option value="2">Maroubra</option>
+        <option value="3">Glebe</option>
+        <option value="3">East Subs</option>
+        <option value="3">West Subs</option>
+      </select>
+    </div>
+    <div class="col-2 border border-light" id="ht_goals">0</div>
+    <div class="col-2 border border-light" id="ht_behinds">0</div>
+    <div class="col-2 border border-light" id="ht_score">0</div>
+    </div>
+      <div class="d-flex bg-secondary text-white">
+    <div class="col-2"></div>
+    <div class="col-4"></div>
+    <div class="col-2"><span class="fa fa-minus-square" style="font-size:32px;" onclick="scoring('ht_goals', 'm', 'ht');"></span></div>
+    <div class="col-2"><span class="fa fa-minus-square" style="font-size:32px;" onclick="scoring('ht_behinds', 'm', 'ht');"></span></div>
+    <div class="col-2"></div>
+    </div>
+    <br>
+    <div class="d-flex bg-secondary text-white">
+    <div class="col-2"></div>
+    <div class="col-4"></div>
+    <div class="col-2"><span class="fa fa-plus-square" style="font-size:32px;" onclick="scoring('aw_goals', 'a', 'aw');"></span></div>
+    <div class="col-2"><span class="fa fa-plus-square" style="font-size:32px;" onclick="scoring('aw_behinds', 'a', 'aw');"></span></div>
+    <div class="col-2"></div>
+    </div>
+    <div class="d-flex p-3 bg-secondary text-white" id="aw">
+    <div class="col-2">Away</div>
+    <div class="col-4">
+      <select class="browser-default custom-select" id="AwaySelect" onchange="bg_color('AwaySelect')">
+        <option selected>Away Team</option>
+        <option value="1">Newtown</option>
+        <option value="2">Maroubra</option>
+        <option value="3">Glebe</option>
+        <option value="3">East Subs</option>
+        <option value="3">West Subs</option>
+      </select>
+    </div>
+    <div class="col-2 border border-light" id="aw_goals">0</div>
+    <div class="col-2 border border-light" id="aw_behinds">0</div>
+    <div class="col-2 border border-light" id="aw_score">0</div>
+    </div>
+      <div class="d-flex bg-secondary text-white">
+    <div class="col-2"></div>
+    <div class="col-4"></div>
+    <div class="col-2"><span class="fa fa-minus-square" style="font-size:32px;" onclick="scoring('aw_goals', 'm', 'aw');"></span></div>
+    <div class="col-2"><span class="fa fa-minus-square" style="font-size:32px;" onclick="scoring('aw_behinds', 'm', 'aw');"></span></div>
+    <div class="col-2"></div>
+    </div>
+  </div>
+  <footer class="container-fluid text-center">
+    <hr class="border border-secondary">
+        <div id="footer" class="footer p-3 text-center">
+          <p class="">Cobbled together by Marcus using COVID-19 skills in JS</p>
+        </div>
+  </footer>
+  <script>
+  function countdown( elementName, minutes, seconds )
+{
+    var element, endTime, hours, mins, msLeft, time;
+
+    function twoDigits( n )
+    {
+        return (n <= 9 ? "0" + n : n);
+    }
+
+    function updateTimer()
+    {
+        msLeft = endTime - (+new Date);
+        if ( msLeft < 1000 ) {
+            element.innerHTML = "00:00";
+        } else {
+            time = new Date( msLeft );
+            hours = time.getUTCHours();
+            mins = time.getUTCMinutes();
+            element.innerHTML = (hours ? hours + ':' + twoDigits( mins ) : mins) + ':' + twoDigits( time.getUTCSeconds() );
+            setTimeout( updateTimer, time.getUTCMilliseconds() + 500 );
+        }
+    }
+
+    element = document.getElementById( elementName );
+    endTime = (+new Date) + 1000 * (60*minutes + seconds) + 500;
+    updateTimer();
+}
+function scoring(elementName, type, team) {
+element = document.getElementById( elementName );
+current_score = parseInt(element.innerHTML);
+if (current_score == 0) {
+  if (type == "a"){
+    current_score++;
+    element.innerHTML = current_score;
+    total(team);
+  } else {
+  //do nothing
+  }
+} else if (current_score > 0) {
+ if (type == "a"){
+    current_score++;
+    element.innerHTML = current_score;
+    total(team);
+  } else if (type == "m") {
+    current_score--;
+    element.innerHTML = current_score;
+    total(team);
+  } else {
+  //do nothing
+  }
+}
+}
+function total(team) {
+if (team == 'ht'){
+goals = document.getElementById('ht_goals').innerHTML;
+behinds = document.getElementById('ht_behinds').innerHTML;
+score = (parseInt(goals)*6) + parseInt(behinds);
+document.getElementById('ht_score').innerHTML = score;
+} else if (team == 'aw'){
+goals = document.getElementById('aw_goals').innerHTML;
+behinds = document.getElementById('aw_behinds').innerHTML;
+score = (parseInt(goals)*6) + parseInt(behinds);
+document.getElementById('aw_score').innerHTML = score;
+} else {
+//do nothing
+}
+}
+function bg_color(team) {
+ var x = document.getElementById(team).value;
+ if (team == 'HomeSelect'){
+   y = 'ht';
+ } else if (team == 'AwaySelect') {
+   y = 'aw';
+ } else {
+   alert("No team detected in selection update")
+ }
+ if (x == 1){
+   document.getElementById(y).classList.remove("bg-secondary");
+   document.getElementById(y).classList.add("bg-danger");
+   document.getElementById(y).disabled = true;
+ } else {
+   document.getElementById(y).classList.remove("bg-secondary");
+   document.getElementById(y).classList.add("bg-primary");
+   document.getElementById(y).disabled = true;
+ }
+
+}
+
+  </script>
+
+</body>
+</html>
