@@ -8,11 +8,25 @@
   <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
-
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
   <style>
 html,body {
   background-color: white;
   height: 100%; width: 100%; margin: 0; font-family: 'Ubuntu', sans-serif;
+}
+.scores {
+  font-size: 24px;
+}
+.totals {
+  font-size: 24px;
+  font-weight: 800;
+}
+.qtrs {
+  font-size: 30px;
+  font-weight: 800;
+}
+.border-3 {
+    border-width:5px !important;
 }
   </style>
 </head>
@@ -29,14 +43,38 @@ html,body {
   });
   </script>
 
-  <div class="container-fluid text-center">
+  <div class="container-fluid text-center mt-5">
+    <!-- The Modal -->
+  <div class="modal fade" id="myModal">
+    <div class="modal-dialog modal-dialog-centered">
+      <div class="modal-content">
+
+        <!-- Modal Header -->
+        <div class="modal-header">
+          <h4 class="modal-title">Final Score</h4>
+          <button type="button" class="close" data-dismiss="modal">&times;</button>
+        </div>
+
+        <!-- Modal body -->
+        <div class="modal-body" id="final_score_modal">
+
+        </div>
+
+        <!-- Modal footer -->
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+        </div>
+
+      </div>
+    </div>
+  </div>
     <div class="d-flex  text-black">
-      <div class="col-1">Qtr</div>
-      <div class="col-2">1st</div>
-      <div class="col-5 border border-dark">AFL Scoreboard</div>
-      <div class="col-1 "><span class="fa fa-play" onclick="countdown('ten-countdown', 10, 0 );"></span></div>
-      <div class="col-2" id="ten-countdown">00:00</div>
-      <div class="col-1 "><span class="fa fa-pause"></span></div>
+      <div class="col-3 totals" id="quarter_tag">1st Qtr</div>
+      <input hidden id="quarter" value="1"></input>
+      <div class="col-5 border border-dark border-3 scores">AFL Scoreboard</div>
+      <div class="col-1 scores"><span class="fa fa-play" onclick="countdown('ten-countdown', 10, 0 );" id="timer_start"></span></div>
+      <div class="col-2 scores" id="ten-countdown">00:00</div>
+      <div class="col-1 scores"><span class=""></span></div>
      </div>
   <br>
     <div class="d-flex bg-secondary text-white">
@@ -46,7 +84,7 @@ html,body {
     <div class="col-2"><span class="fa fa-plus-square" style="font-size:32px;" onclick="scoring('ht_behinds', 'a', 'ht');"></span></div>
     <div class="col-2"></div>
     </div>
-    <div class="d-flex p-3 bg-secondary text-white" id="ht">
+    <div class="d-flex p-2 bg-secondary text-white" id="ht">
     <div class="col-2">Home</div>
     <div class="col-4">
       <select class="browser-default custom-select" id="HomeSelect" onchange="bg_color('HomeSelect')">
@@ -54,13 +92,13 @@ html,body {
         <option value="1">Newtown</option>
         <option value="2">Maroubra</option>
         <option value="3">Glebe</option>
-        <option value="3">East Subs</option>
-        <option value="3">West Subs</option>
+        <option value="4">East Subs</option>
+        <option value="5">West Subs</option>
       </select>
     </div>
-    <div class="col-2 border border-light" id="ht_goals">0</div>
-    <div class="col-2 border border-light" id="ht_behinds">0</div>
-    <div class="col-2 border border-light" id="ht_score">0</div>
+    <div class="col-2 border border-light scores" id="ht_goals">0</div>
+    <div class="col-2 border border-light scores" id="ht_behinds">0</div>
+    <div class="col-2 border border-light totals" id="ht_score">0</div>
     </div>
       <div class="d-flex bg-secondary text-white">
     <div class="col-2"></div>
@@ -77,7 +115,7 @@ html,body {
     <div class="col-2"><span class="fa fa-plus-square" style="font-size:32px;" onclick="scoring('aw_behinds', 'a', 'aw');"></span></div>
     <div class="col-2"></div>
     </div>
-    <div class="d-flex p-3 bg-secondary text-white" id="aw">
+    <div class="d-flex p-2 bg-secondary text-white" id="aw">
     <div class="col-2">Away</div>
     <div class="col-4">
       <select class="browser-default custom-select" id="AwaySelect" onchange="bg_color('AwaySelect')">
@@ -85,13 +123,13 @@ html,body {
         <option value="1">Newtown</option>
         <option value="2">Maroubra</option>
         <option value="3">Glebe</option>
-        <option value="3">East Subs</option>
-        <option value="3">West Subs</option>
+        <option value="4">East Subs</option>
+        <option value="5">West Subs</option>
       </select>
     </div>
-    <div class="col-2 border border-light" id="aw_goals">0</div>
-    <div class="col-2 border border-light" id="aw_behinds">0</div>
-    <div class="col-2 border border-light" id="aw_score">0</div>
+    <div class="col-2 border border-light scores" id="aw_goals">0</div>
+    <div class="col-2 border border-light scores" id="aw_behinds">0</div>
+    <div class="col-2 border border-light totals" id="aw_score">0</div>
     </div>
       <div class="d-flex bg-secondary text-white">
     <div class="col-2"></div>
@@ -100,6 +138,14 @@ html,body {
     <div class="col-2"><span class="fa fa-minus-square" style="font-size:32px;" onclick="scoring('aw_behinds', 'm', 'aw');"></span></div>
     <div class="col-2"></div>
     </div>
+
+  <br>
+  <div class="d-flex bg-secondary text-white p-4">
+  <div class="col-3 qtrs"><kbd id="1">Qtr 1 score</kbd></div>
+  <div class="col-3 qtrs"><kbd id="2">Qtr 2 score</div>
+  <div class="col-3 qtrs"><kbd id="3">Qtr 3 score</div>
+  <div class="col-3 qtrs"><kbd id="4">Qtr 4 score</div>
+  </div>
   </div>
   <footer class="container-fluid text-center">
     <hr class="border border-secondary">
@@ -108,10 +154,13 @@ html,body {
         </div>
   </footer>
   <script>
+  function openModal(){
+
+    $('#myModal').modal();
+}
   function countdown( elementName, minutes, seconds )
 {
     var element, endTime, hours, mins, msLeft, time;
-
     function twoDigits( n )
     {
         return (n <= 9 ? "0" + n : n);
@@ -121,7 +170,12 @@ html,body {
     {
         msLeft = endTime - (+new Date);
         if ( msLeft < 1000 ) {
-            element.innerHTML = "00:00";
+            element.innerHTML = "Ended"
+            qtr = document.getElementById("quarter").value;
+            which_qtr(qtr);
+            document.getElementById("timer_start").onclick = function(){ countdown('ten-countdown', 10, 0 )};
+            openModal();
+
         } else {
             time = new Date( msLeft );
             hours = time.getUTCHours();
@@ -133,6 +187,7 @@ html,body {
 
     element = document.getElementById( elementName );
     endTime = (+new Date) + 1000 * (60*minutes + seconds) + 500;
+    document.getElementById("timer_start").onclick = "null";
     updateTimer();
 }
 function scoring(elementName, type, team) {
@@ -162,11 +217,13 @@ if (current_score == 0) {
 }
 function total(team) {
 if (team == 'ht'){
+//total_ht_now = document.getElementById('ht_score').innerHTML;
 goals = document.getElementById('ht_goals').innerHTML;
 behinds = document.getElementById('ht_behinds').innerHTML;
 score = (parseInt(goals)*6) + parseInt(behinds);
 document.getElementById('ht_score').innerHTML = score;
 } else if (team == 'aw'){
+//total_aw_now = document.getElementById('aw_score').innerHTML;
 goals = document.getElementById('aw_goals').innerHTML;
 behinds = document.getElementById('aw_behinds').innerHTML;
 score = (parseInt(goals)*6) + parseInt(behinds);
@@ -195,7 +252,56 @@ function bg_color(team) {
  }
 
 }
+function which_qtr(qtr) {
+  document.getElementById('ht_goals').innerHTML = "0";
+  document.getElementById('ht_behinds').innerHTML = "0";
+  document.getElementById('aw_goals').innerHTML = "0";
+  document.getElementById('aw_behinds').innerHTML = "0";
+  if (qtr == 1) {
+    document.getElementById('quarter_tag').innerHTML = "2nd Qtr";
+    qtr_score(qtr);
+    document.getElementById("quarter").value = "2";
+  } else if (qtr == 2) {
+    document.getElementById('quarter_tag').innerHTML = "3rd Qtr";
+    qtr_score(qtr);
+    document.getElementById("quarter").value = "3";
+  } else if (qtr == 3) {
+    document.getElementById('quarter_tag').innerHTML = "4th Qtr";
+    qtr_score(qtr);
+    document.getElementById("quarter").value = "4";
+  } else {
+    document.getElementById('quarter_tag').innerHTML = "Game Over";
+    qtr_score(qtr);
+    final_score();
+  }
+}
+function qtr_score(qtr){
+  ht_score = document.getElementById('ht_score').innerHTML;
+  aw_score = document.getElementById('aw_score').innerHTML;
+  end_qtr_score = parseInt(ht_score) + ":" + parseInt(aw_score);
+  document.getElementById(qtr).innerHTML = end_qtr_score;
+}
+function final_score() {
+  var i = 1;
+  ht_final_score = 0;
+  aw_final_score = 0;
+  while (i < 5) {
+    qtr_score = document.getElementById(i).innerHTML;
+    ht_final_score += parseInt(qtr_score.split(":")[0]);
+    aw_final_score += parseInt(qtr_score.split(":")[1]);
+    i++;
+  }
+  if (ht_final_score > aw_final_score) {
+    x = document.getElementById("HomeSelect").value;
+    y = document.getElementById("AwaySelect").value;
+    document.getElementById("final_score_modal").innerHTML = "Home team wins - " + ht_final_score + " to " + aw_final_score;
+    openModal();
+  } else {
+    document.getElementById("final_score_modal").innerHTML = "Away team wins - " + aw_final_score + " to " + ht_final_score;
+    openModal();
+  }
 
+}
   </script>
 
 </body>
