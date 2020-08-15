@@ -48,13 +48,13 @@ html,body {
 
   <div class="container-fluid text-center mt-5 bg-secondary">
     <div class="text-white" id="final_score_div">
-      <kbd class="h1 w-100 text-center py-3" id="final_score_modal"></kbd>
+      <kbd class="scores w-100 text-center py-3" id="final_score_modal"></kbd>
      </div>
     <div class="d-flex text-white" id="header_div">
       <div class="col-3 totals" id="quarter_tag">1st Qtr</div>
       <input hidden id="quarter" value="1"></input>
-      <div class="col-5 border border-dlight border-3 scores">AFL Scoreboard</div>
-      <div class="col-1 scores"><span class="fa fa-play" onclick="countdown('ten-countdown', 10, 0 );" id="timer_start"></span></div>
+      <div class="col-5 border border-light border-3 scores">AFL Scoreboard</div>
+      <div class="col-1 scores"><span class="fa fa-play" onclick="countdown('ten-countdown', 0, 5 );" id="timer_start"></span></div>
       <div class="col-2 scores" id="ten-countdown">00:00</div>
       <div class="col-1 scores"><span class=""></span></div>
      </div>
@@ -125,7 +125,7 @@ html,body {
 
   <br>
   <div class="d-flex text-white p-4">
-  <div class="col-3 qtrs"><kbd id="1" class="bg-secondary">Qtr 1 score</kbd></div>
+  <div class="col-3 qtrs text-center"><kbd id="1" class="bg-secondary text-center">Qtr 1 score</kbd></div>
   <div class="col-3 qtrs"><kbd id="2" class="bg-secondary">Qtr 2 score</div>
   <div class="col-3 qtrs"><kbd id="3" class="bg-secondary">Qtr 3 score</div>
   <div class="col-3 qtrs"><kbd id="4" class="bg-secondary">Qtr 4 score</div>
@@ -159,7 +159,7 @@ html,body {
             element.innerHTML = "Ended"
             qtr = document.getElementById("quarter").value;
             which_qtr(qtr);
-            document.getElementById("timer_start").onclick = function(){ countdown('ten-countdown', 10, 0 )};
+            document.getElementById("timer_start").onclick = function(){ countdown('ten-countdown', 0, 5 )};
           } else {
             time = new Date( msLeft );
             hours = time.getUTCHours();
@@ -260,16 +260,24 @@ function which_qtr(qtr) {
   }
 }
 function qtr_score(qtr){
+  var h = document.getElementById("HomeSelect");
+  var home_team = h.options[h.selectedIndex].text;
+  var a = document.getElementById("AwaySelect");
+  var away_team = a.options[a.selectedIndex].text;
   ht_goals = document.getElementById('ht_goals').innerHTML;
   ht_behinds = document.getElementById('ht_behinds').innerHTML;
   ht_score = document.getElementById('ht_score').innerHTML;
   aw_goals = document.getElementById('aw_goals').innerHTML;
   aw_behinds = document.getElementById('aw_behinds').innerHTML;
   aw_score = document.getElementById('aw_score').innerHTML;
-  end_qtr_score = "Home: " + parseInt(ht_goals) + "." + parseInt(ht_behinds) + "(" + parseInt(ht_score) + ")<br>" + "Away: " + parseInt(aw_goals) + "." + parseInt(aw_behinds) + "(" + parseInt(aw_score) + ")";
+  end_qtr_score = home_team + ": " + parseInt(ht_goals) + "." + parseInt(ht_behinds) + "(" + parseInt(ht_score) + ")<br>" + away_team + ": " + parseInt(aw_goals) + "." + parseInt(aw_behinds) + "(" + parseInt(aw_score) + ")";
   document.getElementById(qtr).innerHTML = end_qtr_score;
 }
 function final_score() {
+  var h = document.getElementById("HomeSelect");
+  var home_team = h.options[h.selectedIndex].text;
+  var a = document.getElementById("AwaySelect");
+  var away_team = a.options[a.selectedIndex].text;
   ht_final_goals = document.getElementById('ht_goals').innerHTML;
   ht_final_behinds = document.getElementById('ht_behinds').innerHTML;
   ht_final_score = document.getElementById('ht_score').innerHTML;
@@ -281,11 +289,11 @@ function final_score() {
   document.getElementById("header_div").classList.remove("d-flex");
   document.getElementById("header_div").classList.add("d-none");
   if (ht_final_score > aw_final_score) {
-    document.getElementById("final_score_modal").innerHTML = "Home " + ht_final_goals + "." + ht_final_behinds + " (" + ht_final_score + ") def Away " + aw_final_goals + "." + aw_final_behinds + " (" + aw_final_score + ")";
+    document.getElementById("final_score_modal").innerHTML = home_team + " " + ht_final_goals + "." + ht_final_behinds + " (" + ht_final_score + ")<br>def<br>" + away_team + " " + aw_final_goals + "." + aw_final_behinds + " (" + aw_final_score + ")";
   } else if (ht_final_score < aw_final_score) {
-    document.getElementById("final_score_modal").innerHTML = "Away " + aw_final_goals + "." + aw_final_behinds + " (" + aw_final_score + ") def Home " + ht_final_goals + "." + ht_final_behinds + " (" + ht_final_score + ")";
+    document.getElementById("final_score_modal").innerHTML = away_team + " " + aw_final_goals + "." + aw_final_behinds + " (" + aw_final_score + ") def " + home_team + " " + ht_final_goals + "." + ht_final_behinds + " (" + ht_final_score + ")";
   } else {
-    document.getElementById("final_score_modal").innerHTML = "Home " + ht_final_goals + "." + ht_final_behinds + " (" + ht_final_score + ") draw Away " + aw_final_goals + "." + aw_final_behinds + " (" + aw_final_score + ")";
+    document.getElementById("final_score_modal").innerHTML = home_team + " " + ht_final_goals + "." + ht_final_behinds + " (" + ht_final_score + ") draw " + away_team + " " + aw_final_goals + "." + aw_final_behinds + " (" + aw_final_score + ")";
   }
 
 }
