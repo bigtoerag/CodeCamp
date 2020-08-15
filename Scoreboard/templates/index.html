@@ -54,7 +54,7 @@ html,body {
       <div class="col-3 totals" id="quarter_tag">1st Qtr</div>
       <input hidden id="quarter" value="1"></input>
       <div class="col-5 border border-dark border-3 scores">AFL Scoreboard</div>
-      <div class="col-1 scores"><span class="fa fa-play" onclick="countdown('ten-countdown', 0, 1 );" id="timer_start"></span></div>
+      <div class="col-1 scores"><span class="fa fa-play" onclick="countdown('ten-countdown', 10, 0 );" id="timer_start"></span></div>
       <div class="col-2 scores" id="ten-countdown">00:00</div>
       <div class="col-1 scores"><span class=""></span></div>
      </div>
@@ -159,7 +159,7 @@ html,body {
             element.innerHTML = "Ended"
             qtr = document.getElementById("quarter").value;
             which_qtr(qtr);
-            document.getElementById("timer_start").onclick = function(){ countdown('ten-countdown', 0, 1 )};
+            document.getElementById("timer_start").onclick = function(){ countdown('ten-countdown', 10, 0 )};
           } else {
             time = new Date( msLeft );
             hours = time.getUTCHours();
